@@ -1,13 +1,13 @@
 <!-- start: Header -->
 <%@page import="database.dao.factory.DAOFactoryImpl"%>
-<%@page import="model.TopicElement"%>
+<%@page import="model.OptionElement"%>
 <jsp:include page="/janux/layout/_header.jsp" />
 <!-- end: Header -->
 
 <div id="content" class="span10">
 	<%
-		String id = request.getParameter("topic_id");
-		TopicElement te = DAOFactoryImpl.getTopicElementDAO().findById(id);
+		String id = request.getParameter("option_id");
+		OptionElement te = DAOFactoryImpl.getOptionElementDAO().findById(id);
 	%>
 	<ul class="breadcrumb">
 		<li><i class="icon-home"></i> <a href="index.html">Home</a> <i
@@ -36,24 +36,24 @@
 			</div>
 			<div class="box-content">
 				<form class="form-horizontal" method="post"
-					action="../TopicElementServlet">
+					action="../OptionElementServlet">
 					<fieldset>
 						<div class="control-group">
-							<label class="control-label" for="topic_name">Topic Name:
+							<label class="control-label" for="option_name">Option Name:
 							</label>
 							<div class="controls">
-								<input type="text" class="span6 typeahead" id="topic_name"
-									name="topic_name"
+								<input type="text" class="span6 typeahead" id="option_name"
+									name="option_name"
 									value="<%if (te != null)
 				out.print(te.getName());%>" />
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label" for="topic_desc">Description:</label>
+							<label class="control-label" for="option_desc">Description:</label>
 							<div class="controls">
-								<textarea class="form-control" rows="5" id="topic_desc"
-									name="topic_desc"><%
+								<textarea class="form-control" rows="5" id="option_desc"
+									name="option_desc"><%
 										if (te != null)
 											out.print(te.getDescription());
 									%></textarea>
@@ -61,17 +61,17 @@
 						</div>
 						<input type="hidden"
 							value="<%if (te != null)
-				out.print(te.getId());%>" name="topic_id" />
+				out.print(te.getId());%>" name="option_id" />
 						<input type="hidden"
 							value="<%if (te != null)
 				out.print(te.getParentID());%>"
-							name="topic_parent_id" /> <input type="hidden"
+							name="option_parent_id" /> <input type="hidden"
 							value="<%if (te != null)
 				out.print(te.getSequenceCode());%>"
-							name="topic_sequence_code" /> <input type="hidden"
+							name="option_sequence_code" /> <input type="hidden"
 							value="<%if (te != null)
 				out.print(te.getClass().getName());%>"
-							name="topic_type" />
+							name="option_type" />
 						<div class="form-actions">
 							<button type="submit" class="btn btn-primary">Save
 								changes</button>
