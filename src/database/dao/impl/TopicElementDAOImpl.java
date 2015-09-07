@@ -25,7 +25,7 @@ public class TopicElementDAOImpl implements TopicElementDAO {
 			ps.setString(1, p.getDescription());
 			ps.setString(2, p.getParentID());
 			ps.setString(3, p.getSequenceCode());
-			ps.setString(4, p.getClass().getSimpleName());
+			ps.setString(4, p.getClass().getName());
 			ps.setString(5, p.getName());
 			ps.executeUpdate();
 		} catch (Exception e) {
