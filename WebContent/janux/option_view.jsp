@@ -1,13 +1,13 @@
 <!-- start: Header -->
 <%@page import="database.dao.factory.DAOFactoryImpl"%>
-<%@page import="model.TopicElement"%>
+<%@page import="model.OptionElement"%>
 <jsp:include page="/janux/layout/_header.jsp" />
 <!-- end: Header -->
 
 <div id="content" class="span10">
 	<%
-		String id = request.getParameter("topic_id");
-		TopicElement te = DAOFactoryImpl.getTopicElementDAO().findById(id);
+		String id = request.getParameter("option_id");
+		OptionElement te = DAOFactoryImpl.getOptionElementDAO().findById(id);
 	%>
 	<ul class="breadcrumb">
 		<li><i class="icon-home"></i> <a href="index.html">Home</a> <i
@@ -23,7 +23,8 @@
 		<div class="box span12">
 			<div class="box-header" data-original-title>
 				<h2>
-					<i class="halflings-icon white edit"></i><span class="break"></span><%=te.getName() %>
+					<i class="halflings-icon white edit"></i><span class="break"></span>Form
+					Elements
 				</h2>
 				<div class="box-icon">
 					<a href="#" class="btn-setting"><i
@@ -34,7 +35,7 @@
 				</div>
 			</div>
 			<div class="box-content">
-				<jsp:include page="topic_edit_form.jsp"/>
+				
 			</div>
 		</div>
 

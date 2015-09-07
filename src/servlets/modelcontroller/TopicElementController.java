@@ -7,7 +7,7 @@ import database.dao.factory.DAOFactoryImpl;
 import model.TopicElement;
 
 public class TopicElementController {
-	public static boolean save(Map<String, String[]> map) {
+	public boolean update(Map<String, String[]> map) {
 		String name = map.get("topic_name")[0];
 		String desc = map.get("topic_desc")[0];
 		String type = map.get("topic_type")[0];
@@ -27,7 +27,8 @@ public class TopicElementController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return true;
 	}
+	
+	
 }

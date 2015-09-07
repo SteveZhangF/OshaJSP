@@ -33,7 +33,7 @@ public class OptionElementServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
@@ -43,11 +43,10 @@ public class OptionElementServlet extends HttpServlet {
 		String name = request.getParameter("option_name");
 		String desc = request.getParameter("option_desc");
 		String type = request.getParameter("option_type");
-		OptionElement te;
+		OptionElement te = null;
 		try {
-			te = new RadioOptionElement();
-			System.out.println(te.getClass().getName());
-			te = (OptionElement) Class.forName(te.getClass().getName()).newInstance();
+			te = new OptionElement();
+			te.setType(type);
 			te.setParentID(request.getParameter("option_parent_id"));
 			te.setId(request.getParameter("option_id"));
 			te.setDescription(desc);
@@ -57,16 +56,7 @@ public class OptionElementServlet extends HttpServlet {
 		}  catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 
 	}
 

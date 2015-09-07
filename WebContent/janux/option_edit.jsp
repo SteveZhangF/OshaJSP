@@ -70,7 +70,7 @@
 				out.print(te.getSequenceCode());%>"
 							name="option_sequence_code" /> <input type="hidden"
 							value="<%if (te != null)
-				out.print(te.getClass().getName());%>"
+				out.print(te.getType());%>"
 							name="option_type" />
 						<div class="form-actions">
 							<button type="submit" class="btn btn-primary">Save

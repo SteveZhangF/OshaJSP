@@ -34,7 +34,7 @@ public class TopicElementServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		TopicElementController.save(request.getParameterMap());
+		doPost(request, response);
 	}
 
 	/**
@@ -48,26 +48,15 @@ public class TopicElementServlet extends HttpServlet {
 		String type = request.getParameter("topic_type");
 		TopicElement te;
 		try {
-			te = new RadioTopicElement();
-			System.out.println(te.getClass().getName());
-			te = (TopicElement) Class.forName(te.getClass().getName()).newInstance();
+			te = new TopicElement();
+			te.setType(type);
 			te.setParentID(request.getParameter("topic_parent_id"));
 			te.setId(request.getParameter("topic_id"));
 			te.setDescription(desc);
 			te.setName(name);
 			te.setSequenceCode(request.getParameter("topic_sequence_code"));
 			DAOFactoryImpl.getTopicElementDAO().update(te);
-		}  catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 

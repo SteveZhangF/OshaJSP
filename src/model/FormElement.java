@@ -8,6 +8,7 @@ public abstract class FormElement{
 	private String description;
 	private String sequenceCode;
 	private String name;
+	private String type;
 	
 	public abstract String toHtml();
 	
@@ -42,6 +43,14 @@ public abstract class FormElement{
 
 	public void setParentID(String parentID) {
 		this.parentID = parentID;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

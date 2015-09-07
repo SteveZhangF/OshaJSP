@@ -1,9 +1,10 @@
 <%@page import="model.OptionElement"%>
 <%@page import="model.TopicElement"%>
 <%@page import="java.util.List"%>
-<%@page import="database.dao.factory.DAOFactoryImpl"%><div class="box-content">
-	<table
-		class="table table-striped table-bordered bootstrap-datatable ">
+<%@page import="database.dao.factory.DAOFactoryImpl"%>
+<script src="./custom/js/movetable.js" type="text/javascript"></script>
+<div class="box-content">
+	<table class="table table-striped table-bordered bootstrap-datatable ">
 		<thead>
 			<tr>
 				<th>Option Name</th>
@@ -14,31 +15,51 @@
 			</tr>
 		</thead>
 		<tbody>
-			<% 
-			List<OptionElement> list = DAOFactoryImpl.getOptionElementDAO().findbyParentID(request.getParameter("topic_id")); 
-									for(OptionElement te : list) { %>
+			<%
+				List<OptionElement> list = DAOFactoryImpl.getOptionElementDAO()
+						.findbyParentID(request.getParameter("topic_id"));
+				for (OptionElement te : list) {
+			%>
 			<tr>
+				<td hidden="true" id="id"><%=te.getId() %></td>
 				<td>
-					<%out.println(te.getName());%>
+					<%
+						out.print(te.getName());
+					%>
 				</td>
 				<td class="center">
-					<% out.println(te.getDescription()) ;%>
+					<%
+						out.print(te.getDescription());
+					%>
+				</td>
+				<td class="center" id="sequence_code">
+					<%
+						out.print(te.getSequenceCode());
+					%>
 				</td>
 				<td class="center">
-					<%out.println(te.getSequenceCode()) ;%>
-				</td>
-				<td class="center">
-					<%out.println(te.getParentID()) ;%>
+					<%
+						out.print(te.getParentID());
+					%>
 				</td>
 				<td class="center"><a class="btn btn-success" href="#"> <i
 						class="halflings-icon white zoom-in"></i>
-				</a> <a class="btn btn-info" href="option_edit.jsp?option_id=<%=te.getId()%>"> <i
+				</a> <a class="btn btn-info"
+					href="option_edit.jsp?option_id=<%=te.getId()%>"> <i
 						class="halflings-icon white edit"></i>
 				</a> <a class="btn btn-danger" href="#"> <i
 						class="halflings-icon white trash"></i>
+				</a> <a class="btn btn-danger" href="javascript:void(0)"
+					onClick="moveUp('../OptionElementServlet',this)"> <i
+						class="halflings-icon arrow-up"></i>
+				</a> <a class="btn btn-danger" href="javascript:void(0)"
+					onClick="moveDown('../OptionElementServlet,this)"> <i
+						class=" halflings-icon arrow-down"></i>
 				</a></td>
 			</tr>
-			<%} %>
+			<%
+				}
+			%>
 		</tbody>
 	</table>
 </div>

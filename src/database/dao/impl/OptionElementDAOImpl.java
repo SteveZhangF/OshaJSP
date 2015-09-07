@@ -3,6 +3,7 @@ package database.dao.impl;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,27 +38,30 @@ public class OptionElementDAOImpl implements OptionElementDAO{
 	@Override
 	public void update(OptionElement p) throws SQLException {
 		Connection con = null;
-		java.sql.PreparedStatement ps = null;
-		String sql = " UPDATE `form_model`.`model_item`" + "SET" + "`desc` = ?," + "`parent_id` = ?,"
-				+ "`sequence_code` = ?," + "`item_type` = ?," + "`name` = ?" + "WHERE `id` = ?";
-
+		String sql = "select *  from `form_model`.`model_item` where id=" + p.getId();
 		try {
 			con = ConnectionPool.getInstance().getConnection();
-			ps = con.prepareStatement(sql);
-			ps.setString(1, p.getDescription());
-			ps.setString(2, p.getParentID());
-			ps.setString(3, p.getSequenceCode());
-			ps.setString(4, p.getClass().getName());
-			ps.setString(5, p.getName());
-			ps.setString(6, p.getId());
-			System.out.println(ps.toString());
-			ps.executeUpdate();
-
+			Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs = statement.executeQuery(sql);
+			rs.first();
+			if (p.getDescription() != null && !p.getDescription().equals(""))
+				rs.updateString("desc", p.getDescription());
+			if (p.getParentID() != null && !p.getParentID().equals(""))
+				rs.updateString("parent_id", p.getParentID());
+			if (p.getSequenceCode() != null && !p.getSequenceCode().equals(""))
+				rs.updateString("sequence_code", p.getSequenceCode());
+			if (p.getType() != null && !p.getType().equals(""))
+				rs.updateString("item_type", p.getType());
+			if (p.getName() != null && !p.getName().equals(""))
+				rs.updateString("name", p.getName());
+			rs.updateRow();
 		} catch (Exception e) {
+			e.printStackTrace();
 			// TODO: handle exception
 		} finally {
 			ConnectionPool.getInstance().release();
 		}
+
 
 	}
 
@@ -139,10 +143,12 @@ public class OptionElementDAOImpl implements OptionElementDAO{
 				te.setId(String.valueOf(id));
 				te.setParentID(rs.getString("parent_id"));
 				te.setSequenceCode(rs.getString("sequence_code"));
+				te.setType(type);
 			}
 
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		} finally {
 			ConnectionPool.getInstance().release();
 		}
