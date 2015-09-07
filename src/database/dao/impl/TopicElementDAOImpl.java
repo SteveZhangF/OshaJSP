@@ -40,7 +40,7 @@ public class TopicElementDAOImpl implements TopicElementDAO {
 	public void update(TopicElement p) throws SQLException {
 		Connection con = null;
 		java.sql.PreparedStatement ps = null;
-		String sql = " UPDATE `form_model`.`model_topic`" + "SET" + "`desc` = ?" + "`parent_id` = ?,"
+		String sql = " UPDATE `form_model`.`model_topic`" + "SET" + "`desc` = ?," + "`parent_id` = ?,"
 				+ "`sequence_code` = ?," + "`topic_type` = ?," + "`name` = ?" + "WHERE `id` = ?";
 
 		try {
@@ -52,6 +52,7 @@ public class TopicElementDAOImpl implements TopicElementDAO {
 			ps.setString(4, p.getClass().getName());
 			ps.setString(5, p.getName());
 			ps.setString(6, p.getId());
+			System.out.println(ps.toString());
 			ps.executeUpdate();
 
 		} catch (Exception e) {
