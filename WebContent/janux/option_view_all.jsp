@@ -2,11 +2,18 @@
 <%@page import="model.TopicElement"%>
 <%@page import="java.util.List"%>
 <%@page import="database.dao.factory.DAOFactoryImpl"%>
-<script src="./custom/js/movetable.js" type="text/javascript"></script>
+<script
+	src="<%=application.getContextPath()%>/janux/custom/js/movetable.js"
+	type="text/javascript"></script>
+	<script
+	src="<%=application.getContextPath()%>/janux/custom/js/updatedata.js"
+	type="text/javascript"></script>
 <div class="box-content">
-	<table class="table table-striped table-bordered bootstrap-datatable ">
+	<table
+		class="table table-striped table-bordered bootstrap-datatable datatable ">
 		<thead>
 			<tr>
+				<th>ID</th>
 				<th>Option Name</th>
 				<th>Description</th>
 				<th>Sequence Code</th>
@@ -16,12 +23,11 @@
 		</thead>
 		<tbody>
 			<%
-				List<OptionElement> list = DAOFactoryImpl.getOptionElementDAO()
-						.findbyParentID(request.getParameter("topic_id"));
+				List<OptionElement> list = (List<OptionElement>) request.getAttribute("list");
 				for (OptionElement te : list) {
 			%>
 			<tr>
-				<td hidden="true" id="id"><%=te.getId() %></td>
+				<td id="id"><%=te.getId()%></td>
 				<td>
 					<%
 						out.print(te.getName());

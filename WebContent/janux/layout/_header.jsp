@@ -7,6 +7,8 @@
 
 
 <head>
+<script
+	src="<%=application.getContextPath()%>/janux/js/jquery-1.9.1.min.js"></script>
 <!-- start: Meta -->
 <meta charset="utf-8">
 <title>Bootstrap Metro Dashboard by Dennis Ji for ARM demo</title>

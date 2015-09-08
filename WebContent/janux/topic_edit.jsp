@@ -105,14 +105,17 @@
 				out.print(te.getSequenceCode());
 			else%><%=request.getAttribute("sequence_code")%>"
 							name="topic_sequence_code" />
-
-						<jsp:include page="option_view_all.jsp" />
+						<div id="option_table" class="box span12"></div>
 						<div class="form-actions">
 							<button type="submit" class="btn btn-primary">
 								<%
-								if(te!=null)
-								%>Save changes<%else %>
-								Create
+									if (te != null) {
+								%>Save changes<%
+									} else {
+								%>
+								Create<%
+									}
+								%>
 							</button>
 							<button type="reset" class="btn">Cancel</button>
 						</div>
@@ -120,13 +123,29 @@
 				</form>
 			</div>
 		</div>
-
 	</div>
-
+	<jsp:include page="edit_modal.jsp"></jsp:include>
+	<p>
+		<a data-toggle="modal"
+			onclick="showModal('modaledit','<%=application.getContextPath()%>/OptionElementServlet','<%=te.getId()%>')"
+			href="javascript:void(0)" class="btn btn-primary btn-large">Launch
+			demo modal</a>
+	</p>
 	<!--/span-->
+	<script type="text/javascript"
+		src="<%=application.getContextPath()%>/janux/custom/js/edit_option_request.js">
+								alert("a");
+									</script>
+
 
 </div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	submitData('<%=application.getContextPath()%>/OptionElementServlet', "option_parent_id=<%=te.getId()%>", 'list');
+	});
+     </script>
 <!-- start: footer-->
 <jsp:include page="/janux/layout/_footer.jsp" />
 <!-- end: footer-->
+
 
