@@ -2,19 +2,26 @@
 <%@page import="database.dao.factory.DAOFactoryImpl"%>
 <%@page import="model.TopicElement"%>
 <jsp:include page="/janux/layout/_header.jsp" />
+<%@page import="model.ElementType"%>
+<%@page import="java.util.List"%>
+<%@page import="model.TopicElement"%>
 <!-- end: Header -->
 
 <div id="content" class="span10">
 	<%
-		String id = request.getParameter("topic_id");
-		TopicElement te = DAOFactoryImpl.getTopicElementDAO().findById(id);
+		//String id = request.getParameter("topic_id");
+		TopicElement te = (TopicElement) request.getAttribute("topic_element");
 	%>
 	<ul class="breadcrumb">
 		<li><i class="icon-home"></i> <a href="index.html">Home</a> <i
 			class="icon-angle-right"></i></li>
 		<li><a href="#"> <%
- 	if (te != null)
- 		out.println(te.getName());
+ 	String topicName = "";
+ 	if (te != null) {
+ 		topicName = te.getName();
+ 	} else {
+ 		topicName = "New Topic";
+ 	}
  %>
 		</a></li>
 	</ul>
@@ -23,7 +30,7 @@
 		<div class="box span12">
 			<div class="box-header" data-original-title>
 				<h2>
-					<i class="halflings-icon white edit"></i><span class="break"></span><%=te.getName() %>
+					<i class="halflings-icon white edit"></i><span class="break"></span><%=topicName%>
 				</h2>
 				<div class="box-icon">
 					<a href="#" class="btn-setting"><i
@@ -34,7 +41,83 @@
 				</div>
 			</div>
 			<div class="box-content">
-				<jsp:include page="topic_edit_form.jsp"/>
+				<form class="form-horizontal" method="post"
+					action="<%=application.getContextPath()%>/TopicElementServlet?action=<%if (te == null)
+				out.print("save");
+			else
+				out.print("update");%>">
+
+					<fieldset>
+						<div class="control-group">
+							<label class="control-label" for="topic_name">Topic Name:
+							</label>
+							<div class="controls">
+								<input type="text" class="span6 typeahead" id="topic_name"
+									name="topic_name"
+									value="<%if (te != null)
+				out.print(te.getName());%>" />
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="topic_type">Topic Type:
+							</label>
+							<div class="controls">
+								<select id="topic_type" data-rel="chosen" name="topic_type">
+									<%
+										List<ElementType> list = DAOFactoryImpl.getElementTypeDAO().findbyClass("topic_type");
+										for (ElementType et : list) {
+											out.print("<option value=" + et.getValue());
+											if (te != null && te.getType().equals(et.getValue())) {
+												out.print(" selected=\"selected\"");
+											}
+											out.print(">" + et.getName() + "</option>");
+										}
+									%>
+								</select>
+							</div>
+						</div>
+
+
+						<div class="control-group">
+							<label class="control-label" for="topic_desc">Description:</label>
+							<div class="controls">
+								<textarea class="form-control" rows="5" id="topic_desc"
+									name="topic_desc">
+					<%
+						if (te != null)
+							out.print(te.getDescription());
+					%>
+				</textarea>
+							</div>
+						</div>
+
+
+						<input type="hidden"
+							value="<%if (te != null)
+				out.print(te.getId());%>"
+							name="topic_id" /> <input type="hidden"
+							value="<%if (te != null)
+				out.print(te.getParentID());
+			else%><%=request.getAttribute("topic_parent_id")%>"
+							name="topic_parent_id" /> <input type="hidden"
+							value="<%if (te != null)
+				out.print(te.getSequenceCode());
+			else%><%=request.getAttribute("sequence_code")%>"
+							name="topic_sequence_code" />
+
+						<jsp:include page="option_view_all.jsp" />
+						<div class="form-actions">
+							<button type="submit" class="btn btn-primary">
+								<%
+								if(te!=null)
+								%>Save changes<%else %>
+								Create
+							</button>
+							<button type="reset" class="btn">Cancel</button>
+						</div>
+					</fieldset>
+				</form>
 			</div>
 		</div>
 

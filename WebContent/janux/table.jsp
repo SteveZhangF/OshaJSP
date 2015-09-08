@@ -9,11 +9,10 @@
 			class="icon-angle-right"></i></li>
 		<li><a href="#">Tables</a></li>
 	</ul>
-	<jsp:include page="topic_view_all.jsp" />
+	<jsp:forward page="/TopicElementServlet?action=list&topic_parent_id=1"/>
 </div>
 <!-- end: Content -->
 
-
 <!-- start: footer-->
-<jsp:include page="layout/_footer.jsp" />
+<jsp:include page="/janux/layout/_footer.jsp" />
 <!-- end: footer-->

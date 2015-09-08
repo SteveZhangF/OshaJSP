@@ -9,6 +9,7 @@ import java.util.List;
 
 import database.ConnectionPool;
 import database.dao.TopicElementDAO;
+import database.dao.factory.DAOFactoryImpl;
 import engine.htmlengine.TemplatePool;
 import model.TopicElement;
 
@@ -24,11 +25,11 @@ public class TopicElementDAOImpl implements TopicElementDAO {
 		try {
 			con = ConnectionPool.getInstance().getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, p.getDescription());
-			ps.setString(2, p.getParentID());
-			ps.setString(3, p.getSequenceCode());
-			ps.setString(4, p.getClass().getName());
-			ps.setString(5, p.getName());
+			ps.setString(1, p.getDescription().trim());
+			ps.setString(2, p.getParentID().trim());
+			ps.setString(3, p.getSequenceCode().trim());
+			ps.setString(4, p.getType().trim());
+			ps.setString(5, p.getName().trim());
 			ps.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -50,15 +51,15 @@ public class TopicElementDAOImpl implements TopicElementDAO {
 			ResultSet rs = statement.executeQuery(sql);
 			rs.first();
 			if (p.getDescription() != null && !p.getDescription().equals(""))
-				rs.updateString("desc", p.getDescription());
+				rs.updateString("desc", p.getDescription().trim());
 			if (p.getParentID() != null && !p.getParentID().equals(""))
-				rs.updateString("parent_id", p.getParentID());
+				rs.updateString("parent_id", p.getParentID().trim());
 			if (p.getSequenceCode() != null && !p.getSequenceCode().equals(""))
-				rs.updateString("sequence_code", p.getSequenceCode());
+				rs.updateString("sequence_code", p.getSequenceCode().trim());
 			if (p.getType() != null && !p.getType().equals(""))
-				rs.updateString("topic_type", p.getType());
+				rs.updateString("topic_type", p.getType().trim());
 			if (p.getName() != null && !p.getName().equals(""))
-				rs.updateString("name", p.getName());
+				rs.updateString("name", p.getName().trim());
 			rs.updateRow();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,7 +69,15 @@ public class TopicElementDAOImpl implements TopicElementDAO {
 		}
 
 	}
-
+	public static void main(String[] args){
+		TopicElementDAO ted = DAOFactoryImpl.getTopicElementDAO();
+		try {
+			ted.delete("8");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public void delete(String id) throws SQLException {
 		// TODO Auto-generated method stub
@@ -80,7 +89,7 @@ public class TopicElementDAOImpl implements TopicElementDAO {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, id);
 			ps.executeUpdate();
-
+//			System.out.println(ps.executeUpdate());
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -91,13 +100,11 @@ public class TopicElementDAOImpl implements TopicElementDAO {
 
 	@Override
 	public List<TopicElement> findbyParentID(String id) throws SQLException {
-		String sql = "SELECT `model_topic`.`id`,`model_topic`.`desc`,`model_topic`.`parent_id`,`model_topic`.`sequence_code`, `model_topic`.`topic_type`,  `model_topic`.`default`,  `model_topic`.`name`FROM `form_model`.`model_topic`  WHERE parent_id =?";
+		String sql = "SELECT `model_topic`.`id`,`model_topic`.`desc`,`model_topic`.`parent_id`,`model_topic`.`sequence_code`, `model_topic`.`topic_type`,  `model_topic`.`default`,  `model_topic`.`name`FROM `form_model`.`model_topic`  WHERE parent_id =? order by sequence_code";
 		Connection con = null;
 		java.sql.PreparedStatement ps = null;
 		ResultSet rs = null;
-
 		List<TopicElement> all = new ArrayList<TopicElement>();
-
 		try {
 			con = ConnectionPool.getInstance().getConnection();
 			ps = con.prepareStatement(sql);
