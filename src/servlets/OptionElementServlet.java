@@ -118,6 +118,8 @@ public class OptionElementServlet extends HttpServlet {
 		String name = request.getParameter("option_name");
 		String desc = request.getParameter("option_desc");
 		String type = request.getParameter("option_type");
+		System.out.println("saveing");
+		System.out.println(request.getParameterNames());
 		OptionElement te;
 		try {
 			te = new OptionElement();
@@ -160,7 +162,6 @@ public class OptionElementServlet extends HttpServlet {
 
 		List<OptionElement> list;
 		String parent_id = request.getParameter("option_parent_id");
-		System.out.println(parent_id);
 		try {
 			list = DAOFactoryImpl.getOptionElementDAO().findbyParentID(parent_id);
 			request.setAttribute("list", list);

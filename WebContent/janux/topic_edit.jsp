@@ -59,6 +59,7 @@
 							</div>
 						</div>
 
+						<!-- start: topictype -->
 						<div class="control-group">
 							<label class="control-label" for="topic_type">Topic Type:
 							</label>
@@ -77,8 +78,8 @@
 								</select>
 							</div>
 						</div>
-
-
+						<!-- end: topictype -->
+						<!-- start: description -->
 						<div class="control-group">
 							<label class="control-label" for="topic_desc">Description:</label>
 							<div class="controls">
@@ -91,7 +92,7 @@
 				</textarea>
 							</div>
 						</div>
-
+						<!-- end: Description -->
 
 						<input type="hidden"
 							value="<%if (te != null)
@@ -105,7 +106,12 @@
 				out.print(te.getSequenceCode());
 			else%><%=request.getAttribute("sequence_code")%>"
 							name="topic_sequence_code" />
+
+						<!-- start: option table container -->
 						<div id="option_table" class="box span12"></div>
+						<!-- end: option table container -->
+						
+						
 						<div class="form-actions">
 							<button type="submit" class="btn btn-primary">
 								<%
@@ -127,14 +133,13 @@
 	<jsp:include page="edit_modal.jsp"></jsp:include>
 	<p>
 		<a data-toggle="modal"
-			onclick="showModal('modaledit','<%=application.getContextPath()%>/OptionElementServlet','<%=te.getId()%>')"
-			href="javascript:void(0)" class="btn btn-primary btn-large">Launch
-			demo modal</a>
+			onclick="showModal('modaledit','<%=application.getContextPath()%>/OptionElementServlet','0',<%=te.getId()%>)"
+			href="javascript:void(0)" class="btn btn-primary btn-large">Add
+			Option</a>
 	</p>
 	<!--/span-->
 	<script type="text/javascript"
 		src="<%=application.getContextPath()%>/janux/custom/js/edit_option_request.js">
-								alert("a");
 									</script>
 
 

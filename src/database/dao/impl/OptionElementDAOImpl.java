@@ -25,7 +25,7 @@ public class OptionElementDAOImpl implements OptionElementDAO{
 			ps.setString(1, p.getDescription());
 			ps.setString(2, p.getParentID());
 			ps.setString(3, p.getSequenceCode());
-			ps.setString(4, p.getClass().getName());
+			ps.setString(4, p.getType());
 			ps.setString(5, p.getName());
 			ps.executeUpdate();
 		} catch (Exception e) {
@@ -108,11 +108,13 @@ public class OptionElementDAOImpl implements OptionElementDAO{
 				te.setId(String.valueOf(rs.getString("id")));
 				te.setParentID(rs.getString("parent_id"));
 				te.setSequenceCode(rs.getString("sequence_code"));
+				te.setType(type);
 				all.add(te);
 			}
 
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		} finally {
 			ConnectionPool.getInstance().release();
 		}

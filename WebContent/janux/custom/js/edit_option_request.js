@@ -6,14 +6,31 @@ function editElement(url, id, obj) {
 		$("#" + obj).find("#modal_body_form").empty().append(data);
 	});
 }
+function createElement(url, parent_id, obj) {
+	$.post(url, {
+		option_parent_id : parent_id,
+		action : "create"
+	}, function(data, status) {
+		$("#" + obj).find("#modal_body_form").empty().append(data);
+	});
+}
 function updataElement(obj) {
 	$("#" + obj).find("form").submit();
 	$("#" + obj).modal('hide');
 }
-function showModal(obj, url, optionid) {
-	$("#" + obj).modal('show').on('shown', function() {
-		editElement(url, optionid, obj);
-	})
+
+function showModal(obj, url, action, id) {
+	$("#" + obj).find("#modal_body_form").empty();
+	
+	$("#" + obj).find("#modal_body_form").append("Loading...");
+	$("#" + obj).modal('show').on('show.bs.modal', function() {
+		if (action == 0) {
+			createElement(url, id, obj);
+		} else {
+			editElement(url, id, obj);
+		}
+	});
+	
 }
 function submitForm(vurl, vform, vaction) {
 	$.ajax({
@@ -29,8 +46,7 @@ function submitForm(vurl, vform, vaction) {
 		}
 	});
 }
-function submitData(vurl, vdata, vaction){
-	alert("s");
+function submitData(vurl, vdata, vaction) {
 	$.ajax({
 		cache : true,
 		type : "POST",

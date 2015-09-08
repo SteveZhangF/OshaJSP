@@ -5,7 +5,7 @@
 <script
 	src="<%=application.getContextPath()%>/janux/custom/js/movetable.js"
 	type="text/javascript"></script>
-	<script
+<script
 	src="<%=application.getContextPath()%>/janux/custom/js/updatedata.js"
 	type="text/javascript"></script>
 <div class="box-content">
@@ -17,7 +17,7 @@
 				<th>Option Name</th>
 				<th>Description</th>
 				<th>Sequence Code</th>
-				<th>Default Value</th>
+				<th>Option Type</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -43,24 +43,22 @@
 						out.print(te.getSequenceCode());
 					%>
 				</td>
-				<td class="center">
-					<%
-						out.print(te.getParentID());
-					%>
-				</td>
+				<td class="center" ><%=te.getType() %></td>
+				
 				<td class="center"><a class="btn btn-success" href="#"> <i
 						class="halflings-icon white zoom-in"></i>
 				</a> <a class="btn btn-info"
-					href="option_edit.jsp?option_id=<%=te.getId()%>"> <i
+					onclick="showModal('modaledit','<%=application.getContextPath()%>/OptionElementServlet','edit',<%=te.getId()%>)"
+					href="javascript:void(0)"> <i
 						class="halflings-icon white edit"></i>
 				</a> <a class="btn btn-danger" href="#"> <i
 						class="halflings-icon white trash"></i>
 				</a> <a class="btn btn-danger" href="javascript:void(0)"
-					onClick="moveUp('../OptionElementServlet',this)"> <i
-						class="halflings-icon arrow-up"></i>
+					onClick="moveUp('<%=application.getContextPath()%>/OptionElementServlet',this)">
+						<i class="halflings-icon arrow-up"></i>
 				</a> <a class="btn btn-danger" href="javascript:void(0)"
-					onClick="moveDown('../OptionElementServlet,this)"> <i
-						class=" halflings-icon arrow-down"></i>
+					onClick="moveDown('<%=application.getContextPath()%>/OptionElementServlet,this)">
+						<i class=" halflings-icon arrow-down"></i>
 				</a></td>
 			</tr>
 			<%
