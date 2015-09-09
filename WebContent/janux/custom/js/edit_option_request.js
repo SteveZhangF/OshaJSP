@@ -46,6 +46,7 @@ function submitForm(vurl, vform, vaction) {
 		}
 	});
 }
+
 function submitData(vurl, vdata, vaction) {
 	$.ajax({
 		cache : true,

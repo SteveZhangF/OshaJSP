@@ -15,7 +15,7 @@ import org.omg.CORBA.Request;
 import database.dao.factory.DAOFactoryImpl;
 import model.TopicElement;
 import model.topic.RadioTopicElement;
-import servlets.modelcontroller.TopicElementController;
+import servlets.modelcontroller.TopicViewController;
 
 /**
  * Servlet implementation class TopicElementServlet

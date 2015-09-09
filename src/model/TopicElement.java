@@ -10,9 +10,9 @@ public class TopicElement extends FormElement{
 	
 	public void addChild(FormElement child){
 		this.childElement.add(child);
-		child.setParentID(this.getId());
+//		child.setParentID(this.getId());
 	}
-
+	
 	@Override
 	public String toHtml() {
 		// TODO Auto-generated method stub

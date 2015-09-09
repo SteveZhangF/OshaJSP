@@ -10,7 +10,7 @@ public class RadioOptionElement extends OptionElement {
 	 * #content</label>
 	 * */
 	public String toHtml() {
-		String result = TemplatePool.getInstance().getHtmlTemplate("RadioOptionElement");
+		String result = TemplatePool.getInstance().getHtmlTemplate("option:RadioOptionElement");
 		result = result.replace("####topic_id###", this.getParentID());
 		result = result.replace("####item_id###", this.getId());
 		result = result.replace("####radio_content###", this.getName());

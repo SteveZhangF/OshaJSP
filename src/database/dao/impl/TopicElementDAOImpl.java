@@ -37,14 +37,12 @@ public class TopicElementDAOImpl implements TopicElementDAO {
 		} finally {
 			ConnectionPool.getInstance().release();
 		}
-
 	}
 
 	@Override
 	public void update(TopicElement p) throws SQLException {
 		Connection con = null;
 		String sql = "select *  from `form_model`.`model_topic` where id=" + p.getId();
-		System.out.println(sql);
 		try {
 			con = ConnectionPool.getInstance().getConnection();
 			Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -63,20 +61,10 @@ public class TopicElementDAOImpl implements TopicElementDAO {
 			rs.updateRow();
 		} catch (Exception e) {
 			e.printStackTrace();
-			// TODO: handle exception
 		} finally {
 			ConnectionPool.getInstance().release();
 		}
 
-	}
-	public static void main(String[] args){
-		TopicElementDAO ted = DAOFactoryImpl.getTopicElementDAO();
-		try {
-			ted.delete("8");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	@Override
 	public void delete(String id) throws SQLException {

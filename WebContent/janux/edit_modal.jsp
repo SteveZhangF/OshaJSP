@@ -2,13 +2,6 @@
 <script type="text/javascript"
 	src="<%=application.getContextPath()%>/janux/custom/js/edit_option_request.js">
 	
-	$("#modaledit").on('show', function() {
-		if(action==0){
-			createElement(url,id,obj);
-		}else{
-			editElement(url, id, obj);
-		}
-	})
 </script>
 <div id="modaledit" class="modal hide fade in" style="display: none;">
 	<div class="modal-header">

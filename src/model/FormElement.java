@@ -53,4 +53,8 @@ public abstract class FormElement{
 		this.type = type;
 	}
 	
+	public String toString(){
+		return toHtml();
+	}
+	
 }

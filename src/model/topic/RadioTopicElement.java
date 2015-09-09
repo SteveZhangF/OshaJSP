@@ -15,7 +15,7 @@ public class RadioTopicElement extends TopicElement {
 
 	@Override
 	public String toHtml() {
-		String result = TemplatePool.getInstance().getHtmlTemplate("RadioTopicElement");
+		String result = TemplatePool.getInstance().getHtmlTemplate("topic:RadioTopicElement");
 		result = result.replace("####panel_title###", this.getName());
 		StringBuffer sb = new StringBuffer();
 		for(FormElement fe : childElement){
