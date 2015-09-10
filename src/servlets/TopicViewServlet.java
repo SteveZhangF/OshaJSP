@@ -63,5 +63,30 @@ public class TopicViewServlet extends HttpServlet {
 		response.getWriter().flush();
 	}
 	
+	
+	private void submitForm(HttpServletRequest request, HttpServletResponse response){
+		
+	}
+	
+	private void viewForm(HttpServletRequest request, HttpServletResponse response){
+		String id = request.getParameter("page_id");
+		String data = TopicViewController.findPage(id);
+		
+		JSONObject jsoresult = new JSONObject();
+		jsoresult.put("page_id", id);
+		jsoresult.put("Data",data);
+		jsoresult.put("next_page", "#nextpageid");
+		response.setContentType("application/x-json");
+		
+		try {
+			response.getWriter().print(jsoresult.toString());
+			response.getWriter().flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 
 }

@@ -1,3 +1,8 @@
+function submit_Page(){
+	
+}
+
+
 function submit_form(form_id, vurl, receiver_id, action) {
 	$(receiver_id).empty().html("<h2>Loading...</h2>");
 	$.ajax({
@@ -8,8 +13,6 @@ function submit_form(form_id, vurl, receiver_id, action) {
 		dataType : 'json',
 		data : $(form_id).serialize() + "&action=" + action,
 		success : function(dataz) {
-			alert(dataz.Data.length);
-		
 			if (dataz.Data!= null) {
 				var str = '';
 				for (var i = 0; i < dataz.Data.length; i++) {
