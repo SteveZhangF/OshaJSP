@@ -68,7 +68,7 @@
 									<%
 										List<ElementType> list = DAOFactoryImpl.getElementTypeDAO().findbyClass("topic_type");
 										for (ElementType et : list) {
-											out.print("<option value=" + et.getValue());
+											out.print("<option value=" + et.getName());
 											if (te != null && te.getType().equals(et.getValue())) {
 												out.print(" selected=\"selected\"");
 											}

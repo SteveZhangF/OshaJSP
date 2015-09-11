@@ -43,7 +43,7 @@
 						out.print(te.getSequenceCode());
 					%>
 				</td>
-				<td class="center" ><%=te.getType() %></td>
+				<td class="center" ><%=te.getClass().getSimpleName() %></td>
 				
 				<td class="center"><a class="btn btn-success" href="#"> <i
 						class="halflings-icon white zoom-in"></i>

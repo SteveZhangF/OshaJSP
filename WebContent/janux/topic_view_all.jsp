@@ -75,7 +75,7 @@
 							</td>
 							<td class="center">
 								<%
-									out.print(te.getClass().getSimpleName());
+									out.print(te.getType());
 								%>
 							</td>
 							<td class="center"><a class="btn btn-success" href="#">

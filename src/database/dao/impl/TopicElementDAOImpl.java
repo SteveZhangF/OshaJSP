@@ -101,7 +101,7 @@ public class TopicElementDAOImpl implements TopicElementDAO {
 			while (rs.next()) {
 				TopicElement te = null;
 				String type = rs.getString("topic_type");
-				te = (TopicElement) Class.forName(type).newInstance();
+				te = new TopicElement();
 				te.setName(rs.getString("name"));
 				te.setDescription(rs.getString("desc"));
 				te.setId(String.valueOf(rs.getString("id")));
@@ -138,7 +138,7 @@ public class TopicElementDAOImpl implements TopicElementDAO {
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				String type = rs.getString("topic_type");
-				te = (TopicElement) Class.forName(type).newInstance();
+				te = new TopicElement();
 				te.setName(rs.getString("name"));
 				te.setDescription(rs.getString("desc"));
 				te.setId(String.valueOf(id));
@@ -172,7 +172,7 @@ public class TopicElementDAOImpl implements TopicElementDAO {
 			while (rs.next()) {
 				TopicElement te = null;
 				String type = rs.getString("topic_type");
-				te = (TopicElement) Class.forName(type).newInstance();
+				te = new TopicElement();
 				te.setName(rs.getString("name"));
 				te.setDescription(rs.getString("desc"));
 				te.setId(String.valueOf(rs.getString("id")));

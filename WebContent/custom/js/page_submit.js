@@ -2,7 +2,9 @@ function submit_Page(){
 	
 }
 
-
+/**
+ * submit the form(form_id) to vurl and set the result to receiver_id
+ * */
 function submit_form(form_id, vurl, receiver_id, action) {
 	$(receiver_id).empty().html("<h2>Loading...</h2>");
 	$.ajax({
