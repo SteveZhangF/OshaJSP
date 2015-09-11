@@ -15,4 +15,4 @@
 
 <!-- start: footer-->
 <jsp:include page="/janux/layout/_footer.jsp" />
-<!-- end: footer-->
+<!-- end: oo footer-->
