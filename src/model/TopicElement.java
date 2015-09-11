@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import engine.htmlengine.TemplatePool;
+
 
 public class TopicElement extends FormElement{
 	
@@ -16,7 +18,14 @@ public class TopicElement extends FormElement{
 	@Override
 	public String toHtml() {
 		// TODO Auto-generated method stub
-		return null;
+		String result = TemplatePool.getInstance().getHtmlTemplate("topic:TopicElement");
+		result = result.replace("####panel_title###", this.getName());
+		StringBuffer sb = new StringBuffer();
+		for(FormElement fe : childElement){
+			sb.append(fe.toHtml());
+		}
+		result = result.replace("###topic_item###", sb.toString());
+		return result;
 	}
 	
 }

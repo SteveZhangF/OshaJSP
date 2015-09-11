@@ -1,24 +1,16 @@
 package engine.htmlengine;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.ServletContext;
-
 import database.dao.factory.DAOFactoryImpl;
 import model.TopicElement;
-import model.topic.RadioTopicElement;
 
 public class TemplatePool {
 
