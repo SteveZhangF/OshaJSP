@@ -51,6 +51,23 @@ function parseText($e){
 		});
 		return $componentXML;
 }
+//提交数据
+function submitForm(vurl, vdata, vaction) {
+	$.ajax({
+		cache : true,
+		type : "POST",
+		url : vurl,
+		data : vdata+ "&action=" + vaction,
+		async : false,
+		error : function(request) {
+		},
+		success : function(data) {
+			//$("#option_table").html(data);
+			alert("success");
+		}
+	});
+}
+
 
 function parseSelect($e){
 		var $componentXML = $("<component></component>");

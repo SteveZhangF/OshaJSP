@@ -7,10 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import form.parser.FormInputHelper;
+
 /**
  * Servlet implementation class FormServlet
  */
-@WebServlet("/FormServlet")
+@WebServlet("/form_operation")
 public class FormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,12 +37,21 @@ public class FormServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		String action = request.getParameter("action");
+		switch (action.trim()) {
+		case "save":
+			saveForm(request, response);
+			break;
+
+		default:
+			break;
+		}
 	}
 	
 	private void saveForm(HttpServletRequest request, HttpServletResponse response){
 		String formDATA = request.getParameter("formDATA");// 传输进来的form data （XML）
-		
+		FormInputHelper fih = new FormInputHelper();
+		fih.save(formDATA);
 	}
 
 }

@@ -1,10 +1,12 @@
 package form.bean;
 
+
 public class Form {
 	private int uuid;
 	private String name;
 	private String template_xml;
 	private int industry_id;//属于哪个行业（占位）
+	
 	public int getUuid() {
 		return uuid;
 	}
