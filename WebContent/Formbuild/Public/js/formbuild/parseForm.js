@@ -8,11 +8,9 @@ function parseForm(form) {
 	var form_name = $form.find(".leipiplugins[leipiplugins='form_name']").first().attr("value");// 获取表单名称
 	var inputs = $form.find(".control-group");
 	
-	var $xml = $("<xml></xml");
 	var $formXML = $("<form></form>");
 	$formXML.attr("id", form_id);
 	$formXML.attr("name", form_name);
-	$xml.append($formXML);
 
 	$.each(inputs, function(i, e) {
 		alert($(e).find(".controls").attr("mtype"));
@@ -35,8 +33,7 @@ function parseForm(form) {
 		}
 	});
 	
-	alert($xml.html());
-
+	return $formXML;
 }
 
 function parseText($e){
