@@ -1,0 +1,13 @@
+<form id="form_id" name="">
+	<component name="单选" id="component_id" type="radio">
+		<option display_name="选项1" value="选项1"></option>
+		<option display_name="选项2" value="选项2"></option>
+	</component>
+	<component name="文本框" id="component_id" type="text"></component>
+	<component name="多行文本" id="component_id" type="textarea"></component>
+	<component name="复选框" id="component_id" type="checkbox">
+		<option display_name="选项1" value="选项1"></option>
+		<option display_name="选项2" value="选项2"></option>
+	</component>
+	<component name="多行文本" id="component_id" type="textarea"></component>
+</form>
