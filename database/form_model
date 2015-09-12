@@ -1,0 +1,70 @@
+CREATE TABLE `model_item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `desc` longtext,
+  `parent_id` int(11) DEFAULT NULL,
+  `sequence_code` varchar(11) DEFAULT NULL,
+  `item_type` varchar(45) DEFAULT NULL,
+  `default` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `model_paper` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `desc` longtext,
+  `parent_id` int(11) DEFAULT NULL,
+  `sequence_code` varchar(11) DEFAULT NULL,
+  `paper_type` varchar(45) DEFAULT NULL,
+  `default` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `model_topic` (
+  `id` int(11) NOT NULL,
+  `desc` longtext,
+  `parent_id` int(11) DEFAULT NULL,
+  `sequence_code` varchar(11) DEFAULT NULL,
+  `topic_type` varchar(45) DEFAULT NULL,
+  `default` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `model_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type_name` varchar(45) DEFAULT NULL,
+  `type_value` varchar(45) DEFAULT NULL,
+  `type_class` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `type_name_UNIQUE` (`type_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tb_form_component_type` (
+  `uuid` int(16) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tb_form` (
+  `uuid` int(16) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `template_xml` blob,
+  PRIMARY KEY (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tb_form_component` (
+  `uuid` int(16) NOT NULL,
+  `form_id` int(16) DEFAULT NULL,
+  `component_name` varchar(45) DEFAULT NULL,
+  `component_type_id` int(16) DEFAULT NULL,
+  PRIMARY KEY (`uuid`),
+  KEY `formid_idx` (`form_id`),
+  KEY `typeid_idx` (`component_type_id`),
+  CONSTRAINT `formid` FOREIGN KEY (`form_id`) REFERENCES `tb_form` (`uuid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `typeid` FOREIGN KEY (`component_type_id`) REFERENCES `tb_form_component_type` (`uuid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

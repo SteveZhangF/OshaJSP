@@ -1,0 +1,122 @@
+CREATE TABLE `pub_authorities` (
+  `uuid` int(16) NOT NULL,
+  `authority_name` varchar(40) DEFAULT NULL,
+  `authority_desc` varchar(100) DEFAULT NULL,
+  `enabled` int(11) DEFAULT NULL,
+  `issys` int(11) DEFAULT NULL,
+  PRIMARY KEY (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `pub_authorities_resources` (
+  `id` int(16) NOT NULL,
+  `authority_id` int(16) DEFAULT NULL,
+  `resource_id` int(16) DEFAULT NULL,
+  `enabled` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `authorities_id` (`authority_id`),
+  KEY `resources_id` (`resource_id`),
+  CONSTRAINT `authorities_id` FOREIGN KEY (`authority_id`) REFERENCES `pub_authorities` (`uuid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `resources_id` FOREIGN KEY (`resource_id`) REFERENCES `pub_resources` (`uuid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `pub_resources` (
+  `uuid` int(16) NOT NULL,
+  `resource_name` varchar(100) DEFAULT NULL,
+  `resource_desc` varchar(100) DEFAULT NULL,
+  `resource_type` varchar(40) DEFAULT NULL,
+  `resource_string` varchar(200) DEFAULT NULL,
+  `priority` int(11) DEFAULT NULL,
+  `enabled` int(11) DEFAULT NULL,
+  `issys` int(11) DEFAULT NULL,
+  PRIMARY KEY (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `pub_roles` (
+  `uuid` int(16) NOT NULL,
+  `role_name` varchar(40) DEFAULT NULL,
+  `role_desc` varchar(100) DEFAULT NULL,
+  `enabled` int(11) DEFAULT NULL,
+  `issys` int(11) DEFAULT NULL,
+  PRIMARY KEY (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `pub_roles_authorities` (
+  `uuid` int(16) NOT NULL,
+  `role_id` int(16) DEFAULT NULL,
+  `authority_id` int(16) DEFAULT NULL,
+  `enabled` int(11) DEFAULT NULL,
+  PRIMARY KEY (`uuid`),
+  KEY `roles_id` (`role_id`),
+  KEY `auth_id` (`authority_id`),
+  CONSTRAINT `auth_id` FOREIGN KEY (`authority_id`) REFERENCES `pub_authorities` (`uuid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `roles_id` FOREIGN KEY (`role_id`) REFERENCES `pub_roles` (`uuid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `pub_users` (
+  `uuid` int(16) NOT NULL,
+  `user_email` varchar(45) NOT NULL,
+  `user_password_digest` varchar(100) DEFAULT NULL,
+  `issys` int(11) DEFAULT NULL,
+  `create_at` datetime DEFAULT NULL,
+  `remember_digest` varchar(45) DEFAULT NULL,
+  `activation_digest` varchar(45) DEFAULT NULL,
+  `activated` int(1) DEFAULT NULL,
+  `activated_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `clinic_id` int(16) DEFAULT NULL,
+  PRIMARY KEY (`uuid`),
+  UNIQUE KEY `user_email_UNIQUE` (`user_email`),
+  KEY `clic_id_idx` (`clinic_id`),
+  CONSTRAINT `clic_id` FOREIGN KEY (`clinic_id`) REFERENCES `tb_clinic` (`uuid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `pub_users_roles` (
+  `uuid` int(16) NOT NULL,
+  `user_id` int(16) DEFAULT NULL,
+  `role_id` int(16) DEFAULT NULL,
+  `enabled` int(11) DEFAULT NULL,
+  PRIMARY KEY (`uuid`),
+  KEY `user_id` (`user_id`),
+  KEY `role_id` (`role_id`),
+  CONSTRAINT `role_id` FOREIGN KEY (`role_id`) REFERENCES `pub_roles` (`uuid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `pub_users` (`uuid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tb_clinic` (
+  `uuid` int(16) NOT NULL,
+  `clinic_address` varchar(45) DEFAULT NULL,
+  `clinic_phone` char(15) DEFAULT NULL,
+  `clinic_name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tb_department` (
+  `UUID` int(16) NOT NULL,
+  `DEPARTMENT_NAME` char(10) DEFAULT NULL,
+  `Employee_count` int(4) DEFAULT NULL,
+  `DEPARTMENT_TELEPHONE` char(15) DEFAULT NULL,
+  `CHILDREN_COUNT` int(3) unsigned zerofill DEFAULT NULL,
+  `DEPTH` int(2) unsigned zerofill DEFAULT NULL,
+  `DEPARTMENT_ADDRESS` varchar(45) DEFAULT NULL,
+  `PARENT_ID` varchar(45) DEFAULT NULL,
+  `CLINIC_ID` int(16) NOT NULL,
+  PRIMARY KEY (`UUID`),
+  KEY `clinic_id_idx` (`CLINIC_ID`),
+  CONSTRAINT `clinic_id` FOREIGN KEY (`CLINIC_ID`) REFERENCES `tb_clinic` (`uuid`) ON DELETE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tb_employee` (
+  `UUID` int(16) NOT NULL,
+  `EMPLOYEENAME` varchar(45) DEFAULT NULL,
+  `SEX` char(2) DEFAULT NULL,
+  `BRITHDAY` datetime DEFAULT NULL,
+  `MARRIAGE` varchar(45) DEFAULT NULL,
+  `ADDRESS` varchar(45) DEFAULT NULL,
+  `EMAIL` varchar(45) DEFAULT NULL,
+  `SSN` varchar(45) DEFAULT NULL,
+  `PHONE` char(18) DEFAULT NULL,
+  `DEPARTMENT_ID` int(16) DEFAULT NULL,
+  PRIMARY KEY (`UUID`),
+  KEY `DEPARTMENT_ID_idx` (`DEPARTMENT_ID`),
+  CONSTRAINT `UUID` FOREIGN KEY (`DEPARTMENT_ID`) REFERENCES `tb_department` (`UUID`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
