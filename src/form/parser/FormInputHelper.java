@@ -1,6 +1,7 @@
 package form.parser;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.List;
 
 import org.jdom2.Attribute;
@@ -30,23 +31,23 @@ import form.bean.dao.impl.FormDAOImpl;
 public class FormInputHelper {
 	public void save(String formDataXML) {
 		SAXBuilder builder = new SAXBuilder();
-
+		System.out.println(formDataXML);
 		try {
-			Document document = builder.build(formDataXML);
+			Document document = builder.build(new StringReader(formDataXML));
 			Element form_element = document.getRootElement();
 			Form form = new Form();
 			String form_name = form_element.getAttributeValue("name");
-			
+
 			form.setName(form_name);
 			form.setTemplate_xml(formDataXML);
-			
+
 			List<Element> componentList = form_element.getChildren("component");
 			FormDAO fdao = new FormDAOImpl();
-			int form_id = fdao.save(form);
+			String form_id = fdao.save(form);
 			for (int i = 0; i < componentList.size(); i++) {
 				Element component_element = (Element) componentList.get(i);
 				String component_name = component_element.getAttribute("name").getValue();
-				int component_type = component_element.getAttribute("type").getIntValue();
+				String component_type = component_element.getAttribute("type").getValue();
 				FormComponent fc = new FormComponent();
 				fc.setComponent_name(component_name);
 				fc.setComponent_type(component_type);
@@ -54,6 +55,7 @@ public class FormInputHelper {
 				FormComponentDAO fcdao = new FormComponentDAOImpl();
 				fcdao.save(fc);
 			}
+			System.out.println("save form success");
 		} catch (JDOMException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

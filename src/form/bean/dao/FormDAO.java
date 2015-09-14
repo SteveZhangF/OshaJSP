@@ -5,7 +5,7 @@ import java.util.List;
 import form.bean.Form;
 
 public interface FormDAO {
-	public int save(Form f);
+	public String save(Form f);
 
 	public void delete(Form f);
 

@@ -1,7 +1,7 @@
 package bean.user;
 
 public class User {
-	private int uuid;
+	private String uuid;
 	private String user_email;
 	private String user_password_digiest;
 	private String remember_digest;
@@ -9,13 +9,14 @@ public class User {
 	private int activated;
 	private long activated_at;
 	private long updated_at;
-	private int clinic_id;
+	private long create_at;
+	private String company_id;
 
-	public int getUuid() {
+	public String getUuid() {
 		return uuid;
 	}
 
-	public void setUuid(int uuid) {
+	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
 
@@ -75,12 +76,20 @@ public class User {
 		this.updated_at = updated_at;
 	}
 
-	public int getClinic_id() {
-		return clinic_id;
+	public String getCompany_id() {
+		return company_id;
 	}
 
-	public void setClinic_id(int clinic_id) {
-		this.clinic_id = clinic_id;
+	public void setCompany_id(String company_id) {
+		this.company_id = company_id;
+	}
+
+	public long getCreate_at() {
+		return create_at;
+	}
+
+	public void setCreate_at(long create_at) {
+		this.create_at = create_at;
 	}
 
 }

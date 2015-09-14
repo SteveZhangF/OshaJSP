@@ -1,8 +1,10 @@
 package global;
 
+import java.util.UUID;
+
 public class UUIDGenerator {
-	public static int generateUUID(){
-		
-		return 1;
+	public static String generateUUID() {
+		UUID uuid = UUID.randomUUID();
+		return uuid.toString().replace("-", "");
 	}
 }

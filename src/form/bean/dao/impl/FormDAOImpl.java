@@ -11,17 +11,17 @@ import global.UUIDGenerator;
 public class FormDAOImpl implements FormDAO {
 
 	@Override
-	public int save(Form p) {
+	public String save(Form p) {
 		// TODO Auto-generated method stub
 		Connection con = null;
 		java.sql.PreparedStatement ps = null;
-		String sql = "INSERT INTO `form_model`.`tb_form`" + "(`uuid`," + "`name`," + "`template_path`)" + "VALUES"
+		String sql = "INSERT INTO `form_model`.`tb_form`" + "(`uuid`," + "`name`," + "`template_xml`)" + "VALUES"
 				+ "(?,?,?);";
 		try {
 			con = ConnectionPool.getInstance().getConnection();
-			int uuid = UUIDGenerator.generateUUID();
+			String uuid = UUIDGenerator.generateUUID();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, uuid);
+			ps.setString(1, uuid);
 			ps.setString(2, p.getName());
 			ps.setString(3, p.getTemplate_xml());
 			ps.executeUpdate();
@@ -29,7 +29,7 @@ public class FormDAOImpl implements FormDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return -1;
+			return "-1";
 		} finally {
 			ConnectionPool.getInstance().release();
 		}

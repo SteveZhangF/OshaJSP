@@ -2,7 +2,6 @@ function parseForm(form) {
 	// alert($("#source").val());
 	var $form  = $("<div>").html($("#source").val()); 
 	$form = $form.find("form");
-
 	var form_id = $form.attr("id");// 获取表单id
 
 	var form_name = $form.find(".leipiplugins[leipiplugins='form_name']").first().attr("value");// 获取表单名称
@@ -13,7 +12,6 @@ function parseForm(form) {
 	$formXML.attr("name", form_name);
 
 	$.each(inputs, function(i, e) {
-		alert($(e).find(".controls").attr("mtype"));
 		switch($(e).find(".controls").attr("mtype")){
 			case "text":
 			parseText($(e)).appendTo($formXML);
@@ -32,7 +30,8 @@ function parseForm(form) {
 			break;
 		}
 	});
-	
+	var content = $formXML.prop("outerHTML");// prop.("outerHTML") 可以输出包括自己在内的html内容
+	submitForm("../form_operation",{"formDATA":content,"action":"save"});
 	return $formXML;
 }
 
@@ -40,7 +39,6 @@ function parseText($e){
 	// alert($e.html());
 	var $componentXML = $("<component></component>");
 	var component_id = $e.attr("id");// 组件id
-		//var component_name = $(e).find(".control-label").first().val();// 组件名称
 		var $input = $e.find(".controls").children().first();
 		var component_type = $input.attr("leipiplugins");// 组件类型
 		var component_name = $input.attr("title");
@@ -51,23 +49,6 @@ function parseText($e){
 		});
 		return $componentXML;
 }
-//提交数据
-function submitForm(vurl, vdata, vaction) {
-	$.ajax({
-		cache : true,
-		type : "POST",
-		url : vurl,
-		data : vdata+ "&action=" + vaction,
-		async : false,
-		error : function(request) {
-		},
-		success : function(data) {
-			//$("#option_table").html(data);
-			alert("success");
-		}
-	});
-}
-
 
 function parseSelect($e){
 		var $componentXML = $("<component></component>");

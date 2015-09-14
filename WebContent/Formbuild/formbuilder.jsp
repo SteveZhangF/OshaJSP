@@ -17,10 +17,7 @@
 <!--[if lte IE 7]>
     <link rel="stylesheet" type="text/css" href="Public/css/bootstrap/css/ie.css?2024">
     <![endif]-->
-<link href="Public/css/site.css?2024" rel="stylesheet" type="text/css" />
-<script type="text/javascript">
-	var _root = 'http://formbuild/index.php?s=/', _controller = 'index';
-</script>
+
 
 <style>
 #components {
@@ -118,8 +115,8 @@
 					<div id="build">
 						<form id="target" class="form-horizontal">
 							<fieldset>
-								<div id="legend" class="component " rel="popover" title="编辑属性"
-									trigger="manual"
+								<div id="legend" class="component " rel="popover"
+									title="编辑属性" trigger="manual"
 									data-content="
                 <form class='form'>
                   <div class='controls'>
@@ -169,9 +166,9 @@
 										<!-- Text -->
 										<label class="control-label leipiplugins-orgname">文本框</label>
 										<div class="controls" mtype="text">
-											<input name="leipiNewField" type="text" placeholder="默认值"
-												title="文本框" value="" class="leipiplugins"
-												leipiplugins="text" />
+											<input name="leipiNewField" type="text"
+												placeholder="默认值" title="文本框" value=""
+												class="leipiplugins" leipiplugins="text" />
 										</div>
 
 									</div>
@@ -203,8 +200,8 @@
 									<!-- Textarea end -->
 
 									<!-- Select start -->
-									<div class="control-group component" rel="popover" title="下拉控件"
-										trigger="manual"
+									<div class="control-group component" rel="popover"
+										title="下拉控件" trigger="manual"
 										data-content="
   <form class='form'>
     <div class='controls'>
@@ -248,8 +245,9 @@
 										<!-- Select -->
 										<label class="control-label leipiplugins-orgname">下拉菜单</label>
 										<div class="controls" mtype="multiple_select">
-											<select multiple="multiple" name="leipiNewField" title="下拉菜单"
-												class="leipiplugins" leipiplugins="select">
+											<select multiple="multiple" name="leipiNewField"
+												title="下拉菜单" class="leipiplugins"
+												leipiplugins="select">
 												<option>选项一</option>
 												<option>选项二</option>
 												<option>选项三</option>
@@ -264,8 +262,8 @@
 									<!-- Multiple Checkboxes start -->
 
 
-									<div class="control-group component" rel="popover" title="复选控件"
-										trigger="manual"
+									<div class="control-group component" rel="popover"
+										title="复选控件" trigger="manual"
 										data-content="
   <form class='form'>
     <div class='controls'>
@@ -282,10 +280,12 @@
 											<!-- Multiple Checkboxes -->
 											<label class="checkbox"> <input type="checkbox"
 												name="leipiNewField" title="复选框" value="选项1"
-												class="leipiplugins" leipiplugins="checkbox"> 选项1
+												class="leipiplugins" leipiplugins="checkbox">
+												选项1
 											</label> <label class="checkbox"> <input type="checkbox"
 												name="leipiNewField" title="复选框" value="选项2"
-												class="leipiplugins" leipiplugins="checkbox"> 选项2
+												class="leipiplugins" leipiplugins="checkbox">
+												选项2
 											</label>
 										</div>
 									</div>
@@ -294,8 +294,8 @@
 									<!-- Multiple radios start -->
 
 
-									<div class="control-group component" rel="popover" title="单选控件"
-										trigger="manual"
+									<div class="control-group component" rel="popover"
+										title="单选控件" trigger="manual"
 										data-content="
   <form class='form'>
     <div class='controls'>
@@ -328,8 +328,8 @@
 
 
 
-									<div class="control-group component" rel="popover" title="文件上传"
-										trigger="manual"
+									<div class="control-group component" rel="popover"
+										title="文件上传" trigger="manual"
 										data-content="
                   <form class='form'>
                     <div class='controls'>

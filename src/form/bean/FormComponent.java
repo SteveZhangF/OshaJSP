@@ -1,20 +1,20 @@
 package form.bean;
 
 public class FormComponent {
-	private int uuid;
-	private int form_id;
+	private String uuid;
+	private String form_id;
 	private String component_name;
-	private int component_type;
-	public int getUuid() {
+	private String component_type;
+	public String getUuid() {
 		return uuid;
 	}
-	public void setUuid(int uuid) {
+	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
-	public int getForm_id() {
+	public String getForm_id() {
 		return form_id;
 	}
-	public void setForm_id(int form_id) {
+	public void setForm_id(String form_id) {
 		this.form_id = form_id;
 	}
 	public String getComponent_name() {
@@ -23,10 +23,10 @@ public class FormComponent {
 	public void setComponent_name(String component_name) {
 		this.component_name = component_name;
 	}
-	public int getComponent_type() {
+	public String getComponent_type() {
 		return component_type;
 	}
-	public void setComponent_type(int component_type) {
+	public void setComponent_type(String component_type) {
 		this.component_type = component_type;
 	}
 }
