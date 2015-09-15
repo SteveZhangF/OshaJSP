@@ -24,5 +24,5 @@
       <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
+    <script src="<%=application.getContextPath()%>/js/jquery-1.9.1.min.js"></script>
 </head>

@@ -21,6 +21,7 @@
 
 				<!--start  topic container -->
 				<div id="main_container">
+				<jsp:include page="table.jsp"/>
 				<form id="topic_content_form">
 				<input type="hidden" name="page_id" value="1"/>
 					<div id="topic_content">
@@ -34,6 +35,7 @@
 				</form>
 				<!--end  topic container -->
 				</div>
+				
 				<button id="bt_submit" onclick="submitMainForm();" class="btn btn-primary">Save</button>
 				<button id="bt_cancel" onclick="" class="btn btn-primary">Cancel</button>
 				<nav>
