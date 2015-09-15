@@ -2,6 +2,8 @@ package database.dao.factory;
 
 import bean.user.dao.UserDAO;
 import bean.user.dao.impl.UserDAOImpl;
+import bean.user.data.dao.CompanyDAO;
+import bean.user.data.dao.impl.CompanyDAOImpl;
 import database.dao.ElementTypeDAO;
 import database.dao.OptionElementDAO;
 import database.dao.TopicElementDAO;
@@ -25,5 +27,9 @@ public class DAOFactoryImpl {
 
 	public static UserDAO getUserDAO() {
 		return new UserDAOImpl();
+	}
+	
+	public static CompanyDAO getCompanyDAO(){
+		return new CompanyDAOImpl();
 	}
 }

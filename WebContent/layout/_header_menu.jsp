@@ -25,7 +25,8 @@
 				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="true">Profile</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">Action</a></li>
+						<li><a href="javascript:void(0)" onclick="editcompany();">Company</a></li>
+						<li role="separator" class="divider"></li>
 						<li><a href="#">Another action</a></li>
 						<li><a href="#">Something else here</a></li>
 						<li role="separator" class="divider"></li>
@@ -79,6 +80,7 @@
 </div>
 <!-- login modal end -->
 <script src="<%=application.getContextPath()%>/custom/js/login.js"></script>
+<script src="<%=application.getContextPath()%>/custom/js/company.js"></script>
 <noscript>
 	<div class="alert alert-block span10">
 		<h4 class="alert-heading">Warning!</h4>

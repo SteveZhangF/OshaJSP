@@ -20,6 +20,7 @@
 				</ul>
 
 				<!--start  topic container -->
+				<div id="main_container">
 				<form id="topic_content_form">
 				<input type="hidden" name="page_id" value="1"/>
 					<div id="topic_content">
@@ -32,7 +33,9 @@
 					</div>
 				</form>
 				<!--end  topic container -->
-
+				</div>
+				<button id="bt_submit" onclick="submitMainForm();" class="btn btn-primary">Save</button>
+				<button id="bt_cancel" onclick="" class="btn btn-primary">Cancel</button>
 				<nav>
 					<ul class="pager">
 						<li><a href="#">&larr; Previous</a></li>
@@ -46,7 +49,7 @@
 	</div>
 
 	<jsp:include page="/layout/_footer.jsp" />
-	<script type="text/javascript" src="<%=application.getContextPath()%>/custom/js/page_submit.js"></script>
+	<script type="text/javascript" src="<%=application.getContextPath()%>/custom/js/submitForm.js"></script>
 	<script type="text/javascript">
 		$.get("<%=application.getContextPath()%>/topicview_servlet.do", {
 			page_id : 1,

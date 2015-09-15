@@ -1,4 +1,4 @@
-package bean.user.dapartment;
+package bean.user.data;
 
 public class Department {
 	private int uuid;

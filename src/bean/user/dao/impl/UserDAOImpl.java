@@ -1,8 +1,10 @@
 package bean.user.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import bean.user.User;
 import bean.user.dao.UserDAO;
@@ -112,7 +114,34 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void update(User p) throws SQLException {
 		// TODO Auto-generated method stub
-
+		Connection con = null;
+		String sql = "select *  from `user_data`.`pub_users` where uuid='" + p.getUuid()+"'";
+		try {
+			con = ConnectionPool.getInstance().getConnection();
+			Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs = statement.executeQuery(sql);
+			rs.first();
+			
+			if (p.getActivated()!=rs.getInt("activated"))
+				rs.updateInt("activated", p.getActivated());
+			if(p.getActivated_at()!=rs.getLong("activated_at"))
+				rs.updateLong("activated_at", p.getActivated_at());
+			if(p.getActivation_digest()!=null && !p.getActivation_digest().equals(rs.getString("activation_digest")))
+				rs.updateString("activation_digest", p.getActivation_digest());
+			if(p.getCompany_id()!=null && !p.getCompany_id().equals(rs.getString("company_id")))
+				rs.updateString("company_id", p.getCompany_id());
+			if(p.getRemember_digest()!=null && !p.getRemember_digest().equals("remember_digest"))
+				rs.updateString("remember_digest", p.getRemember_digest());
+			if(p.getUser_password_digest()!=null && !p.getUser_password_digest().equals(rs.getString("user_password_digest")))
+				rs.updateString("user_password_digest", p.getUser_password_digest());
+			rs.updateDate("updated_at", new java.sql.Date(System.currentTimeMillis()));
+			rs.updateRow();
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		} finally {
+			ConnectionPool.getInstance().release();
+		}
 	}
 
 	@Override
