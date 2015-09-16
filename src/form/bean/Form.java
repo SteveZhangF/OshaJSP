@@ -11,7 +11,9 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 import database.dao.factory.DAOFactoryImpl;
+import engine.htmlengine.TemplatePool;
 import form.bean.dao.FormDAO;
+import model.FormElement;
 
 public class Form {
 	private String uuid;
@@ -62,10 +64,21 @@ public class Form {
 
 	// <form id="form_id" name="MyEmployeeForm"><component name="Text"
 	// id="component_id" type="text"></component></form>
-	public String toXML() {
+//	public String toXML() {
+//		StringBuffer sb = new StringBuffer();
+//		sb.append("<form id=\"form_id\" name="MyEmployeeForm">")
+//		return "";
+//	}
+	
+	public String toHtml(){
+		String result = TemplatePool.getInstance().getHtmlTemplate("Form:Form_VIEW");
+		result = result.replace("####panel_title###", this.getName());
 		StringBuffer sb = new StringBuffer();
-		sb.append("<form id=\"form_id\" name="MyEmployeeForm">")
-		return "";
+		for(FormComponent fe : children){
+			sb.append(fe.toHtml());
+		}
+		result = result.replace("###topic_item###", sb.toString());
+		return result;
 	}
 
 	public void save() {

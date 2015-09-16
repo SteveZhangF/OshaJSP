@@ -44,4 +44,9 @@ public class FormComponent {
 			dao.update(this);
 		}
 	}
+	
+	public String toHtml(){
+		
+		return "";
+	}
 }

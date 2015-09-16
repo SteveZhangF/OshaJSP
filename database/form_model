@@ -44,27 +44,31 @@ CREATE TABLE `model_type` (
   UNIQUE KEY `type_name_UNIQUE` (`type_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tb_form_component_type` (
-  `uuid` int(16) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE `tb_form` (
-  `uuid` int(16) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
+  `uuid` char(32) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
   `template_xml` blob,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `tb_form_component` (
-  `uuid` int(16) NOT NULL,
-  `form_id` int(16) DEFAULT NULL,
-  `component_name` varchar(45) DEFAULT NULL,
-  `component_type_id` int(16) DEFAULT NULL,
+  `uuid` char(32) NOT NULL,
+  `form_id` char(32) DEFAULT NULL,
+  `component_name` varchar(128) DEFAULT NULL,
+  `component_type_id` char(32) DEFAULT NULL,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`uuid`),
   KEY `formid_idx` (`form_id`),
   KEY `typeid_idx` (`component_type_id`),
   CONSTRAINT `formid` FOREIGN KEY (`form_id`) REFERENCES `tb_form` (`uuid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `typeid` FOREIGN KEY (`component_type_id`) REFERENCES `tb_form_component_type` (`uuid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tb_form_component_type` (
+  `uuid` char(32) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
