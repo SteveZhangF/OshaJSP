@@ -13,8 +13,7 @@ function login(form) {
 			break;
 		case nouserfound:
 			$(modal_container).find("#login_alert").removeClass("hidden").removeClass("alert-success").addClass("alert-danger");
-			$(modal_container).find("#login_alert").html("No such user!");
-			
+			$(modal_container).find("#login_alert").html("No such user!");			
 			break;
 		case passwordwrong:
 			$(modal_container).find("#login_alert").removeClass("hidden").removeClass("alert-success").addClass("alert-danger");

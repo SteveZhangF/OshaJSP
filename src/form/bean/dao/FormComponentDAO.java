@@ -8,7 +8,7 @@ public interface FormComponentDAO {
 	public String save(FormComponent fc);
 	public void delete(FormComponent fc);
 	public void update(FormComponent fc);
-	public FormComponent findbyID(int id);
-	public FormComponent findbyName(int name);
-	public List<FormComponent> findbyFormID(int form_id);
+	public FormComponent findbyID(String uuid);
+	public FormComponent findbyName(String name);
+	public List<FormComponent> findbyFormID(String form_id);
 }

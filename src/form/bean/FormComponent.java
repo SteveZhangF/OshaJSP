@@ -1,5 +1,9 @@
 package form.bean;
 
+import database.dao.factory.DAOFactoryImpl;
+import form.bean.dao.FormComponentDAO;
+import form.bean.dao.FormDAO;
+
 public class FormComponent {
 	private String uuid;
 	private String form_id;
@@ -28,5 +32,16 @@ public class FormComponent {
 	}
 	public void setComponent_type(String component_type) {
 		this.component_type = component_type;
+	}
+	
+	public void save(){
+		FormComponentDAO dao = DAOFactoryImpl.getFormComponentDAO();
+		//new component
+		if (uuid == null || uuid.trim().equals("") || dao.findbyID(uuid) == null) {
+			uuid=dao.save(this);
+		} else {
+			// update old form
+			dao.update(this);
+		}
 	}
 }

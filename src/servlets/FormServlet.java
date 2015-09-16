@@ -48,6 +48,11 @@ public class FormServlet extends HttpServlet {
 		}
 	}
 	
+	private void viewForm(HttpServletRequest request, HttpServletResponse response){
+		String form_id = request.getParameter("form_id");
+		
+	}
+	
 	private void saveForm(HttpServletRequest request, HttpServletResponse response){
 		String formDATA = request.getParameter("formDATA");// 传输进来的form data （XML）
 		FormInputHelper fih = new FormInputHelper();

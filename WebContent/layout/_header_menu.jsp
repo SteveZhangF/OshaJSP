@@ -1,6 +1,4 @@
 <jsp:useBean id="user" scope="session" class="bean.user.User" />
-<% User usera = request.getSession().getAttribute("user"); %>
-
 
 
 

@@ -1,7 +1,13 @@
 package form.bean.dao.impl;
 
+import java.awt.event.FocusEvent;
+import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+
+import javax.naming.spi.DirStateFactory.Result;
 
 import database.ConnectionPool;
 import form.bean.Form;
@@ -45,6 +51,7 @@ public class FormDAOImpl implements FormDAO {
 	@Override
 	public void update(Form f) {
 		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -57,6 +64,30 @@ public class FormDAOImpl implements FormDAO {
 	@Override
 	public List<Form> findbyIndustry(int industry_id) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Form findFormbyID(String formid) {
+		// TODO Auto-generated method stub
+		Form form = new Form();
+		String sql = "select * from form_model.tb_form where uuid='"+formid+"'";
+		Connection con = ConnectionPool.getInstance().getConnection();
+		java.sql.PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+				form.setUuid(rs.getString("uuid"));
+				form.setName(rs.getString("name"));
+				form.setTemplate_xml(rs.getBlob("template_xml").toString());
+				return form;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 

@@ -22,6 +22,7 @@ function submitForm(vurl, vdata,callback) {
 		data : vdata,
 		async : false,
 		error : function(request) {
+			
 		},
 		success : function(data) {
 			callback(data);

@@ -31,7 +31,9 @@ function parseForm(form) {
 		}
 	});
 	var content = $formXML.prop("outerHTML");// prop.("outerHTML") 可以输出包括自己在内的html内容
-	submitForm("../form_operation",{"formDATA":content,"action":"save"});
+	submitForm("../form_operation",{"formDATA":content,"action":"save"},function(){
+		alert(success);
+	});
 	return $formXML;
 }
 

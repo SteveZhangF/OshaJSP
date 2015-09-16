@@ -10,6 +10,10 @@ import database.dao.TopicElementDAO;
 import database.dao.impl.ElementTypeDAOImpl;
 import database.dao.impl.OptionElementDAOImpl;
 import database.dao.impl.TopicElementDAOImpl;
+import form.bean.dao.FormComponentDAO;
+import form.bean.dao.FormDAO;
+import form.bean.dao.impl.FormComponentDAOImpl;
+import form.bean.dao.impl.FormDAOImpl;
 
 public class DAOFactoryImpl {
 
@@ -31,5 +35,13 @@ public class DAOFactoryImpl {
 	
 	public static CompanyDAO getCompanyDAO(){
 		return new CompanyDAOImpl();
+	}
+	
+	public static FormDAO getFormDAO(){
+		return new FormDAOImpl();
+	}
+	
+	public static FormComponentDAO getFormComponentDAO(){
+		return new FormComponentDAOImpl();
 	}
 }
