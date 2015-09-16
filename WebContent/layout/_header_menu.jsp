@@ -1,4 +1,10 @@
 <jsp:useBean id="user" scope="session" class="bean.user.User" />
+<% User usera = request.getSession().getAttribute("user"); %>
+
+
+
+
+
 <link href="<%=application.getContextPath()%>/custom/css/login.css"
 	rel="stylesheet">
 <nav class="navbar navbar-inverse navbar-fixed-top">

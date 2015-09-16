@@ -16,3 +16,4 @@ public interface CompanyDAO {
 	public void delete(String id) throws SQLException;
 
 }
+

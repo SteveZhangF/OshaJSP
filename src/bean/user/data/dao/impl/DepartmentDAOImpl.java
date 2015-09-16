@@ -1,7 +1,6 @@
 package bean.user.data.dao.impl;
 
 import java.sql.SQLException;
-
 import bean.user.data.Department;
 import bean.user.data.dao.DepartmentDAO;
 
