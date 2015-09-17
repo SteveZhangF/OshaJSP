@@ -1,29 +1,23 @@
 package servlets.user;
 
 import java.io.IOException;
-import java.sql.SQLException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.user.User;
-import bean.user.data.Company;
-import database.dao.factory.DAOFactoryImpl;
-
 /**
- * Servlet implementation class DepartmentServlet
+ * Servlet implementation class EmployeeServlet
  */
-@WebServlet("/department")
-public class DepartmentServlet extends HttpServlet {
+@WebServlet("/employee")
+public class EmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DepartmentServlet() {
+    public EmployeeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,7 +35,7 @@ public class DepartmentServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String action = request.getParameter("action");
+		String action=request.getParameter("action");
 		switch (action) {
 		case "list":
 			list(request, response);
@@ -53,7 +47,7 @@ public class DepartmentServlet extends HttpServlet {
 	}
 	
 	private void list(HttpServletRequest request, HttpServletResponse response){
-		request.setAttribute("tablesource", "department");
+		request.setAttribute("tablesource", "employee");
 		try {
 			request.getRequestDispatcher("/table.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
@@ -61,22 +55,5 @@ public class DepartmentServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
-	private void edit(HttpServletRequest request, HttpServletResponse response){
-		User user = (User) request.getSession().getAttribute("user");
-		String company_id = user.getCompany_id();
-		//if the user didn't create the company information
-		if(company_id== null || company_id.trim().equals("")){
-			try {
-				request.getRequestDispatcher("/company_edit.jsp").forward(request, response);
-			} catch (ServletException | IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	private void save(HttpServletRequest request, HttpServletResponse response){}
-	
-	private void update(HttpServletRequest request, HttpServletResponse response){}
 
 }

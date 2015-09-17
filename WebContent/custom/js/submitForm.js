@@ -1,8 +1,17 @@
+
+// 浏览自定义表单 param formid
+function viewForm(formid){
+	submitForm("form_operation", {action:"viewform",form_id:formid},function(data) {
+		$("#main_container").html(data);
+	});
+}
+
 //提交application.jsp 中的main_container 中的所有表单
 function submitMainForm(){
 	var forms = $("#main_container").find("form");
+	var url=forms.attr("action");
 	$.each(forms, function(i, f) {
-		submitForm($(f).attr("action"),$(f).serialize(),function(data){
+		submitForm(url,$(f).serialize(),function(data){
 			alert(data);
 		})
 	});

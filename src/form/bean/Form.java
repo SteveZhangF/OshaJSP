@@ -5,15 +5,12 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
 
 import database.dao.factory.DAOFactoryImpl;
 import engine.htmlengine.TemplatePool;
 import form.bean.dao.FormDAO;
-import model.FormElement;
 
 public class Form {
 	private String uuid;
@@ -27,57 +24,82 @@ public class Form {
 	}
 
 	public Form(String formDataXML) {
-		SAXBuilder builder = new SAXBuilder();
-		try {
-			Document document = builder.build(new StringReader(formDataXML));
-			Element form_element = document.getRootElement();
-			String form_name = form_element.getAttributeValue("name");
-			String form_id = form_element.getAttributeValue("form_id");
+		
+		org.jsoup.nodes.Document doc = Jsoup.parse(formDataXML);
+		org.jsoup.nodes.Element form_element = doc.select("form").first();// find
+																			// form
+		String form_name = form_element.attr("name");
+		String form_id = form_element.attr("id");
+		
+		this.setUuid(form_id);
+		this.setName(form_name);
+		this.setTemplate_xml(formDataXML);
 
-			this.setUuid(form_id);
-			this.setName(form_name);
-			this.setTemplate_xml(formDataXML);
-
-			List<Element> componentList = form_element.getChildren("component");
-
-			for (int i = 0; i < componentList.size(); i++) {
-				Element component_element = (Element) componentList.get(i);
-				String component_name = component_element.getAttribute("name").getValue();
-				String component_type = component_element.getAttribute("type").getValue();
-				String component_id = component_element.getAttributeValue("component_id");
-
-				FormComponent fc = new FormComponent();
-				fc.setComponent_name(component_name);
-				fc.setComponent_type(component_type);
-				fc.setForm_id(form_id);
-				fc.setUuid(component_id);
-
-				children.add(fc);
-			}
-		} catch (JDOMException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		List<org.jsoup.nodes.Element> componentList = form_element.select("component");
+		
+		for (int i = 0; i < componentList.size(); i++) {
+			Element component_element = (Element) componentList.get(i);
+			String component_name = component_element.attr("name");
+			String component_type = component_element.attr("type");
+			String component_id = component_element.attr("id");
+			FormComponent fc = new FormComponent();
+			fc.setComponent_name(component_name);
+			fc.setComponent_type(component_type);
+			fc.setForm_id(form_id);
+			fc.setUuid(component_id);
+			fc.setComponent_content(component_element.html());
+			children.add(fc);
 		}
+
+//		SAXBuilder builder = new SAXBuilder();
+//		try {
+//			Document document = builder.build(new StringReader(formDataXML));
+//			Element form_element = document.getRootElement();
+//			String form_name = form_element.getAttributeValue("name");
+//			String form_id = form_element.getAttributeValue("id");
+//
+//			this.setUuid(form_id);
+//			this.setName(form_name);
+//			this.setTemplate_xml(formDataXML);
+//
+//			List<Element> componentList = form_element.getChildren("component");
+//
+//			for (int i = 0; i < componentList.size(); i++) {
+//				Element component_element = (Element) componentList.get(i);
+//				String component_name = component_element.getAttribute("name").getValue();
+//				String component_type = component_element.getAttribute("type").getValue();
+//				String component_id = component_element.getAttributeValue("id");
+//
+//				XMLOutputter out = new XMLOutputter();
+//				String component_content = out.outputString(component_element.getChildren());
+//
+//				FormComponent fc = new FormComponent();
+//				fc.setComponent_name(component_name);
+//				fc.setComponent_type(component_type);
+//				fc.setForm_id(form_id);
+//				fc.setUuid(component_id);
+//				fc.setComponent_content(component_content);
+//
+//				children.add(fc);
+//			}
+//		} catch (JDOMException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
 	}
 
-	// <form id="form_id" name="MyEmployeeForm"><component name="Text"
-	// id="component_id" type="text"></component></form>
-//	public String toXML() {
-//		StringBuffer sb = new StringBuffer();
-//		sb.append("<form id=\"form_id\" name="MyEmployeeForm">")
-//		return "";
-//	}
-	
-	public String toHtml(){
+	public String toHtml() {
 		String result = TemplatePool.getInstance().getHtmlTemplate("Form:Form_VIEW");
-		result = result.replace("####panel_title###", this.getName());
+
+		result = result.replace("###Form_Name###", this.getName());
+		result = result.replace("###Form_ID###", this.getUuid());
 		StringBuffer sb = new StringBuffer();
-		for(FormComponent fe : children){
+		for (FormComponent fe : children) {
 			sb.append(fe.toHtml());
 		}
-		result = result.replace("###topic_item###", sb.toString());
+		result = result.replace("###Form_Components###", sb.toString());
 		return result;
 	}
 
@@ -85,8 +107,7 @@ public class Form {
 		FormDAO dao = DAOFactoryImpl.getFormDAO();
 		// new form
 		if (uuid == null || uuid.trim().equals("") || dao.findFormbyID(uuid) == null) {
-			uuid = dao.save(this);
-
+			dao.save(this);
 		} else {
 			// update old form
 			dao.update(this);
@@ -96,7 +117,6 @@ public class Form {
 			fc.setForm_id(uuid);
 			fc.save();
 		}
-
 	}
 
 	public String getUuid() {

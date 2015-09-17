@@ -1,5 +1,3 @@
-
-<%String tablesource=(String)request.getAttribute("tablesource"); %>
 <script type="text/ecmascript"
 	src="<%=application.getContextPath()%>/jqGrid/js/i18n/grid.locale-en.js"></script>
 <!-- This is the Javascript file of jqGrid -->
@@ -13,15 +11,12 @@
 	<table id="jqGrid"></table>
 	<div id="jqGridPager"></div>
 </div>
-<script type="text/javascript"
-	src="<%=application.getContextPath()%>/custom/js/table.js">
-</script>
+
 <script>
 	$.jgrid.defaults.width = 780;
 	$.jgrid.defaults.responsive = true;
 	$.jgrid.defaults.styleUI = 'Bootstrap';
-	$( document ).ready(function() {
-		showTable('<%=tablesource%>');
-	});
 </script>
-
+<script type="text/javascript"
+	src="<%=application.getContextPath()%>/custom/js/table.js">
+</script>

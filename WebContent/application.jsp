@@ -21,27 +21,17 @@
 
 				<!--start  topic container -->
 				<div id="main_container">
-				<jsp:include page="table.jsp"/>
-				<form id="topic_content_form">
-				<input type="hidden" name="page_id" value="1"/>
-					<div id="topic_content">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h3 class="panel-title">WQE</h3>
-							</div>
-							<div class="panel-body">Loading...</div>
-						</div>
-					</div>
-				</form>
-				<!--end  topic container -->
+					<!--end  topic container -->
 				</div>
-				
-				<button id="bt_submit" onclick="submitMainForm();" class="btn btn-primary">Save</button>
-				<button id="bt_cancel" onclick="" class="btn btn-primary">Cancel</button>
+				<div id="form_submit_button_group" class="container-fluid center">
+					<button id="bt_submit" onclick="submitMainForm();"
+						class="btn btn-primary">Save</button>
+					<button id="bt_cancel" onclick="" class="btn btn-primary">Cancel</button>
+				</div>
 				<nav>
 					<ul class="pager">
 						<li><a href="#">&larr; Previous</a></li>
-						<li><a href="javascript:void(0)" onClick="submit_form(topic_content_form,'<%=application.getContextPath()%>/topicview_servlet.do',topic_content,'next')">Next &rarr;</a></li>
+						<li><a href="#">Next &rarr;</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -51,13 +41,7 @@
 	</div>
 
 	<jsp:include page="/layout/_footer.jsp" />
-	<script type="text/javascript" src="<%=application.getContextPath()%>/custom/js/submitForm.js"></script>
-	<script type="text/javascript">
-		$.get("<%=application.getContextPath()%>/topicview_servlet.do", {
-			page_id : 1,
-		}, function(data, status) {
-			$("#topic_content").append(data);
-		});
-	</script>
+	<script type="text/javascript"
+		src="<%=application.getContextPath()%>/custom/js/submitForm.js"></script>
 </body>
 </html>

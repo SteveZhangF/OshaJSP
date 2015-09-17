@@ -3,20 +3,35 @@
 		<li><a role="button" data-toggle="collapse"
 			href="#department_collapse" onclick="javascript:editcompany();">
 				Company</a>
-			<ul id="department_collapse" class="collapse">
-				<li><a class="submenu" href="submenu.html"><i
-						class="icon-file-alt"></i><span class="hidden-tablet"> Sub
-							Menu 1</span></a></li>
-				<li><a class="submenu" href="submenu2.html"><i
-						class="icon-file-alt"></i><span class="hidden-tablet"> Sub
-							Menu 2</span></a></li>
-				<li><a class="submenu" href="submenu3.html"><i
-						class="icon-file-alt"></i><span class="hidden-tablet"> Sub
-							Menu 3</span></a></li>
-			</ul>
-		</li>
-		<li><a href="#">Analytics</a></li>
-		<li><a href="#">Export</a></li>
+			<ul id="department_collapse" class="collapse nav nav-sidebar-sub">
+				<li><a role="button" href="#"
+					onclick="getForm('./department','list');"><i
+						class="icon-file-alt"></i><span class="hidden-tablet">
+							Departments</span></a></li>
+				<li><a role="button" href="#"
+					onclick="getForm('./employee','list');"><i
+						class="icon-file-alt"></i><span class="hidden-tablet">
+							Employee</span></a></li>
+			</ul></li>
+
+		<li><a role="button" data-toggle="collapse"
+			href="#osha_collapse" onclick="javascript:submitForm('<%=application.getContextPath()%>/form_operation',{action:'list'},function(data){$('#osha_collapse').html(data)});">
+				Osha</a>
+			<ul id="osha_collapse"  class="collapse nav nav-sidebar-sub">
+				
+				<li><a role="button" href="#"
+					onclick="getForm('./department','list');"><i
+						class="icon-file-alt"></i><span class="hidden-tablet">
+							Departments</span></a></li>
+				<li><a role="button" href="#"
+					onclick="getForm('./employee','list');"><i
+						class="icon-file-alt"></i><span class="hidden-tablet">
+							Employee</span></a></li>
+							
+			</ul></li>
+			
+			
+		<li><a href="#">Hippa</a></li>
 	</ul>
 
 </div>
