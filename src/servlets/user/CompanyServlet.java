@@ -67,18 +67,14 @@ public class CompanyServlet extends HttpServlet {
 		String company_address = request.getParameter("company_address");
 		String company_phone = request.getParameter("company_phone");
 
-		Company company = new Company();
-		company.setUuid(request.getParameter("company_id"));
+		Company company = DAOFactoryImpl.getCompanyDAO().getCompanybyID(request.getParameter("company_id"));
 		company.setCompany_address(company_address);
 		company.setCompany_name(company_name);
 		company.setCompany_phone(company_phone);
+		DAOFactoryImpl.getCompanyDAO().save(company);
+//		DAOFactoryImpl.getUserDAO().save((User) request.getSession().getAttribute("user"));
 		try {
-			DAOFactoryImpl.getCompanyDAO().update(company);
-
 			response.getWriter().write("success!");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -100,9 +96,6 @@ public class CompanyServlet extends HttpServlet {
 			request.getRequestDispatcher("/company_edit.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 
@@ -116,18 +109,12 @@ public class CompanyServlet extends HttpServlet {
 		company.setCompany_name(company_name);
 		company.setCompany_phone(company_phone);
 		try {
-			String company_id = DAOFactoryImpl.getCompanyDAO().save(company);
+			DAOFactoryImpl.getCompanyDAO().save(company);
 
 			User user = (User) request.getSession().getAttribute("user");
-			user.setCompany_id(company_id);
-			DAOFactoryImpl.getUserDAO().update(user);
-			user = DAOFactoryImpl.getUserDAO().getUserbyID(user.getUuid());
-			request.getSession().setAttribute("user", user);
-
+			user.setCompany(company);
+			DAOFactoryImpl.getUserDAO().save(user);
 			response.getWriter().write("success!");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

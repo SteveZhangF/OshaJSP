@@ -63,16 +63,6 @@ public class DepartmentServlet extends HttpServlet {
 	}
 	
 	private void edit(HttpServletRequest request, HttpServletResponse response){
-		User user = (User) request.getSession().getAttribute("user");
-		String company_id = user.getCompany_id();
-		//if the user didn't create the company information
-		if(company_id== null || company_id.trim().equals("")){
-			try {
-				request.getRequestDispatcher("/company_edit.jsp").forward(request, response);
-			} catch (ServletException | IOException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 	
 	private void save(HttpServletRequest request, HttpServletResponse response){}

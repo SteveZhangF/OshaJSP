@@ -10,23 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import database.dao.factory.DAOFactoryImpl;
-import model.TopicElement;
 
 public class TemplatePool {
 
-	public static void main(String[] args) {
-		List<TopicElement> list;
-
-		try {
-			list = DAOFactoryImpl.getTopicElementDAO().findAll();
-			for (TopicElement te : list) {
-				System.out.println(te.toHtml());
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	private HashMap<String, String> templatePool = new HashMap<String, String>();
 

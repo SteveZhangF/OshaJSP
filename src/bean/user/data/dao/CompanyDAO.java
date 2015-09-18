@@ -5,15 +5,13 @@ import java.sql.SQLException;
 import bean.user.data.Company;
 
 public interface CompanyDAO {
-	public Company getCompanybyUserID(String userid) throws SQLException;
+	public Company getCompanybyUserID(String userid);
 	
-	public String save(Company p) throws SQLException;
+	public void save(Company p) ;
 
-	public Company getCompanybyID(String uuid) throws SQLException;
+	public Company getCompanybyID(String uuid) ;
 
-	public void update(Company p) throws SQLException;
-
-	public void delete(String id) throws SQLException;
+	public void delete(String id) ;
 
 }
 

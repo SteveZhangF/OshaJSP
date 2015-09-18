@@ -1,7 +1,26 @@
 package bean.user.data;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+
+@Entity
+@Table(name="employee")
 public class Employee {
-	private int uuid;
+	
+	@Id
+	@GeneratedValue(generator = "idGenerator")
+	@GenericGenerator(name = "idGenerator", strategy = "uuid")
+	@Column(name = "id", nullable = false)
+	private String uuid;
 	private String employeename;
 	private String sex;
 	private String brithday;
@@ -10,13 +29,18 @@ public class Employee {
 	private String email;
 	private String ssn;
 	private String phone;
-	private String department_id;
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY) 
+	@JoinColumn(name = "department_id") 
+	private Department department;
+	
 
-	public int getUuid() {
+	public String getUuid() {
 		return uuid;
 	}
 
-	public void setUuid(int uuid) {
+	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
 
@@ -84,11 +108,12 @@ public class Employee {
 		this.phone = phone;
 	}
 
-	public String getDepartment_id() {
-		return department_id;
+	public Department getDepartment() {
+		return department;
 	}
 
-	public void setDepartment_id(String department_id) {
-		this.department_id = department_id;
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
+
 }

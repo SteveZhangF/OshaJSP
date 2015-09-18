@@ -79,8 +79,6 @@ public class UserServlet extends HttpServlet {
 			}
 			response.getWriter().write("" + check);
 
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,8 +104,6 @@ public class UserServlet extends HttpServlet {
 		try {
 			DAOFactoryImpl.getUserDAO().save(user);
 			response.getWriter().write("0");
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

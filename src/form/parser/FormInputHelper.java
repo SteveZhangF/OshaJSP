@@ -1,23 +1,11 @@
 package form.parser;
 
-import java.io.IOException;
-import java.io.StringReader;
 import java.util.List;
-
-import org.jdom2.Attribute;
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
-import org.jdom2.output.XMLOutputter;
-
-import database.dao.factory.DAOFactoryImpl;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+import bean.dao.BaseDao;
 import form.bean.Form;
 import form.bean.FormComponent;
-import form.bean.dao.FormComponentDAO;
-import form.bean.dao.FormDAO;
-import form.bean.dao.impl.FormComponentDAOImpl;
-import form.bean.dao.impl.FormDAOImpl;
 
 /**
  * 
@@ -35,8 +23,31 @@ public class FormInputHelper {
 
 
 	public void save(String formDataXML) {
-		Form form = new Form(formDataXML);
-		form.save();
+
+		org.jsoup.nodes.Document doc = Jsoup.parse(formDataXML);
+		org.jsoup.nodes.Element form_element = doc.select("form").first();// find
+																			// form
+		String form_name = form_element.attr("name");
+		Form form = new Form();
+		form.setName(form_name);
+		form.setTemplate_xml(formDataXML);
+
+		List<org.jsoup.nodes.Element> componentList = form_element.select("component");
+
+		for (int i = 0; i < componentList.size(); i++) {
+			Element component_element = (Element) componentList.get(i);
+			String component_name = component_element.attr("name");
+			String component_type = component_element.attr("type");
+//			String component_id = component_element.attr("id");
+			FormComponent fc = new FormComponent();
+			fc.setComponent_name(component_name);
+			fc.setComponent_type(component_type);
+			fc.setForm(form);
+			fc.setComponent_content(component_element.html());
+			form.add(fc);
+		}
+		new BaseDao<Form>() {
+		}.saveObject(form);
 	}
 
 }

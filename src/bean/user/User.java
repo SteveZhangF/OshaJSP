@@ -1,16 +1,42 @@
 package bean.user;
 
+import javax.persistence.*;
+
+import org.hibernate.annotations.GenericGenerator;
+
+import bean.user.data.Company;
+
+@Entity
+@Table(name = "tbl_user")
 public class User {
+	@Id
+	@GeneratedValue(generator = "idGenerator")
+	@GenericGenerator(name = "idGenerator", strategy = "uuid")
+	@Column(name = "id",nullable=false)
 	private String uuid;
+	
+	@Column(nullable=false)
 	private String user_email;
+	@Column(name = "user_password_digest")
 	private String user_password_digiest;
+	@Column(name = "remember_digest")
 	private String remember_digest;
+	@Column(name = "activation_digest")
 	private String activation_digest;
+	@Column(name = "activated")
 	private int activated;
+	@Column(name = "activated_at")
 	private long activated_at;
-	private long updated_at;
-	private long create_at;
-	private String company_id;
+	
+	private java.util.Date updated_at ;
+	
+	private java.util.Date create_at;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	private Company company;
+	
+	
+//	private String company_id;
 
 	public String getUuid() {
 		return uuid;
@@ -68,28 +94,47 @@ public class User {
 		this.activated_at = activated_at;
 	}
 
-	public long getUpdated_at() {
+	public java.util.Date getUpdated_at() {
 		return updated_at;
 	}
 
-	public void setUpdated_at(long updated_at) {
+	public void setUpdated_at(java.util.Date updated_at) {
 		this.updated_at = updated_at;
 	}
+//
+//	public String getCompany_id() {
+//		return company_id;
+//	}
+//
+//	public void setCompany_id(String company_id) {
+//		this.company_id = company_id;
+//	}
 
-	public String getCompany_id() {
-		return company_id;
-	}
-
-	public void setCompany_id(String company_id) {
-		this.company_id = company_id;
-	}
-
-	public long getCreate_at() {
+	public java.util.Date getCreate_at() {
 		return create_at;
 	}
 
-	public void setCreate_at(long create_at) {
+	public void setCreate_at(java.util.Date create_at) {
 		this.create_at = create_at;
+	}
+	 /**
+     * @OneToOne：一对一关联
+      * cascade：级联,它可以有有五个值可选,分别是：
+      * CascadeType.PERSIST：级联新建
+      * CascadeType.REMOVE : 级联删除
+      * CascadeType.REFRESH：级联刷新
+      * CascadeType.MERGE  ： 级联更新
+      * CascadeType.ALL    ： 以上全部四项
+      * @JoinColumn:主表外键字段
+      * cid：Person所映射的表中的一个字段
+      */
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 }

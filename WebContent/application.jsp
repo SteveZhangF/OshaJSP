@@ -1,4 +1,4 @@
-
+<jsp:useBean id="user" scope="session" class="bean.user.User" />
 <!-- start: Content -->
 <!DOCTYPE html>
 <html lang="en">
@@ -9,14 +9,15 @@
 
 	<div class="container-fluid">
 		<div class="row">
+		<%if(user.getUser_email()!=null){ %>
 			<jsp:include page="/layout/_left_menu.jsp" />
-
+		<%} %>
 			<div class="main col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ">
 
 				<ul class="breadcrumb">
-					<li><i class="icon-home"></i> <a href="index.html">Home</a> <i
+					<li><i class="icon-home"></i> <a href="application.jsp">Home</a> <i
 						class="icon-angle-right"></i></li>
-					<li><i class="icon-edit"></i> <a href="#">Forms</a></li>
+					<li><i class="icon-edit"></i> <a href="#">XXX</a></li>
 				</ul>
 
 				<!--start  topic container -->

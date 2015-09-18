@@ -1,93 +1,53 @@
 package form.bean;
 
-import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Element;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-import database.dao.factory.DAOFactoryImpl;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import engine.htmlengine.TemplatePool;
-import form.bean.dao.FormDAO;
 
+@Entity
+@Table(name = "tbl_form")
 public class Form {
+
+	@Id
+	@GeneratedValue(generator = "idGenerator")
+	@GenericGenerator(name = "idGenerator", strategy = "uuid")
+	@Column(name = "id", nullable = false)
 	private String uuid;
 	private String name;
 	private String template_xml;
 	private int industry_id;// 属于哪个行业（占位）
 
+	@OneToMany(mappedBy = "form",cascade=CascadeType.ALL) // --->
+	// OneToMany指定了一对多的关系，mappedBy="room"指定了由多的那一方来维护关联关系，mappedBy指的是多的一方对1的这一方的依赖的属性，(注意：如果没有指定由谁来维护关联关系，则系统会给我们创建一张中间表)
+	@LazyCollection(LazyCollectionOption.EXTRA) // --->
+	// LazyCollection属性设置成EXTRA指定了当如果查询数据的个数时候，只会发出一条
+	// count(*)的语句，提高性能
 	private List<FormComponent> children = new ArrayList<>();
 
 	public Form() {
 	}
 
 	public Form(String formDataXML) {
-		
-		org.jsoup.nodes.Document doc = Jsoup.parse(formDataXML);
-		org.jsoup.nodes.Element form_element = doc.select("form").first();// find
-																			// form
-		String form_name = form_element.attr("name");
-		String form_id = form_element.attr("id");
-		
-		this.setUuid(form_id);
-		this.setName(form_name);
-		this.setTemplate_xml(formDataXML);
 
-		List<org.jsoup.nodes.Element> componentList = form_element.select("component");
-		
-		for (int i = 0; i < componentList.size(); i++) {
-			Element component_element = (Element) componentList.get(i);
-			String component_name = component_element.attr("name");
-			String component_type = component_element.attr("type");
-			String component_id = component_element.attr("id");
-			FormComponent fc = new FormComponent();
-			fc.setComponent_name(component_name);
-			fc.setComponent_type(component_type);
-			fc.setForm_id(form_id);
-			fc.setUuid(component_id);
-			fc.setComponent_content(component_element.html());
-			children.add(fc);
-		}
 
-//		SAXBuilder builder = new SAXBuilder();
-//		try {
-//			Document document = builder.build(new StringReader(formDataXML));
-//			Element form_element = document.getRootElement();
-//			String form_name = form_element.getAttributeValue("name");
-//			String form_id = form_element.getAttributeValue("id");
-//
-//			this.setUuid(form_id);
-//			this.setName(form_name);
-//			this.setTemplate_xml(formDataXML);
-//
-//			List<Element> componentList = form_element.getChildren("component");
-//
-//			for (int i = 0; i < componentList.size(); i++) {
-//				Element component_element = (Element) componentList.get(i);
-//				String component_name = component_element.getAttribute("name").getValue();
-//				String component_type = component_element.getAttribute("type").getValue();
-//				String component_id = component_element.getAttributeValue("id");
-//
-//				XMLOutputter out = new XMLOutputter();
-//				String component_content = out.outputString(component_element.getChildren());
-//
-//				FormComponent fc = new FormComponent();
-//				fc.setComponent_name(component_name);
-//				fc.setComponent_type(component_type);
-//				fc.setForm_id(form_id);
-//				fc.setUuid(component_id);
-//				fc.setComponent_content(component_content);
-//
-//				children.add(fc);
-//			}
-//		} catch (JDOMException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-
+	}
+	
+	public void add(FormComponent fc){
+		this.children.add(fc);
+		fc.setForm(this);
 	}
 
 	public String toHtml() {
@@ -103,21 +63,6 @@ public class Form {
 		return result;
 	}
 
-	public void save() {
-		FormDAO dao = DAOFactoryImpl.getFormDAO();
-		// new form
-		if (uuid == null || uuid.trim().equals("") || dao.findFormbyID(uuid) == null) {
-			dao.save(this);
-		} else {
-			// update old form
-			dao.update(this);
-		}
-		// save children
-		for (FormComponent fc : children) {
-			fc.setForm_id(uuid);
-			fc.save();
-		}
-	}
 
 	public String getUuid() {
 		return uuid;
