@@ -1,6 +1,7 @@
 package bean.dao;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -9,7 +10,7 @@ import org.hibernate.Transaction;
 
 import database.HibernateSessionFactory;
 
-public abstract class BaseDao<T> {
+public class BaseDao<T> {
 
 	private static Log log = LogFactory.getLog(BaseDao.class);
 
@@ -26,11 +27,15 @@ public abstract class BaseDao<T> {
 	public T getObject(Class clazz, Serializable id) {
 		Session session = getSession();
 		T obj = (T) session.get(clazz, id);
-//		session.close();
+		// session.close();
 		return obj;
 	}
 
-	
+	public List<T> getAll(Class clzz) {
+		Session sess = getSession();
+		return sess.createCriteria(clzz).list();
+	}
+
 	/**
 	 * 保存对象
 	 */
@@ -44,12 +49,12 @@ public abstract class BaseDao<T> {
 			tx.rollback();
 			e.printStackTrace();
 			log.error("保存对象失败");
-		}finally {
+		} finally {
 			session.close();
 		}
 	}
-	
-	public void deleteObject(T t){
+
+	public void deleteObject(T t) {
 		Session session = getSession();
 		Transaction tx = beginTransaction(session);
 		try {
@@ -59,10 +64,11 @@ public abstract class BaseDao<T> {
 			tx.rollback();
 			e.printStackTrace();
 			log.error("保存对象失败");
-		}finally {
+		} finally {
 			session.close();
 		}
 	}
+
 	/**
 	 * 创建事务
 	 */

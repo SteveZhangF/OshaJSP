@@ -1,24 +1,9 @@
 function getUUID() {
-	var id="";
-	$.ajax({
-		cache : true,
-		type : "POST",
-		url : "../form_operation",
-		data : {
-			action : "getUUID"
-		},
-		async : false,
-		error : function(request) {
-			id=null;
-		},
-		success : function(data) {
-			id=data;
-		}
-	});
+	var id="0";
 	return id;
 }
 
-function parseForm(form) {
+function parseForm() {
 	// alert($("#source").val());
 	LPB.genSource();
 	var $form = $("<div>").html($("#source").val());
@@ -52,13 +37,7 @@ function parseForm(form) {
 		}
 	});
 	var content = $formXML.prop("outerHTML");// prop.("outerHTML") 可以输出包括自己在内的html内容
-	submitForm("../form_operation", {
-		"formDATA" : content,
-		"action" : "save"
-	}, function() {
-		alert("success");
-	});
-	return $formXML;
+	return content;
 }
 
 function parseText($e) {

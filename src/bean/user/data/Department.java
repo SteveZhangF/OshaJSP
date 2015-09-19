@@ -22,7 +22,7 @@ import bean.dao.BaseDao;
 
 @Entity
 @Table(name = "department")
-public class Department {
+public class Department  extends OrganizationElement{
 
 	public static void main(String[] ad) {
 		Department d = new Department();

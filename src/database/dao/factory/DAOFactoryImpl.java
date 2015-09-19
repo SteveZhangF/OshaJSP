@@ -1,17 +1,19 @@
 package database.dao.factory;
 
-import bean.user.dao.UserDAO;
-import bean.user.dao.impl.UserHBDAOImpl;
-import bean.user.data.dao.CompanyDAO;
-import bean.user.data.dao.DepartmentDAO;
-import bean.user.data.dao.EmployeeDAO;
-import bean.user.data.dao.impl.CompanyHBDAOImpl;
-import bean.user.data.dao.impl.DepartmentHBDAOImpl;
-import bean.user.data.dao.impl.EmployeeHBDAOImpl;
-import form.bean.dao.FormComponentDAO;
-import form.bean.dao.FormDAO;
-import form.bean.dao.impl.FormComponentDAOImpl;
-import form.bean.dao.impl.FormDAOImpl;
+import dao.form.FormComponentDAO;
+import dao.form.FormDAO;
+import dao.form.impl.FormComponentHBDAOImpl;
+import dao.form.impl.FormHbDaoImpl;
+import dao.form.module.ModuleDAO;
+import dao.form.module.impl.ModuleHBDAOImpl;
+import dao.user.UserDAO;
+import dao.user.data.CompanyDAO;
+import dao.user.data.DepartmentDAO;
+import dao.user.data.EmployeeDAO;
+import dao.user.data.impl.CompanyHBDAOImpl;
+import dao.user.data.impl.DepartmentHBDAOImpl;
+import dao.user.data.impl.EmployeeHBDAOImpl;
+import dao.user.impl.UserHBDAOImpl;
 
 public class DAOFactoryImpl {
 
@@ -33,10 +35,14 @@ public class DAOFactoryImpl {
 	}
 	
 	public static FormDAO getFormDAO(){
-		return new FormDAOImpl();
+		return new FormHbDaoImpl();
 	}
 	
 	public static FormComponentDAO getFormComponentDAO(){
-		return new FormComponentDAOImpl();
+		return new FormComponentHBDAOImpl();
+	}
+	
+	public static ModuleDAO getModuleDAO(){
+		return new ModuleHBDAOImpl();
 	}
 }

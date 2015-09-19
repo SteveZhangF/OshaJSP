@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.omg.CORBA.PRIVATE_MEMBER;
 
 import bean.user.User;
-import bean.user.dao.UserDAO;
+import dao.user.UserDAO;
 import database.dao.factory.DAOFactoryImpl;
 import global.MD5;
 
@@ -59,6 +59,8 @@ public class UserServlet extends HttpServlet {
 			break;
 		case "logout":
 			logout(request, response);
+			break;
+		case "list":
 			break;
 		default:
 

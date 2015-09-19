@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="employee")
-public class Employee {
+public class Employee extends OrganizationElement{
 	
 	@Id
 	@GeneratedValue(generator = "idGenerator")

@@ -4,8 +4,11 @@ import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import bean.dao.BaseDao;
-import form.bean.Form;
-import form.bean.FormComponent;
+import bean.form.CompanyForm;
+import bean.form.DepartmentForm;
+import bean.form.EmployeeForm;
+import bean.form.Form;
+import bean.form.component.FormComponent;
 
 /**
  * 
@@ -21,16 +24,30 @@ import form.bean.FormComponent;
 
 public class FormInputHelper {
 
-
-	public void save(String formDataXML) {
+	public Form createForm(String formDataXML, String formType) {
 
 		org.jsoup.nodes.Document doc = Jsoup.parse(formDataXML);
 		org.jsoup.nodes.Element form_element = doc.select("form").first();// find
 																			// form
 		String form_name = form_element.attr("name");
-		Form form = new Form();
+
+		Form form = null;
+
+		switch (formType) {
+		case "CompanyForm":
+			form = new CompanyForm();
+			break;
+		case "DepartmentForm":
+			form = new DepartmentForm();
+			break;
+		case "EmployeeForm":
+			form = new EmployeeForm();
+			break;
+		default:
+			break;
+		}
+
 		form.setName(form_name);
-		form.setTemplate_xml(formDataXML);
 
 		List<org.jsoup.nodes.Element> componentList = form_element.select("component");
 
@@ -38,7 +55,6 @@ public class FormInputHelper {
 			Element component_element = (Element) componentList.get(i);
 			String component_name = component_element.attr("name");
 			String component_type = component_element.attr("type");
-//			String component_id = component_element.attr("id");
 			FormComponent fc = new FormComponent();
 			fc.setComponent_name(component_name);
 			fc.setComponent_type(component_type);
@@ -46,8 +62,7 @@ public class FormInputHelper {
 			fc.setComponent_content(component_element.html());
 			form.add(fc);
 		}
-		new BaseDao<Form>() {
-		}.saveObject(form);
+		return form;
 	}
 
 }

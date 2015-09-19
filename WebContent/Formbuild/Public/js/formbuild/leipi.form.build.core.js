@@ -131,7 +131,6 @@ $(document)
 													}
 
 													$("body").append($temp);
-
 													$temp
 															.css(
 																	{
@@ -153,9 +152,9 @@ $(document)
 															.width() / 2);
 													var $target = $("#target");
 													var tar_pos = $target
-															.position();
+															.offset();
 													var $target_component = $("#target .component");
-
+													
 													$(document)
 															.delegate(
 																	"body",
@@ -206,7 +205,7 @@ $(document)
 																									e) {
 																								return ($(
 																										e)
-																										.position().top
+																										.offset().top
 																										- mm_mouseY
 																										+ half_box_height > 0 && $(
 																										e)
@@ -257,7 +256,7 @@ $(document)
 																		var mu_mouseX = mu.pageX;
 																		var mu_mouseY = mu.pageY;
 																		var tar_pos = $target
-																				.position();
+																				.offset();
 
 																		$(
 																				"#target .component")
@@ -376,10 +375,10 @@ $(document)
 														active_component,
 														leipiplugins);
 											} catch (e) {
-												alert('控件异常，请到 [雷劈网] 反馈或寻求帮助！');
+												alert('exception');
 											}
 										} else {
-											alert("控件有误或不存在，请与我们联系！");
+											alert("no such component");
 										}
 
 									});
