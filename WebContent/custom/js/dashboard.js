@@ -220,10 +220,7 @@ function showUserTable() {
 
 	$("#jqGrid").jqGrid({
 		url : './user_admin?action=userJSON',
-		// we set the changes to be made at
-		// client side using predefined word
-		// clientArray
-		editurl : './form_operation?action=editModule',
+		editurl : './user_admin?action=editUser',
 		datatype : "json",
 		colModel : [ {
 			label : 'User ID',
@@ -242,7 +239,7 @@ function showUserTable() {
 		}, {
 			label : "Company Name",
 			name : "company_name"
-		},{label:"Owned Module",name:"modules"} ],
+		} ],
 		sortname : 'name',
 		sortorder : 'asc',
 		loadonce : true,

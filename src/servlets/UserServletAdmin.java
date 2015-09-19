@@ -21,27 +21,31 @@ import net.sf.json.JSONObject;
 @WebServlet("/user_admin")
 public class UserServletAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserServletAdmin() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public UserServletAdmin() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String action = request.getParameter("action");
 		switch (action) {
@@ -55,22 +59,30 @@ public class UserServletAdmin extends HttpServlet {
 			break;
 		}
 	}
-	private void userJSON(HttpServletRequest request,HttpServletResponse response){
+
+	private void userJSON(HttpServletRequest request, HttpServletResponse response) {
 		List<User> list = DAOFactoryImpl.getUserDAO().list();
 		JSONArray ja = new JSONArray();
-		for(User user:list){
+		for (User user : list) {
 			JSONObject jso = new JSONObject();
 			jso.put("id", user.getUuid());
-			jso.put("email",user.getUser_email());
-			jso.put("company_name", user.getCompany().getUuid());
-			for(Module mod:user.getCompany().getModules()){
-				
+			jso.put("email", user.getUser_email());
+			if (user.getCompany() != null) {
+				jso.put("company_name", user.getCompany().getCompany_name());
 			}
+			ja.add(jso);
+		}
+		try {
+			response.getWriter().write(ja.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
-	private void showlist(HttpServletRequest request,HttpServletResponse response){
+
+	private void showlist(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			request.getRequestDispatcher("").forward(request, response);
+			request.getRequestDispatcher("dashboardlayout/usertable.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
