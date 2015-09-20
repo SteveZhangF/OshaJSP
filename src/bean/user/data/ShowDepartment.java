@@ -24,6 +24,7 @@ public class ShowDepartment extends OrganizationElement {
 		sb.append("</span>");
 		for (Department subd : department.getSubDepartment()) {
 			sb.append(this.show(subd));
+			System.out.println(this.show(subd));
 		}
 		for (Employee e : department.getEmployees()) {
 			sb.append(new ShowEmployee().show(e));
