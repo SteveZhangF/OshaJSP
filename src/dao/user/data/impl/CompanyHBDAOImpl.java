@@ -15,7 +15,7 @@ public class CompanyHBDAOImpl extends BaseDao<Company> implements CompanyDAO {
 	public Company getCompanybyUserID(String userid){
 		UserDAO userDAO = DAOFactoryImpl.getUserDAO();
 		User user = userDAO.getUserbyID(userid);
-		return user.getCompany();
+		return getCompanybyID(user.getCompany().getUuid());
 	}
 
 	@Override

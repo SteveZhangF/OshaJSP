@@ -1,5 +1,6 @@
 package bean.user.data;
 
+import java.awt.font.TextHitInfo;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,32 +19,31 @@ import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.junit.Test;
+
 import bean.dao.BaseDao;
 
 @Entity
 @Table(name = "department")
 public class Department  extends OrganizationElement{
 
-	public static void main(String[] ad) {
-		Department d = new Department();
-		d.setDepartment_name("parent");
-		Department c = new Department();
-		c.setDepartment_name("child");
-		d.addSubDepartment(c);
-		
+//	@Test
+//	public  void test() {
+//		Department d = new Department();
+//		d.setDepartment_name("parent");
+//		Department c = new Department();
+//		c.setDepartment_name("child");
+//		d.addSubDepartment(c);
+//		
+//		Department ddddd = new BaseDao<Department>() {
+//		}.getObject(Department.class, "402880914fdfe10b014fdfe10d2c0000");
+//		ddddd.getSubDepartment().clear();
+//		for(Department sub:ddddd.getSubDepartment()){
+//			sub.setParentDepartment(null);
+//		}
 //		new BaseDao<Department>() {
-//		}.saveObject(d);
-		
-		
-		Department ddddd = new BaseDao<Department>() {
-		}.getObject(Department.class, "402880914fdfe10b014fdfe10d2c0000");
-		ddddd.getSubDepartment().clear();
-		for(Department sub:ddddd.getSubDepartment()){
-			sub.setParentDepartment(null);
-		}
-		new BaseDao<Department>() {
-		}.deleteObject(ddddd);
-	}
+//		}.deleteObject(ddddd);
+//	}
 
 	@Id
 	@GeneratedValue(generator = "idGenerator")
@@ -76,10 +76,12 @@ public class Department  extends OrganizationElement{
 	public void addSubDepartment(Department child) {
 		this.subDepartment.add(child);
 		child.setParentDepartment(this);
+		child.setCompany(company);
 	}
 
 	public void addEmployee(Employee e) {
 		e.setDepartment(this);
+		e.setCompany(this.getCompany());
 		this.employees.add(e);
 	}
 
@@ -162,4 +164,11 @@ public class Department  extends OrganizationElement{
 	public void setParentDepartment(Department parentDepartment) {
 		this.parentDepartment = parentDepartment;
 	}
+
+	@Override
+	public String show(OrganizationElement oe) {
+		return "";
+	}
+	
+	
 }

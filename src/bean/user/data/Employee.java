@@ -30,6 +30,9 @@ public class Employee extends OrganizationElement{
 	private String ssn;
 	private String phone;
 	
+	@ManyToOne(fetch = FetchType.LAZY) 
+	@JoinColumn(name = "company_id") 
+	private Company company;
 	
 	@ManyToOne(fetch = FetchType.LAZY) 
 	@JoinColumn(name = "department_id") 
@@ -114,6 +117,20 @@ public class Employee extends OrganizationElement{
 
 	public void setDepartment(Department department) {
 		this.department = department;
+	}
+
+	@Override
+	public String show(OrganizationElement oe) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 }

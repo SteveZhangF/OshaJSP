@@ -87,6 +87,7 @@ public class CompanyServlet extends HttpServlet {
 		String user_id = user.getUuid();
 		try {
 			Company company = DAOFactoryImpl.getCompanyDAO().getCompanybyUserID(user_id);
+			System.out.println(company.getCompany_name());
 			if (company == null) {
 				request.setAttribute("action", "save");
 			} else {

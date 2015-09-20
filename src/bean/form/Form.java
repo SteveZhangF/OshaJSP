@@ -128,4 +128,12 @@ public class Form {
 		this.form_type = form_type;
 	}
 
+	public List<FormComponent> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<FormComponent> children) {
+		this.children = children;
+	}
+
 }

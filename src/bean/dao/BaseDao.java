@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import database.HibernateSessionFactory;
+import database.HibernateUtil;
 
 public class BaseDao<T> {
 
@@ -26,14 +27,16 @@ public class BaseDao<T> {
 	 */
 	public T getObject(Class clazz, Serializable id) {
 		Session session = getSession();
+		session.clear();
 		T obj = (T) session.get(clazz, id);
-		// session.close();
 		return obj;
 	}
 
 	public List<T> getAll(Class clzz) {
 		Session sess = getSession();
-		return sess.createCriteria(clzz).list();
+		sess.clear();
+		List<T> list =  sess.createCriteria(clzz).list();
+		return list;
 	}
 
 	/**
@@ -50,7 +53,8 @@ public class BaseDao<T> {
 			e.printStackTrace();
 			log.error("保存对象失败");
 		} finally {
-			session.close();
+			this.getSession().flush();
+			HibernateUtil.closeSession(session);
 		}
 	}
 
@@ -65,7 +69,7 @@ public class BaseDao<T> {
 			e.printStackTrace();
 			log.error("保存对象失败");
 		} finally {
-			session.close();
+			HibernateUtil.closeSession(session);
 		}
 	}
 

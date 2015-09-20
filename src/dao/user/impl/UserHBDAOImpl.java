@@ -44,6 +44,7 @@ public class UserHBDAOImpl extends BaseDao<User>implements UserDAO {
 		// TODO Auto-generated method stub
 		Session session = getSession();
 		List<User> list = session.createQuery(" from User where user_email='" + email + "'").list();
+//		session.close();
 		if (list.size() == 0)
 			return null;
 		return list.get(0);

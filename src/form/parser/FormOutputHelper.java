@@ -8,9 +8,6 @@ public class FormOutputHelper {
 	public String getFormHtml(String formid) {
 		FormDAO fdao = DAOFactoryImpl.getFormDAO();
 		Form form = fdao.findFormbyID(formid);
-		
-		
-		
 		return form.toHtml();
 	}
 }

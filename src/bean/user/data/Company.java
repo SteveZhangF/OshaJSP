@@ -33,6 +33,9 @@ public class Company extends OrganizationElement {
 												// count(*)的语句，提高性能
 	private Set<Department> departments = new HashSet<Department>();
 
+	@OneToMany(mappedBy="company")
+	@LazyCollection(LazyCollectionOption.EXTRA)
+	private Set<Employee> employees = new HashSet<Employee>();
 	// 公司当前拥有模块
 	 
 	 
@@ -98,6 +101,23 @@ public class Company extends OrganizationElement {
 
 	public void setModules(List<Module> modules) {
 		this.modules = modules;
+	}
+
+
+	@Override
+	public String show(OrganizationElement oe) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Set<Employee> getEmployees() {
+		return employees;
+	}
+
+
+	public void setEmployees(Set<Employee> employees) {
+		this.employees = employees;
 	}
 
 }

@@ -42,23 +42,24 @@
 
 		<!-- Drop and re-create the database schema on startup -->
 		<property name="hbm2ddl.auto">update</property>
-
+		<property name="hibernate.connection.isolation">2</property>
+		
 		<mapping class="bean.user.User" />
 		<mapping class="bean.user.data.Company" />
 		<mapping class="bean.user.data.Department" />
 		<mapping class="bean.user.data.Employee" />
-		<mapping class="bean.form.Form"/>
-		<mapping class="bean.form.CompanyForm"/>
-		<mapping class="bean.form.DepartmentForm"/>
-		<mapping class="bean.form.EmployeeForm"/>
-		<mapping class="bean.form.component.FormComponent"/> 
-		<mapping class="bean.form.module.Module"/>
-		<mapping class="bean.form.record.FormRecord"/>
-		<mapping class="bean.form.record.CompanyRecord"/>
-		<mapping class="bean.form.record.DepartmentRecord"/>
-		<mapping class="bean.form.record.EmployeeRecord"/>
-		<mapping class="bean.form.record.component.FormRecordComponent"/>
-		
+		<mapping class="bean.form.Form" />
+		<mapping class="bean.form.CompanyForm" />
+		<mapping class="bean.form.DepartmentForm" />
+		<mapping class="bean.form.EmployeeForm" />
+		<mapping class="bean.form.component.FormComponent" />
+		<mapping class="bean.form.module.Module" />
+		<mapping class="bean.form.record.FormRecord" />
+		<mapping class="bean.form.record.CompanyRecord" />
+		<mapping class="bean.form.record.DepartmentRecord" />
+		<mapping class="bean.form.record.EmployeeRecord" />
+		<mapping class="bean.form.record.component.FormRecordComponent" />
+
 
 	</session-factory>
 
