@@ -30,7 +30,7 @@ public class TemplatePool {
 		if (result == null) {
 			result = "";
 			String path = "/../../resource/template/" + key.split(":")[0] + "/" + key.split(":")[1] + ".html";
-			System.out.println(path);
+//			System.out.println(path);
 			
 			InputStream is = TemplatePool.class.getResourceAsStream(path);
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));

@@ -6,6 +6,10 @@ import dao.form.impl.FormComponentHBDAOImpl;
 import dao.form.impl.FormHbDaoImpl;
 import dao.form.module.ModuleDAO;
 import dao.form.module.impl.ModuleHBDAOImpl;
+import dao.form.record.RecordComponentDAO;
+import dao.form.record.RecordDAO;
+import dao.form.record.impl.FormRecordComponentHBDAOImpl;
+import dao.form.record.impl.FormRecordHBDAOImpl;
 import dao.user.UserDAO;
 import dao.user.data.CompanyDAO;
 import dao.user.data.DepartmentDAO;
@@ -44,5 +48,13 @@ public class DAOFactoryImpl {
 	
 	public static ModuleDAO getModuleDAO(){
 		return new ModuleHBDAOImpl();
+	}
+	
+	public static RecordDAO getFormRecordDAO(){
+		return new FormRecordHBDAOImpl();
+	} 
+	
+	public static RecordComponentDAO getFormRecordComponentDAO(){
+		return new FormRecordComponentHBDAOImpl();
 	}
 }

@@ -28,39 +28,6 @@ import database.dao.factory.DAOFactoryImpl;
 @WebServlet("/userform")
 public class UserFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	
-	
-	@Test
-	public void test(){
-		Employee employee=  DAOFactoryImpl.getEmployeeDAO().getEmployeebyID("402880914fe96e2f014fe96fb4190002");
-//		EmployeeRecord fr = new EmployeeRecord();
-//		fr.setEmployee(employee);
-//		Form form = DAOFactoryImpl.getFormDAO().findFormbyID("402880914fe473aa014fe479602a0000");
-//		FormRecordComponent frc = new FormRecordComponent();
-//		frc.setfComponent(form.getChildren().get(0));
-//		frc.setValue("asd");
-//		fr.add(frc);
-//		fr.setForm(form);
-//		BaseDao bd = new BaseDao(){};
-//		bd.saveObject(fr);
-		
-		
-		List<FormRecord> records = employee.getRecords();
-		System.out.println(records.size());
-		for(FormRecord frddd:records){
-			if(frddd.getForm().getUuid().equals("402880914fe473aa014fe479602a0000")){
-				for(FormRecordComponent frcwww:frddd.getFrcList()){
-					System.out.println(frcwww.getValue());
-				}
-			}
-		}
-		
-		
-	}
-	
-	
-	
 	
     /**
      * @see HttpServlet#HttpServlet()

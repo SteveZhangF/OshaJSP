@@ -1,6 +1,5 @@
 package bean.user.data;
 
-import java.nio.channels.ShutdownChannelGroupException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +14,7 @@ public abstract class OrganizationElement {
 	}
 	
 	public List<FormRecord> getRecords() {
+		
 		return records;
 	}
 
