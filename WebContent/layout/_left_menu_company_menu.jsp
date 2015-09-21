@@ -18,7 +18,7 @@
 <div class="tree">
 	<ul class="companyul">
 		<li><span class="tree-node company " data-toggle="context">
-				<i class="glyphicon glyphicon-home"></i> <%=company.getName()%></span>
+				<i class="glyphicon glyphicon-home"></i> <%=company.getName()%></span> 
 			<%
 				if (company != null) {
 					Set<OrganizationElement> departements = company.getDepartments();

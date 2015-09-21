@@ -59,7 +59,7 @@
 					<label class="col-xs-3 control-label">Phone number</label>
 					<div class="col-xs-5">
 						<input type="text" class="form-control" name="phoneNumber"
-							value="<%=employee.getPhone()%>" />
+							value="<%=employee.getPhone()%>" /> 
 					</div>
 				</div>
 
