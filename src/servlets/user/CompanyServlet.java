@@ -71,11 +71,8 @@ public class CompanyServlet extends HttpServlet {
 		String user_id = user.getUuid();
 		try {
 			Company company = DAOFactoryImpl.getCompanyDAO().getCompanybyUserID(user_id);
-			System.out.println(company.getCompany_name());
-			if (company == null) {
-			} else {
-				request.setAttribute("company", company);
-			}
+			request.setAttribute("company", company);
+			System.out.println(company);
 			request.getRequestDispatcher("/layout/_left_menu_company_menu.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
@@ -88,9 +85,9 @@ public class CompanyServlet extends HttpServlet {
 		String company_phone = request.getParameter("company_phone");
 
 		Company company = DAOFactoryImpl.getCompanyDAO().getCompanybyID(request.getParameter("company_id"));
-		company.setCompany_address(company_address);
-		company.setCompany_name(company_name);
-		company.setCompany_phone(company_phone);
+		company.setAddress(company_address);
+		company.setName(company_name);
+		company.setPhone(company_phone);
 		DAOFactoryImpl.getCompanyDAO().save(company);
 		// DAOFactoryImpl.getUserDAO().save((User)
 		// request.getSession().getAttribute("user"));
@@ -118,7 +115,7 @@ public class CompanyServlet extends HttpServlet {
 	private void save(HttpServletRequest request, HttpServletResponse response) {
 
 		String company_id = request.getParameter("company_id");
-		
+
 		Company company = DAOFactoryImpl.getCompanyDAO().getCompanybyID(company_id);
 		if (company == null) {
 			company = new Company();
@@ -130,11 +127,11 @@ public class CompanyServlet extends HttpServlet {
 		String company_address = request.getParameter("company_address");
 		String company_phone = request.getParameter("company_phone");
 
-		company.setCompany_address(company_address);
-		company.setCompany_name(company_name);
-		company.setCompany_phone(company_phone);
+		company.setAddress(company_address);
+		company.setName(company_name);
+		company.setPhone(company_phone);
 		DAOFactoryImpl.getCompanyDAO().save(company);
-		
+
 		try {
 			response.getWriter().write("success!");
 		} catch (IOException e) {

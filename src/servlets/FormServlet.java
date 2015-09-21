@@ -19,7 +19,7 @@ import form.parser.FormOutputHelper;
 import global.UUIDGenerator;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import servlets.form.helpers.recordgenerator.EmployeeRecordGenerator;
+import servlets.form.helpers.recordgenerator.RecordGenerator;
 
 /**
  * Servlet implementation class FormServlet
@@ -256,7 +256,7 @@ public class FormServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		switch (form.getForm_type()) {
 		case "Employee Form":
-			EmployeeRecordGenerator erg = new EmployeeRecordGenerator(DAOFactoryImpl.getEmployeeDAO().getEmployeebyID(id));
+			RecordGenerator erg = new RecordGenerator(DAOFactoryImpl.getEmployeeDAO().getEmployeebyID(id));
 			
 			Map<String, String[]> paraMap = request.getParameterMap();
 			for (String key : paraMap.keySet()) {

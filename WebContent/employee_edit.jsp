@@ -10,12 +10,14 @@
 </style>
 <script type="text/javascript"
 	src="<%=application.getContextPath()%>/custom/js/formselector.js">
+	
 </script>
 <ul class="nav nav-tabs" role="tablist">
 	<li role="presentation" class="active"><a
 		href="#basic_information" aria-controls="basic_information" role="tab"
 		data-toggle="tab">Basic Information</a></li>
-	<li role="presentation"><a href="#forms" data-toggle="tab" onclick="showEmployeeFormSelector('<%=employee.getUuid()%>')">Forms</a></li>
+	<li role="presentation"><a href="#forms" data-toggle="tab"
+		onclick="showEmployeeFormSelector('<%=employee.getUuid()%>')">Forms</a></li>
 </ul>
 <div class="tab-content">
 
@@ -40,7 +42,7 @@
 					<div class="col-xs-4">
 						<input type="text" class="form-control" name="firstName"
 							placeholder="First name"
-							value="<%String fullname = employee.getEmployeename();
+							value="<%String fullname = employee.getName();
 			if (fullname != null && fullname.contains(":")) {
 				out.println(fullname.split(":")[0]);
 			}%>" />
@@ -71,15 +73,27 @@
 
 			</fieldset>
 		</form>
-		
+		<div id="form_submit_button_group" class="center">
+			<button id="bt_submit" onclick="subOrganazation();"
+				class="btn btn-primary center">Save</button>
+			<button id="bt_cancel" onclick="" class="btn btn-primary">Cancel</button>
+		</div>
+
 	</div>
 	<!-- show the employee basic information end-->
 
 	<!-- show the forms start -->
 	<div role="tabpanel" class="tab-pane fade form_tab" id="forms">
-		<div class="form_selector" id="employee_form_selector">
-		</div>
+		<div class="form_selector" id="employee_form_selector"></div>
 		<div id="form_container"></div>
+
+
+		<div id="form_submit_button_group" class="center">
+			<button id="bt_submit"
+				onclick="submitCustomizedForm('<%=employee.getUuid()%>');"
+				class="btn btn-primary">Save</button>
+			<button id="bt_cancel" onclick="" class="btn btn-primary">Cancel</button>
+		</div>
 	</div>
 	<!-- show the forms end -->
 </div>

@@ -33,18 +33,21 @@ public class EmployeeFormGenerator {
 	
 	@Test
 	public void test(){
-		System.out.println(EmployeeFormGenerator.getModule("402880914fe95e88014fe95ee4a30000"));
+		System.out.println(EmployeeFormGenerator.getModule("402880914ff1fff7014ff21078320002"));
 	}
 	
 	public static String getModule(String employee_id){
 		Employee employee = DAOFactoryImpl.getEmployeeDAO().getEmployeebyID(employee_id);
+		if(employee==null)
+			return "";
 		Company company = employee.getCompany();
 		
 		JSONArray modJSON = new JSONArray();
 		for (Module module : company.getModules()) {
-			
 			JSONArray jsonArray = new JSONArray();
 			for(Form form:module.getForms()){
+				System.out.println(form.getForm_type());
+				
 				if(form.getForm_type()!=null && form.getForm_type().equals("Employee Form")){
 					JSONObject jso = new JSONObject();
 					jso.put("id", form.getUuid());

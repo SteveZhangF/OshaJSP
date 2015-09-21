@@ -1,59 +1,25 @@
 package bean.user.data;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity
-@Table(name="employee")
 public class Employee extends OrganizationElement{
 	
-	@Id
-	@GeneratedValue(generator = "idGenerator")
-	@GenericGenerator(name = "idGenerator", strategy = "uuid")
-	@Column(name = "id", nullable = false)
-	private String uuid;
-	private String employeename;
 	private String sex;
 	private String brithday;
 	private String marriage;
-	private String address;
 	private String email;
 	private String ssn;
-	private String phone;
 	
-	@ManyToOne(fetch = FetchType.LAZY) 
-	@JoinColumn(name = "company_id") 
-	private Company company;
 	
 	@ManyToOne(fetch = FetchType.LAZY) 
 	@JoinColumn(name = "department_id") 
 	private Department department;
 	
-
-	public String getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
-
-	public String getEmployeename() {
-		return employeename;
-	}
-
-	public void setEmployeename(String employeename) {
-		this.employeename = employeename;
-	}
 
 	public String getSex() {
 		return sex;
@@ -79,13 +45,6 @@ public class Employee extends OrganizationElement{
 		this.marriage = marriage;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
 
 	public String getEmail() {
 		return email;
@@ -103,13 +62,6 @@ public class Employee extends OrganizationElement{
 		this.ssn = ssn;
 	}
 
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
 
 	public Department getDepartment() {
 		return department;
@@ -123,14 +75,6 @@ public class Employee extends OrganizationElement{
 	public String show(OrganizationElement oe) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	public Company getCompany() {
-		return company;
-	}
-
-	public void setCompany(Company company) {
-		this.company = company;
 	}
 
 }

@@ -68,7 +68,7 @@ public class UserServletAdmin extends HttpServlet {
 			jso.put("id", user.getUuid());
 			jso.put("email", user.getUser_email());
 			if (user.getCompany() != null) {
-				jso.put("company_name", user.getCompany().getCompany_name());
+				jso.put("company_name", user.getCompany().getName());
 			}
 			ja.add(jso);
 		}

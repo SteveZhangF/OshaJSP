@@ -3,10 +3,6 @@ function showEmployeeFormSelector(employeeid) {
 		action : "showEmployeeFormSelectJson",
 		employee_id : employeeid
 	});
-	
-	// 改变提交按钮
-	$("button#bt_submit").text(employeeid).removeAttr("onclick").off('click');
-	$("button#bt_submit").click(function(){submitCustomizedForm(employeeid);});
 }
 
 function submitCustomizedForm(id){

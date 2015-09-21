@@ -17,7 +17,7 @@
 				<input type="text" placeholder="Company name"
 					class="form-control input-xlarge" id="company_name"
 					name="company_name"
-					value='<jsp:getProperty property="company_name" name="company"/>'>
+					value='<jsp:getProperty property="name" name="company"/>'>
 				<p class="help-block">please type the company name</p>
 			</div>
 		</div>
@@ -29,7 +29,7 @@
 				<input type="text" placeholder="Address"
 					class="input-xlarge form-control" id="company_address"
 					name="company_address"
-					value='<jsp:getProperty property="company_address" name="company"/>'>
+					value='<jsp:getProperty property="address" name="company"/>'>
 				<p class="help-block">please type address</p>
 			</div>
 		</div>
@@ -44,7 +44,7 @@
 				<input type="text" placeholder="Phone Number"
 					class="form-control input-xlarge" id="company_phone"
 					name="company_phone"
-					value='<jsp:getProperty property="company_phone" name="company"/>'>
+					value='<jsp:getProperty property="phone" name="company"/>'>
 				<p class="help-block">please type the phone number</p>
 			</div>
 		</div>

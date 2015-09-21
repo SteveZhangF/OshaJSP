@@ -18,11 +18,7 @@
 				<div id="main_container">
 					<!--end  topic container -->
 				</div>
-				<div id="form_submit_button_group" class="center">
-					<button id="bt_submit" onclick="subOrganazation();"
-						class="btn btn-primary">Save</button>
-					<button id="bt_cancel" onclick="" class="btn btn-primary">Cancel</button>
-				</div>
+				
 				<nav>
 					<ul class="pager">
 						<li><a href="#">&larr; Previous</a></li>

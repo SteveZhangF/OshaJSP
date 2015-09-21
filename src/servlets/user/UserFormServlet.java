@@ -15,7 +15,6 @@ import org.junit.Test;
 import bean.dao.BaseDao;
 import bean.form.Form;
 import bean.form.module.Module;
-import bean.form.record.EmployeeRecord;
 import bean.form.record.FormRecord;
 import bean.form.record.component.FormRecordComponent;
 import bean.user.User;

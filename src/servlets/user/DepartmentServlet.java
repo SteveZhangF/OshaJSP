@@ -86,10 +86,14 @@ public class DepartmentServlet extends HttpServlet {
 				company.addDepartment(department);
 			}
 		}
-		department.setDepartment_name(depName);
-		department.setDepartment_address(depAddress);
-		department.setDepartment_telephone(depPhone);
+		department.setName(depName);
+		department.setAddress(depAddress);
+		department.setPhone(depPhone);
+		
+		Company company = ((User) request.getSession().getAttribute("user")).getCompany();
 		DAOFactoryImpl.getDepartmentDAO().save(department);
+		System.out.println(company.getDepartments().size());
+		
 		
 		try {
 			response.getWriter().write("success!");

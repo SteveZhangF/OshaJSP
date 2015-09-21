@@ -1,3 +1,4 @@
+<%@page import="bean.user.data.OrganizationElement"%>
 <%@page import="bean.user.data.ShowEmployee"%>
 <%@page import="bean.user.data.Employee"%>
 <%@page import="bean.user.data.ShowDepartment"%>
@@ -8,26 +9,38 @@
 <%-- <script type="text/ecmascript"
 	src="<%=application.getContextPath()%>/custom/js/menu_tree.js"></script> --%>
 
-<jsp:useBean id="company" scope="request" type="bean.user.data.Company"></jsp:useBean>
+<%Company company =(Company) request.getAttribute("company");
+	if(company == null){
+		company = new Company();
+	}
+%>
 
 <div class="tree">
 	<ul class="companyul">
 		<li><span class="tree-node company " data-toggle="context">
-				<i class="glyphicon glyphicon-home"></i> <%=company.getCompany_name()%></span>
+				<i class="glyphicon glyphicon-home"></i> <%=company.getName()%></span>
 			<%
 				if (company != null) {
-					Set<Department> departements = company.getDepartments();
+					Set<OrganizationElement> departements = company.getDepartments();
 					ShowDepartment sd = new ShowDepartment();
-					for (Department dep : departements) {
+					for (OrganizationElement oe : departements) {
+						if(!(oe instanceof Department)){
+							continue;
+						}
+							Department dep = (Department)oe;
 						if (dep.getParentDepartment() == null)
 							out.println(sd.show(dep));
 					}
 
-					Set<Employee> employees = company.getEmployees();
+					Set<OrganizationElement> employees = company.getEmployees();
 					ShowEmployee showEmployee = new ShowEmployee();
-					for (Employee dep : employees) {
-						if (dep.getDepartment() == null)
-							out.println(showEmployee.show(dep));
+					for (OrganizationElement dep : employees) {
+						if(!(dep instanceof Employee)){
+							continue;
+						}
+						Employee ee = (Employee)dep;
+						if (ee.getDepartment() == null)
+							out.println(showEmployee.show(ee));
 					}
 				}
 			%></li>

@@ -28,9 +28,6 @@ import bean.user.data.OrganizationElement;
 
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "FormRecordType", discriminatorType = DiscriminatorType.STRING, length = 30)
-@DiscriminatorValue("FormRecord")
 @Table(name = "tbl_FormRecord")
 public class FormRecord {
 	@Id
@@ -41,7 +38,11 @@ public class FormRecord {
 	@Column(name="Form_Record_type")
 	private FormRecordType formreocrd_type;
 	
-//	private OrganizationElement oe;
+	
+	
+	@ManyToOne
+	@JoinColumn(name="organization_id")
+	private OrganizationElement oe;
 	@ManyToOne
 	@JoinColumn(name = "form_id")
 	private Form form;
@@ -58,13 +59,13 @@ public class FormRecord {
 		frc.setFr(this);
 	}
 	
-//	public OrganizationElement getOe() {
-//		return oe;
-//	}
-//
-//	public void setOe(OrganizationElement oe) {
-//		this.oe = oe;
-//	}
+	public OrganizationElement getOe() {
+		return oe;
+	}
+
+	public void setOe(OrganizationElement oe) {
+		this.oe = oe;
+	}
 
 	public String getId() {
 		return id;

@@ -88,7 +88,7 @@ public class EmployeeServlet extends HttpServlet {
 		}
 		employee.setEmail(employee_email);
 		employee.setPhone(employee_phone);
-		employee.setEmployeename(employee_name);
+		employee.setName(employee_name);
 		DAOFactoryImpl.getEmployeeDAO().save(employee);
 
 		try {

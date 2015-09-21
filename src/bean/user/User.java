@@ -1,7 +1,17 @@
 package bean.user;
 
-import javax.persistence.*;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 
 import bean.user.data.Company;
@@ -32,7 +42,18 @@ public class User {
 	
 	private java.util.Date create_at;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	 /**
+     * @OneToOne：一对一关联
+      * cascade：级联,它可以有有五个值可选,分别是：
+      * CascadeType.PERSIST：级联新建
+      * CascadeType.REMOVE : 级联删除
+      * CascadeType.REFRESH：级联刷新
+      * CascadeType.MERGE  ： 级联更新
+      * CascadeType.ALL    ： 以上全部四项
+      * 
+      * cid：Person所映射的表中的一个字段
+      */
+	@OneToOne(fetch = FetchType.LAZY,mappedBy="user")
 	private Company company;
 	
 	
@@ -117,17 +138,6 @@ public class User {
 	public void setCreate_at(java.util.Date create_at) {
 		this.create_at = create_at;
 	}
-	 /**
-     * @OneToOne：一对一关联
-      * cascade：级联,它可以有有五个值可选,分别是：
-      * CascadeType.PERSIST：级联新建
-      * CascadeType.REMOVE : 级联删除
-      * CascadeType.REFRESH：级联刷新
-      * CascadeType.MERGE  ： 级联更新
-      * CascadeType.ALL    ： 以上全部四项
-      * @JoinColumn:主表外键字段
-      * cid：Person所映射的表中的一个字段
-      */
 
 	public Company getCompany() {
 		return company;
@@ -135,6 +145,7 @@ public class User {
 
 	public void setCompany(Company company) {
 		this.company = company;
+		company.setUser(this);
 	}
 
 }

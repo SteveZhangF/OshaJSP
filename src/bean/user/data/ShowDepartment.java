@@ -20,7 +20,7 @@ public class ShowDepartment extends OrganizationElement {
 		Department department = (Department) oe;
 		StringBuffer sb = new StringBuffer();
 		sb.append("<ul><li><span class=\"department\"><input type='hidden' name='department_id' value='"+department.getUuid()+"'><i class=\"glyphicon  glyphicon-plus-sign\"></i>");
-		sb.append(department.getDepartment_name());
+		sb.append(department.getName());
 		sb.append("</span>");
 		for (Department subd : department.getSubDepartment()) {
 			sb.append(this.show(subd));

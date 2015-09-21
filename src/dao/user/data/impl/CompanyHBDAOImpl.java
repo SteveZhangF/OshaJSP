@@ -1,7 +1,5 @@
 package dao.user.data.impl;
 
-import java.sql.SQLException;
-
 import bean.dao.BaseDao;
 import bean.user.User;
 import bean.user.data.Company;
@@ -15,6 +13,9 @@ public class CompanyHBDAOImpl extends BaseDao<Company> implements CompanyDAO {
 	public Company getCompanybyUserID(String userid){
 		UserDAO userDAO = DAOFactoryImpl.getUserDAO();
 		User user = userDAO.getUserbyID(userid);
+		if(user.getCompany()==null){
+			return null;
+		}
 		return getCompanybyID(user.getCompany().getUuid());
 	}
 

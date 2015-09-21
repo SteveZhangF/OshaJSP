@@ -8,9 +8,7 @@ import bean.form.record.FormRecord;
 
 public interface RecordDAO {
 	public FormRecord getRecordbyID(String id);
-	public List<FormRecord> getEmployeeRecords(String uuid);
-	public List<FormRecord> getCompanyRecords(String uuid);
-	public List<FormRecord> getDepartmentRecords(String uuid);
+	public List<FormRecord> getRecordsbyOE_ID(String uuid);
 	
 	public void save(FormRecord obj);
 	
