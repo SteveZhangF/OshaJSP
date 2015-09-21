@@ -38,6 +38,8 @@ public class FormRecord {
 	@GenericGenerator(name = "idGenerator", strategy = "uuid")
 	@Column(name = "id", nullable = false)
 	private String id;
+	@Column(name="Form_Record_type")
+	private FormRecordType formreocrd_type;
 	
 //	private OrganizationElement oe;
 	@ManyToOne
@@ -87,5 +89,19 @@ public class FormRecord {
 
 	public void setFrcList(List<FormRecordComponent> frc) {
 		this.frcList = frc;
+	}
+
+	public FormRecordType getFormreocrd_type() {
+		return formreocrd_type;
+	}
+
+	public void setFormreocrd_type(FormRecordType formreocrd_type) {
+		this.formreocrd_type = formreocrd_type;
+	}
+	
+	public enum FormRecordType{
+		CompanyRecord,
+		DepartmentRecord,
+		EmployeeRecord
 	}
 }

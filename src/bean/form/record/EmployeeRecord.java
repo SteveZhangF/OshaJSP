@@ -13,7 +13,11 @@ public class EmployeeRecord extends FormRecord {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_id")
 	private Employee employee;
-
+	
+	public EmployeeRecord(){
+		super.setFormreocrd_type(FormRecordType.EmployeeRecord);
+	}
+	
 	public Employee getEmployee() {
 		return employee;
 	}

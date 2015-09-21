@@ -12,9 +12,15 @@ import bean.user.data.Company;
 @DiscriminatorValue("CompanyFormRecord") 
 public class CompanyRecord extends FormRecord{
 	
+	
+	public CompanyRecord() {
+		super.setFormreocrd_type(FormRecordType.CompanyRecord);
+	}
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id")
 	private Company company;
+	
 
 	public Company getCompany() {
 		return company;

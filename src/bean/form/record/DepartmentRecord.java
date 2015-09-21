@@ -15,6 +15,10 @@ public class DepartmentRecord extends FormRecord {
 	@JoinColumn(name = "department_id")
 	private Department department;
 
+	public DepartmentRecord(){
+		super.setFormreocrd_type(FormRecordType.DepartmentRecord);
+	}
+	
 	public Department getDepartment() {
 		return department;
 	}

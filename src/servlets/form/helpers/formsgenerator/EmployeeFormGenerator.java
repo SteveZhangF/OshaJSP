@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import bean.form.Form;
 import bean.form.module.Module;
+import bean.form.record.FormRecord;
+import bean.form.record.FormRecord.FormRecordType;
 import bean.user.data.Company;
 import bean.user.data.Employee;
 import database.dao.factory.DAOFactoryImpl;
@@ -47,6 +49,15 @@ public class EmployeeFormGenerator {
 					JSONObject jso = new JSONObject();
 					jso.put("id", form.getUuid());
 					jso.put("name", form.getName());
+					
+					
+					for(FormRecord fr: form.getFormRecords()){
+						if(fr.getFormreocrd_type()==FormRecordType.EmployeeRecord){
+							
+						}
+					}
+					
+					
 					jsonArray.add(jso);
 				}
 			}
