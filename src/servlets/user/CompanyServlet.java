@@ -56,10 +56,30 @@ public class CompanyServlet extends HttpServlet {
 			break;
 		case "update":
 			update(request, response);
+		case "showTreeMenu":
+			showTreeMenu(request, response);
+			break;
 		default:
 			break;
 		}
 
+	}
+
+	private void showTreeMenu(HttpServletRequest request, HttpServletResponse response) {
+
+		User user = (User) request.getSession().getAttribute("user");
+		String user_id = user.getUuid();
+		try {
+			Company company = DAOFactoryImpl.getCompanyDAO().getCompanybyUserID(user_id);
+			System.out.println(company.getCompany_name());
+			if (company == null) {
+			} else {
+				request.setAttribute("company", company);
+			}
+			request.getRequestDispatcher("/layout/_left_menu_company_menu.jsp").forward(request, response);
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void update(HttpServletRequest request, HttpServletResponse response) {
@@ -72,7 +92,8 @@ public class CompanyServlet extends HttpServlet {
 		company.setCompany_name(company_name);
 		company.setCompany_phone(company_phone);
 		DAOFactoryImpl.getCompanyDAO().save(company);
-//		DAOFactoryImpl.getUserDAO().save((User) request.getSession().getAttribute("user"));
+		// DAOFactoryImpl.getUserDAO().save((User)
+		// request.getSession().getAttribute("user"));
 		try {
 			response.getWriter().write("success!");
 		} catch (IOException e) {
@@ -87,13 +108,7 @@ public class CompanyServlet extends HttpServlet {
 		String user_id = user.getUuid();
 		try {
 			Company company = DAOFactoryImpl.getCompanyDAO().getCompanybyUserID(user_id);
-			System.out.println(company.getCompany_name());
-			if (company == null) {
-				request.setAttribute("action", "save");
-			} else {
-				request.setAttribute("action", "update");
-				request.setAttribute("company", company);
-			}
+			request.setAttribute("company", company);
 			request.getRequestDispatcher("/company_edit.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
@@ -101,20 +116,26 @@ public class CompanyServlet extends HttpServlet {
 	}
 
 	private void save(HttpServletRequest request, HttpServletResponse response) {
+
+		String company_id = request.getParameter("company_id");
+		
+		Company company = DAOFactoryImpl.getCompanyDAO().getCompanybyID(company_id);
+		if (company == null) {
+			company = new Company();
+			User user = (User) request.getSession().getAttribute("user");
+			user.setCompany(company);
+		}
+
 		String company_name = request.getParameter("company_name");
 		String company_address = request.getParameter("company_address");
 		String company_phone = request.getParameter("company_phone");
 
-		Company company = new Company();
 		company.setCompany_address(company_address);
 		company.setCompany_name(company_name);
 		company.setCompany_phone(company_phone);
+		DAOFactoryImpl.getCompanyDAO().save(company);
+		
 		try {
-			DAOFactoryImpl.getCompanyDAO().save(company);
-
-			User user = (User) request.getSession().getAttribute("user");
-			user.setCompany(company);
-			DAOFactoryImpl.getUserDAO().save(user);
 			response.getWriter().write("success!");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

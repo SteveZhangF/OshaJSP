@@ -6,17 +6,6 @@ function viewForm(formid){
 	});
 }
 
-//提交application.jsp 中的main_container 中的所有表单
-function submitMainForm(){
-	var forms = $("#main_container").find("form");
-	var url=forms.attr("action");
-	$.each(forms, function(i, f) {
-		submitForm(url,$(f).serialize(),function(data){
-			alert(data);
-		})
-	});
-}
-
 //提交表单
 /**
  * @param vurl: 表单action地址
@@ -38,9 +27,4 @@ function submitForm(vurl, vdata,callback) {
 		}
 	});
 }
-//获取表单并将表单填充到application.jsp 中的 <div id=main_container></div> 中
-function getForm(vurl,vaction){
-	submitForm(vurl,{action:vaction},function(data){
-		$("#main_container").html(data)
-	});
-}
+

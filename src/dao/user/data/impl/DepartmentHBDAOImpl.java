@@ -1,11 +1,10 @@
 package dao.user.data.impl;
 
 import bean.dao.BaseDao;
+import bean.user.data.Company;
 import bean.user.data.Department;
 import bean.user.data.Employee;
 import dao.user.data.DepartmentDAO;
-import dao.user.data.EmployeeDAO;
-import database.dao.factory.DAOFactoryImpl;
 
 public class DepartmentHBDAOImpl extends BaseDao<Department>implements DepartmentDAO {
 
@@ -25,19 +24,15 @@ public class DepartmentHBDAOImpl extends BaseDao<Department>implements Departmen
 		Department department = this.getDepartmentbyID(id);
 		for (Department subd : department.getSubDepartment()) {
 			subd.setParentDepartment(null);
-			this.save(subd);
 		}
 		department.getSubDepartment().clear();
-		EmployeeDAO edao = DAOFactoryImpl.getEmployeeDAO();
 		for (Employee emp : department.getEmployees()) {
 			emp.setDepartment(null);
-			emp.setCompany(department.getCompany());
-			edao.save(emp);
 		}
 		department.getEmployees().clear();
-		
-		department.getCompany().getDepartments().remove(department);
-		super.deleteObject(getDepartmentbyID(id));
+		Company company = department.getCompany();
+		company.getDepartments().remove(department);
+		department.setCompany(null);
+		super.deleteObject(department);
 	}
-
 }

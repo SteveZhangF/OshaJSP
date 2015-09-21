@@ -21,6 +21,7 @@ import bean.form.record.component.FormRecordComponent;
 import bean.user.User;
 import bean.user.data.Employee;
 import database.dao.factory.DAOFactoryImpl;
+import servlets.form.helpers.formsgenerator.EmployeeFormGenerator;
 
 /**
  * Servlet implementation class UserForm
@@ -55,11 +56,23 @@ public class UserFormServlet extends HttpServlet {
 		case "showEmployeeForm":
 			showEmployeeForm(request, response);
 			break;
+		case "showEmployeeFormSelectJson":
+			showEmployeeFormSelectJson(request, response);
+			break;
+			
 		default:
 			break;
 		}
 	}
 	
+	private void showEmployeeFormSelectJson(HttpServletRequest request, HttpServletResponse response){
+		String employee_id = request.getParameter("employee_id");
+		try {
+			response.getWriter().write(EmployeeFormGenerator.getModule(employee_id));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private void showEmployeeForm(HttpServletRequest request, HttpServletResponse response){
 		User user = (User) request.getSession().getAttribute("user");
@@ -71,7 +84,6 @@ public class UserFormServlet extends HttpServlet {
 				}
 			}
 		}
-		
 		request.setAttribute("employeeForm", forms);
 		try {
 			request.getRequestDispatcher("employee_forms.jsp").forward(request, response);

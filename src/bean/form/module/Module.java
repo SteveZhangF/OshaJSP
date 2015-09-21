@@ -1,5 +1,6 @@
 package bean.form.module;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ import bean.user.data.Company;
 
 @Entity
 @Table(name = "tbl_Module")
-public class Module {
+public class Module implements Serializable,Cloneable{
 	@Id
 	@GeneratedValue(generator = "idGenerator")
 	@GenericGenerator(name = "idGenerator", strategy = "uuid")
@@ -105,5 +106,4 @@ public class Module {
 	public void setCompanies(List<Company> companies) {
 		this.companies = companies;
 	}
-
 }

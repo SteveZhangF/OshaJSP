@@ -1,13 +1,11 @@
 <jsp:useBean id="company" scope="request" class="bean.user.data.Company" />
 <form class="form-horizontal"
-	action="<%=application.getContextPath()%>/company">
+	action="<%=application.getContextPath()%>/company?action=save">
 	<fieldset>
 		<div id="legend" class="">
 			<legend class="text-center">Company Information</legend>
 		</div>
-		<input type="hidden" name="action"
-			value='<%=request.getAttribute("action")%>' /> <input type="hidden"
-			name="company_id"
+		<input type="hidden" name="company_id"
 			value='<jsp:getProperty property="uuid" name="company"/>' />
 
 		<div class="form-group">

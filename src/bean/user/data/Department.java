@@ -65,7 +65,7 @@ public class Department  extends OrganizationElement{
 	private Set<Employee> employees = new HashSet<Employee>();
 
 	@OneToMany(mappedBy = "parentDepartment") // --->
-	@Cascade({ CascadeType.SAVE_UPDATE})
+	@Cascade({ CascadeType.ALL})
 	@LazyCollection(LazyCollectionOption.EXTRA) // --->
 	private Set<Department> subDepartment = new HashSet<Department>();
 

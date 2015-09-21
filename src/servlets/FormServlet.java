@@ -19,6 +19,7 @@ import form.parser.FormOutputHelper;
 import global.UUIDGenerator;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import servlets.form.helpers.recordgenerator.EmployeeRecordGenerator;
 
 /**
  * Servlet implementation class FormServlet
@@ -146,7 +147,6 @@ public class FormServlet extends HttpServlet {
 		Module module = DAOFactoryImpl.getModuleDAO().getModuleById(moduleID);
 		List<Form> forms = module.getForms();
 		JSONArray jsonArray = new JSONArray();
-		
 		for(Form form:forms){
 			JSONObject jso = new JSONObject();
 			jso.put("id", form.getUuid());
@@ -252,11 +252,28 @@ public class FormServlet extends HttpServlet {
 
 	private void submitForm(HttpServletRequest request, HttpServletResponse response) {
 		String formid = request.getParameter("form_id");
-		Map<String, String[]> paraMap = request.getParameterMap();
-		for (String key : paraMap.keySet()) {
-			System.out.println(key);
-			System.out.println(request.getParameter(key));
+		Form form = DAOFactoryImpl.getFormDAO().findFormbyID(formid);
+		String id = request.getParameter("id");
+		switch (form.getForm_type()) {
+		case "Employee Form":
+			EmployeeRecordGenerator erg = new EmployeeRecordGenerator(DAOFactoryImpl.getEmployeeDAO().getEmployeebyID(id));
+			
+			Map<String, String[]> paraMap = request.getParameterMap();
+			for (String key : paraMap.keySet()) {
+				if(key.length()!=32){
+					continue;
+				}
+				erg.addRecordComponent(key, request.getParameter(key));
+				System.out.println(key+"=");
+				System.out.println(request.getParameter(key));
+			}
+			erg.save();
+			break;
+
+		default:
+			break;
 		}
+		
 	}
 
 	private void viewForm(HttpServletRequest request, HttpServletResponse response) {

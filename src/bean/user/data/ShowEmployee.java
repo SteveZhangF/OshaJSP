@@ -8,7 +8,7 @@ public class ShowEmployee extends OrganizationElement {
 		Employee e = (Employee) oe;
 		sb.append("<ul><li><span class='employee'><input type='hidden' name='id' value='"+e.getUuid()+"'><i class=\"glyphicon  glyphicon-user\"></i>");
 		sb.append(e.getEmployeename().replace(":",""));
-		sb.append("</span> <a href=\"\">Goes somewhere</a>");
+		sb.append("</span> ");
 		sb.append("</li></ul>");
 		return sb.toString();
 	}

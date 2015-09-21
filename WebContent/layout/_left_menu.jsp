@@ -8,46 +8,15 @@
 <jsp:useBean id="user" scope="session" class="bean.user.User" />
 <link href="<%=application.getContextPath()%>/custom/css/menu_tree.css"
 	rel="stylesheet">
-<script type="text/ecmascript"
-	src="<%=application.getContextPath()%>/custom/js/menu_tree.js"></script>
-<script type="text/ecmascript"
-	src="<%=application.getContextPath()%>/custom/js/company.js"></script>
+
 <script type="text/ecmascript"
 	src="<%=application.getContextPath()%>/custom/js/bootstrap-contextmenu.js"></script>
 <div class="col-sm-3 col-md-2 sidebar ">
-	<%
-		Company company = user.getCompany();
-	%>
-	<div class="tree">
-		<ul class="companyul">
-
-		</ul>
-	</div>
-
+		
 
 
 </div>
-<div id="context-menu-department">
-	<ul class="dropdown-menu" role="menu">
-		<li><a tabindex="-1" id="add_department">Add Department</a></li>
-		<li><a tabindex="-1" id="add_employee">Add Employee</a></li>
-		<li><a tabindex="-1" id="edit_department">Edit</a></li>
-		<li class="divider"></li>
-		<li><a tabindex="-1" id="delete">Delete</a></li>
-	</ul>
-</div>
-<div id="context-menu-company">
-	<ul class="dropdown-menu" role="menu">
-		<li><a tabindex="-1" id="add_department">Add Department</a></li>
-		<li><a tabindex="-1" id="add_employee">Add Employee</a></li>
-	</ul>
-</div>
 
-<div id="context-menu-employee">
-	<ul class="dropdown-menu" role="menu">
-		<li><a tabindex="-1" id="edit_employee">Edit</a></li>
-	</ul>
-</div>
 <!-- show the department or employee edit dialog  start -->
 
 <div class="modal fade" id="showeditModal" tabindex="-1" role="dialog"

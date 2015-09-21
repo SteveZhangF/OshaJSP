@@ -14,18 +14,12 @@
 		<%} %>
 			<div class="main col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ">
 
-				<ul class="breadcrumb">
-					<li><i class="icon-home"></i> <a href="application.jsp">Home</a> <i
-						class="icon-angle-right"></i></li>
-					<li><i class="icon-edit"></i> <a href="#">XXX</a></li>
-				</ul>
-
 				<!--start  topic container -->
 				<div id="main_container">
 					<!--end  topic container -->
 				</div>
-				<div id="form_submit_button_group" class="container-fluid center">
-					<button id="bt_submit" onclick="submitMainForm();"
+				<div id="form_submit_button_group" class="center">
+					<button id="bt_submit" onclick="subOrganazation();"
 						class="btn btn-primary">Save</button>
 					<button id="bt_cancel" onclick="" class="btn btn-primary">Cancel</button>
 				</div>
