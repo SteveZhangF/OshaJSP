@@ -3,11 +3,11 @@
 	<div class="col-md-6">
 		<div class="clearfix">
 			<h2>My Form</h2>
-			<small>Select who will fill the form</small>
-			<select id="whom" name="form_type"><option value="CompanyForm">Company</option>
+			<small>Select who will fill the form</small> <select id="whom"
+				name="form_type"><option value="CompanyForm">Company</option>
 				<option value="DepartmentForm">Department</option>
-				<option value="EmployeeForm">Employee</option> 
-				</select>
+				<option value="EmployeeForm">Employee</option>
+			</select>
 			<hr>
 			<div id="build">
 				<form id="target" class="form-horizontal">
@@ -194,11 +194,72 @@
 							</div>
 							<!-- Multiple radios end -->
 
+							<!-- H1 start -->
+
+
+							<div class="control-group component" rel="popover" title="Header"
+								trigger="manual"
+								data-content="
+  <form class='form'>
+    <div class='controls'>
+      <label class='control-label'>Name</label> <input type='text' id='orgname' placeholder='name'>
+      <label class='control-label'>Radio</label>
+      <textarea style='min-height: 200px' id='orgvalue'></textarea>
+
+      <hr/>
+      <button class='btn btn-info' type='button'>OK</button><button class='btn btn-danger' type='button'>Cancel</button>
+    </div>
+  </form>">
+
+								<label class="control-label leipiplugins-orgname">Header</label>
+								<div class="controls" mtype="H1">
+
+									<h1 class="leipiplugins" leipiplugins="h1"
+										style="font-weight: bold; border-bottom-color: rgb(204, 204, 204); border-bottom-width: 2px; border-bottom-style: solid; padding: 0px 4px 0px 0px; text-align: center; margin: 0px 0px 20px;">
+										<span style="font-size: 32px;">Header</span>
+									</h1>
+								</div>
+							</div>
+							<!-- H1 end -->
+
+
+							<!-- H1 start -->
+
+
+							<div class="control-group component" rel="popover" title="Header"
+								trigger="manual"
+								data-content="
+  <form class='form'>
+    <div class='controls'>
+      <label class='control-label'>Name</label> <input type='text' id='orgname' placeholder='name'>
+      <label class='control-label'>Radio</label>
+      <textarea style='min-height: 200px' id='orgvalue'></textarea>
+
+      <hr/>
+      <button class='btn btn-info' type='button'>OK</button><button class='btn btn-danger' type='button'>Cancel</button>
+    </div>
+  </form>">
+
+								<label class="control-label leipiplugins-orgname">Header</label>
+								<div class="controls" mtype="H1">
+
+									<!-- <h1 class="leipiplugins" leipiplugins="h1"
+										style="font-weight: bold; border-bottom-color: rgb(204, 204, 204); border-bottom-width: 2px; border-bottom-style: solid; padding: 0px 4px 0px 0px; text-align: center; margin: 0px 0px 20px;">
+										<span style="font-size: 32px;">Header</span>
+									</h1> -->
+									<p>To the healthcare professional:</p>
+								</div>
+							</div>
+							<!-- H1 end -->
+
+
 
 						</div>
-						<div class="tab-pane" id="5">
-							<textarea id="source" class="span6"></textarea>
-						</div>
+
+					</div>
+					<div class="tab-pane" id="5">
+						<textarea id="source" class="span6"></textarea>
+					</div>
 				</fieldset>
 			</form>
 		</div>
