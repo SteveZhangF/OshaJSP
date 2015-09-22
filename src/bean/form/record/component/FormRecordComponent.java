@@ -11,6 +11,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import bean.form.component.FormComponent;
 import bean.form.record.FormRecord;
@@ -23,11 +27,16 @@ public class FormRecordComponent {
 	@GenericGenerator(name = "idGenerator", strategy = "uuid")
 	@Column(name = "id", nullable = false)
 	private String id;
-	@OneToOne(fetch = FetchType.LAZY)
-	private FormComponent fComponent;
 	private String value;
+
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@LazyToOne(LazyToOneOption.FALSE)
+	private FormComponent fComponent;
+	
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "form_record_id")
 	private FormRecord formrecord;
 	
@@ -51,11 +60,11 @@ public class FormRecordComponent {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	public FormRecord getFr() {
+	public FormRecord getFormrecord() {
 		return formrecord;
 	}
-	public void setFr(FormRecord fr) {
-		this.formrecord = fr;
+	public void setFormrecord(FormRecord frz) {
+		this.formrecord = frz;
 	}
 	
 }

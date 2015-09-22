@@ -39,13 +39,14 @@
 		<!-- Echo all executed SQL to stdout -->
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
-
+		<property name="lazy">false</property>
+		<property name="default-lazy">false</property>
 		<!-- Drop and re-create the database schema on startup -->
 		<property name="hbm2ddl.auto">update</property>
 		<property name="hibernate.connection.isolation">2</property>
-		
+
 		<mapping class="bean.user.User" />
-		<mapping class="bean.user.data.OrganizationElement"/>
+		<mapping class="bean.user.data.OrganizationElement" />
 		<mapping class="bean.user.data.Company" />
 		<mapping class="bean.user.data.Department" />
 		<mapping class="bean.user.data.Employee" />

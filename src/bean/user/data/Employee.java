@@ -5,6 +5,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import bean.form.Form.FormType;
+
 
 @Entity
 public class Employee extends OrganizationElement{
@@ -15,6 +17,9 @@ public class Employee extends OrganizationElement{
 	private String email;
 	private String ssn;
 	
+	public Employee() {
+		this.setFormType(FormType.EmployeeForm);
+	}
 	
 	@ManyToOne(fetch = FetchType.LAZY) 
 	@JoinColumn(name = "department_id") 

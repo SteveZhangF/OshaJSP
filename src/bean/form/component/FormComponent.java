@@ -9,6 +9,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Proxy;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import bean.form.Form;
 import dao.form.FormComponentDAO;
@@ -27,7 +30,8 @@ public class FormComponent {
 	private String component_type;
 	private String component_content;// for option <option value="">ss</option
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "form_id")
 	private Form form;
 
@@ -57,7 +61,6 @@ public class FormComponent {
 
 
 	public String toHtml() {
-		System.out.println(this.getComponent_content());
 		String result = TemplatePool.getInstance()
 				.getHtmlTemplate("FormComponent:" + this.getComponent_type().toUpperCase() + "ComponentVIEW");
 		result = result.replace("###Form_Component_Name###", this.getComponent_name());

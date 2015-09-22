@@ -59,12 +59,7 @@ public class FormServlet extends HttpServlet {
 		case "getUUID":
 			getUUID(request, response);
 			break;
-		case "viewform":
-			viewForm(request, response);
-			break;
-		case "submitform":
-			submitForm(request, response);
-			break;
+		
 		case "list":
 			list(request, response);
 			break;
@@ -142,11 +137,12 @@ public class FormServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	
 	private void formJSON(HttpServletRequest request, HttpServletResponse response) {
 		String moduleID = request.getParameter("module_id");
 		Module module = DAOFactoryImpl.getModuleDAO().getModuleById(moduleID);
 		List<Form> forms = module.getForms();
-		JSONArray jsonArray = new JSONArray();
+		JSONArray jsonArray = new JSONArray(); 
 		for(Form form:forms){
 			JSONObject jso = new JSONObject();
 			jso.put("id", form.getUuid());
@@ -250,43 +246,6 @@ public class FormServlet extends HttpServlet {
 		}
 	}
 
-	private void submitForm(HttpServletRequest request, HttpServletResponse response) {
-		String formid = request.getParameter("form_id");
-		Form form = DAOFactoryImpl.getFormDAO().findFormbyID(formid);
-		String id = request.getParameter("id");
-		switch (form.getForm_type()) {
-		case "Employee Form":
-			RecordGenerator erg = new RecordGenerator(DAOFactoryImpl.getEmployeeDAO().getEmployeebyID(id));
-			
-			Map<String, String[]> paraMap = request.getParameterMap();
-			for (String key : paraMap.keySet()) {
-				if(key.length()!=32){
-					continue;
-				}
-				erg.addRecordComponent(key, request.getParameter(key));
-				System.out.println(key+"=");
-				System.out.println(request.getParameter(key));
-			}
-			erg.save();
-			break;
-
-		default:
-			break;
-		}
-		
-	}
-
-	private void viewForm(HttpServletRequest request, HttpServletResponse response) {
-		String form_id = request.getParameter("form_id");
-		FormOutputHelper foh = new FormOutputHelper();
-		String form = foh.getFormHtml(form_id);
-		try {
-			response.getWriter().write(form);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	private void saveForm(HttpServletRequest request, HttpServletResponse response) {
 		String formDATA = request.getParameter("formDATA");// 传输进来的form data

@@ -22,6 +22,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Proxy;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import bean.form.component.FormComponent;
 import bean.form.module.Module;
@@ -33,6 +36,7 @@ import engine.htmlengine.TemplatePool;
 @DiscriminatorColumn(name = "FormType", discriminatorType = DiscriminatorType.STRING, length = 30)
 @DiscriminatorValue("Form")
 @Table(name = "tbl_form")
+@Proxy(lazy=false)
 public class Form {
 
 	@Id
@@ -42,20 +46,23 @@ public class Form {
 	private String uuid;
 	private String name;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "form", cascade = CascadeType.ALL) // --->
-	@LazyCollection(LazyCollectionOption.EXTRA) // --->
+	@LazyCollection(LazyCollectionOption.FALSE) // --->
 	private List<FormComponent> children = new ArrayList<>();
 	@Column(name="Form_TYPE")
-	private String form_type;
+	private FormType form_type;
 	
 	// belong to which module
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "module_id")
-	
+	@JsonIgnore//ignore module when create the json string
 	private Module module;
 	
+	
+	@JsonIgnore//ignore formrecords when create the json string
 	@OneToMany(mappedBy="form", cascade = CascadeType.ALL)
-	@LazyCollection(LazyCollectionOption.EXTRA) // 
+	@LazyCollection(LazyCollectionOption.FALSE) // --->
 	private List<FormRecord> formRecords = new ArrayList<>();
 
 	public void addRecord(FormRecord fr) {
@@ -120,11 +127,11 @@ public class Form {
 		this.formRecords = formRecords;
 	}
 
-	public String getForm_type() {
+	public FormType getForm_type() {
 		return form_type;
 	}
 
-	public void setForm_type(String form_type) {
+	public void setForm_type(FormType form_type) {
 		this.form_type = form_type;
 	}
 
@@ -135,5 +142,11 @@ public class Form {
 	public void setChildren(List<FormComponent> children) {
 		this.children = children;
 	}
+	
 
+	public enum FormType{
+		CompanyForm,
+		EmployeeForm,
+		DepartmentForm;
+	}
 }

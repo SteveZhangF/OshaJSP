@@ -3,18 +3,18 @@ package bean.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import com.mysql.jdbc.log.Log;
+import com.mysql.jdbc.log.LogFactory;
 
 import database.HibernateSessionFactory;
 import database.HibernateUtil;
 
 public class BaseDao<T> {
 
-	private static Log log = LogFactory.getLog(BaseDao.class);
-
+	
 	/**
 	 * 获取Hibernate的Session对象
 	 */
@@ -51,7 +51,7 @@ public class BaseDao<T> {
 		} catch (Exception e) {
 			tx.rollback();
 			e.printStackTrace();
-			log.error("保存对象失败");
+//			log.error("保存对象失败");
 		} finally {
 			this.getSession().flush();
 			HibernateUtil.closeSession(session);
@@ -67,7 +67,7 @@ public class BaseDao<T> {
 		} catch (Exception e) {
 			tx.rollback();
 			e.printStackTrace();
-			log.error("保存对象失败");
+//			log.error("保存对象失败");
 		} finally {
 			HibernateUtil.closeSession(session);
 		}

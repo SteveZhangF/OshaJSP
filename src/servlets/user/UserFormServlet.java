@@ -1,8 +1,7 @@
 package servlets.user;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,17 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.junit.Test;
-
-import bean.dao.BaseDao;
 import bean.form.Form;
-import bean.form.module.Module;
-import bean.form.record.FormRecord;
-import bean.form.record.component.FormRecordComponent;
-import bean.user.User;
-import bean.user.data.Employee;
 import database.dao.factory.DAOFactoryImpl;
-import servlets.form.helpers.formsgenerator.EmployeeFormGenerator;
+import form.parser.FormOutputHelper;
+import servlets.form.helpers.formsgenerator.FormGenerator;
+import servlets.form.helpers.recordgenerator.RecordGenerator;
 
 /**
  * Servlet implementation class UserForm
@@ -53,44 +46,89 @@ public class UserFormServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		switch (action) {
 		case "showEmployeeForm":
-			showEmployeeForm(request, response);
+//			showEmployeeForm(request, response);
+			System.err.println("sha bi le ba");
 			break;
 		case "showEmployeeFormSelectJson":
 			showEmployeeFormSelectJson(request, response);
 			break;
-			
+		case "viewform":
+			viewForm(request, response);
+			break;
+		case "submitform":
+			submitForm(request, response);
+			break;
 		default:
 			break;
 		}
 	}
+
+	private void submitForm(HttpServletRequest request, HttpServletResponse response) {
+		String formid = request.getParameter("form_id");
+		Form form = DAOFactoryImpl.getFormDAO().findFormbyID(formid);
+		String id = request.getParameter("id");
+		switch (form.getForm_type()) {
+		case EmployeeForm:
+			RecordGenerator erg = new RecordGenerator(DAOFactoryImpl.getEmployeeDAO().getEmployeebyID(id));
+			
+			Map<String, String[]> paraMap = request.getParameterMap();
+			for (String key : paraMap.keySet()) {
+				if(key.length()!=32){
+					continue;
+				}
+				erg.addRecordComponent(key, request.getParameter(key));
+				System.out.println(key+"=");
+				System.out.println(request.getParameter(key));
+			}
+			erg.save();
+			break;
+
+		default:
+			break;
+		}
+		
+	}
 	
+	private void viewForm(HttpServletRequest request, HttpServletResponse response) {
+		String form_id = request.getParameter("form_id");
+		String oe_id = request.getParameter("oe_id");
+		//TODO 
+		String form = FormGenerator.getOEForm(form_id, oe_id);
+		try {
+			response.setContentType("json");
+			response.getWriter().write(form);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	private void showEmployeeFormSelectJson(HttpServletRequest request, HttpServletResponse response){
 		String employee_id = request.getParameter("employee_id");
 		try {
-			response.getWriter().write(EmployeeFormGenerator.getModule(employee_id));
+			response.getWriter().write(FormGenerator.getModule(employee_id));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void showEmployeeForm(HttpServletRequest request, HttpServletResponse response){
-		User user = (User) request.getSession().getAttribute("user");
-		List<Form> forms = new ArrayList<>();
-		for(Module module:user.getCompany().getModules()){
-			for(Form f: module.getForms()){
-				if(f.getForm_type()!=null && f.getForm_type().equalsIgnoreCase("Employee Form")){
-					forms.add(f);
-				}
-			}
-		}
-		request.setAttribute("employeeForm", forms);
-		try {
-			request.getRequestDispatcher("employee_forms.jsp").forward(request, response);
-		} catch (ServletException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
+//	private void showEmployeeForm(HttpServletRequest request, HttpServletResponse response){
+//		User user = (User) request.getSession().getAttribute("user");
+//		List<Form> forms = new ArrayList<>();
+//		for(Module module:user.getCompany().getModules()){
+//			for(Form f: module.getForms()){
+//				if(f.getForm_type()!=null && f.getForm_type().equalsIgnoreCase("Employee Form")){
+//					forms.add(f);
+//				}
+//			}
+//		}
+//		request.setAttribute("employeeForm", forms);
+//		try {
+//			request.getRequestDispatcher("employee_forms.jsp").forward(request, response);
+//		} catch (ServletException | IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//	}
 
 }

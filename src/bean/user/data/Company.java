@@ -11,6 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import bean.form.Form.FormType;
 import bean.form.module.Module;
 import bean.user.User;
 
@@ -18,12 +19,16 @@ import bean.user.User;
 public class Company extends OrganizationElement {
 
 
+	public Company() {
+		this.setFormType(FormType.CompanyForm);
+	}
+	
 	@OneToMany(mappedBy = "company")
-	@LazyCollection(LazyCollectionOption.EXTRA) 
+	@LazyCollection(LazyCollectionOption.FALSE) 
 	private Set<OrganizationElement> departments = new HashSet<OrganizationElement>();
 
 	@OneToMany(mappedBy="company")
-	@LazyCollection(LazyCollectionOption.EXTRA)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private Set<OrganizationElement> employees = new HashSet<OrganizationElement>();
 	// 公司当前拥有模块
 	 

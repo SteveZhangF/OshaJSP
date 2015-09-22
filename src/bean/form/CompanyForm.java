@@ -12,6 +12,6 @@ import bean.user.data.Company;
 @DiscriminatorValue("CompanyForm")    
 public class CompanyForm extends Form {
 	public CompanyForm(){
-		this.setForm_type("Company Form");
+		this.setForm_type(FormType.CompanyForm);
 	}
 }

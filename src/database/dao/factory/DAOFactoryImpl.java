@@ -14,9 +14,11 @@ import dao.user.UserDAO;
 import dao.user.data.CompanyDAO;
 import dao.user.data.DepartmentDAO;
 import dao.user.data.EmployeeDAO;
+import dao.user.data.OrganizationElementDAO;
 import dao.user.data.impl.CompanyHBDAOImpl;
 import dao.user.data.impl.DepartmentHBDAOImpl;
 import dao.user.data.impl.EmployeeHBDAOImpl;
+import dao.user.data.impl.OrganizationElementHBDAOImpl;
 import dao.user.impl.UserHBDAOImpl;
 
 public class DAOFactoryImpl {
@@ -56,5 +58,9 @@ public class DAOFactoryImpl {
 	
 	public static RecordComponentDAO getFormRecordComponentDAO(){
 		return new FormRecordComponentHBDAOImpl();
+	}
+	
+	public static OrganizationElementDAO getOrganizationElementDAO(){
+		return new OrganizationElementHBDAOImpl();
 	}
 }

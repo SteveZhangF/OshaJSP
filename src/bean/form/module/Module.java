@@ -1,6 +1,5 @@
 package bean.form.module;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +19,15 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import bean.form.Form;
 import bean.user.data.Company;
 
 @Entity
 @Table(name = "tbl_Module")
-public class Module implements Serializable,Cloneable{
+public class Module{
 	@Id
 	@GeneratedValue(generator = "idGenerator")
 	@GenericGenerator(name = "idGenerator", strategy = "uuid")
@@ -33,20 +35,24 @@ public class Module implements Serializable,Cloneable{
 	private String id;
 	private String name;
 
-	@OneToMany(mappedBy = "module", cascade = CascadeType.ALL) // --->
-	@LazyCollection(LazyCollectionOption.EXTRA) // --->
+	@JsonIgnore
+	@OneToMany(mappedBy = "module", cascade = CascadeType.ALL) 
+	@LazyCollection(LazyCollectionOption.FALSE) // --->
 	private List<Form> forms = new ArrayList<Form>();
 
 	// 子模块
-	@OneToMany(mappedBy="superModule")
-	@LazyCollection(LazyCollectionOption.EXTRA)
+	@JsonIgnore
+	@OneToMany(mappedBy="superModule",fetch = FetchType.EAGER)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Module> subModules = new ArrayList<Module>();
 	// 父模块
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "parent_module_id")
 	private Module superModule;
 
 	// 该模块属于哪个公司 由company来维护关系 
+	@JsonIgnore//ignore Company when create the json string
 	@ManyToMany(mappedBy="modules")
 	private List<Company> companies = new ArrayList<Company>();
 

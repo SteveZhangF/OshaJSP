@@ -13,18 +13,22 @@ import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import bean.form.Form.FormType;
+
 @Entity
 public class Department  extends OrganizationElement{
 
-
+	public Department() {
+		this.setFormType(FormType.DepartmentForm);
+	}
 
 	@OneToMany(mappedBy = "department") // --->
-	@LazyCollection(LazyCollectionOption.EXTRA) // --->
+	@LazyCollection(LazyCollectionOption.FALSE) // --->
 	private Set<Employee> employees = new HashSet<Employee>();
 
 	@OneToMany(mappedBy = "parentDepartment") // --->
 	@Cascade({ CascadeType.ALL})
-	@LazyCollection(LazyCollectionOption.EXTRA) // --->
+	@LazyCollection(LazyCollectionOption.FALSE) // --->
 	private Set<Department> subDepartment = new HashSet<Department>();
 
 	@ManyToOne(fetch = FetchType.LAZY)

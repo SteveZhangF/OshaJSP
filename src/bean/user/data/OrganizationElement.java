@@ -19,6 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import bean.form.Form.FormType;
 import bean.form.record.FormRecord;
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS) 
@@ -26,8 +27,8 @@ import bean.form.record.FormRecord;
 public abstract class OrganizationElement {
 	
 	@OneToMany(mappedBy="oe")
-	@LazyCollection(LazyCollectionOption.EXTRA)
-	private List<FormRecord> records = new ArrayList<>();
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<FormRecord> records = new ArrayList<FormRecord>();
 	
 	@Id
 	@GeneratedValue(generator = "idGenerator")
@@ -37,6 +38,7 @@ public abstract class OrganizationElement {
 	private String address;
 	private String phone;
 	private String name;
+	private FormType formType;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id")
@@ -97,5 +99,17 @@ public abstract class OrganizationElement {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+
+	public FormType getFormType() {
+		return formType;
+	}
+
+
+
+	public void setFormType(FormType formType) {
+		this.formType = formType;
 	}
 }

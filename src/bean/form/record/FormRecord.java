@@ -22,6 +22,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import bean.form.Form;
 import bean.form.record.component.FormRecordComponent;
 import bean.user.data.OrganizationElement;
@@ -35,28 +37,27 @@ public class FormRecord {
 	@GenericGenerator(name = "idGenerator", strategy = "uuid")
 	@Column(name = "id", nullable = false)
 	private String id;
-	@Column(name="Form_Record_type")
-	private FormRecordType formreocrd_type;
 	
-	
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="organization_id")
 	private OrganizationElement oe;
+	
 	@ManyToOne
 	@JoinColumn(name = "form_id")
+	@JsonIgnore
 	private Form form;
 	
 	@OneToMany(mappedBy = "formrecord", cascade = CascadeType.ALL) // --->
-	@LazyCollection(LazyCollectionOption.EXTRA) // --->
-	private List<FormRecordComponent> frcList = new ArrayList<>();
+	@LazyCollection(LazyCollectionOption.FALSE) // --->
+	private List<FormRecordComponent> frcList = new ArrayList<FormRecordComponent>();
 
 	/**
 	 * 向一个表单纪录中添加一个控件纪录
 	 * */
 	public void add(FormRecordComponent frc){
 		this.frcList.add(frc);
-		frc.setFr(this);
+		frc.setFormrecord(this);
 	}
 	
 	public OrganizationElement getOe() {
@@ -92,17 +93,10 @@ public class FormRecord {
 		this.frcList = frc;
 	}
 
-	public FormRecordType getFormreocrd_type() {
-		return formreocrd_type;
-	}
-
-	public void setFormreocrd_type(FormRecordType formreocrd_type) {
-		this.formreocrd_type = formreocrd_type;
-	}
 	
-	public enum FormRecordType{
-		CompanyRecord,
-		DepartmentRecord,
-		EmployeeRecord
-	}
+//	public enum FormRecordType{
+//		CompanyRecord,
+//		DepartmentRecord,
+//		EmployeeRecord
+//	}
 }
