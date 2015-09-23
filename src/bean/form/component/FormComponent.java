@@ -29,6 +29,7 @@ public class FormComponent {
 	private String component_name;
 	private String component_type;
 	private String component_content;// for option <option value="">ss</option
+	private int sequence_code;
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -83,5 +84,13 @@ public class FormComponent {
 
 	public void setForm(Form form) {
 		this.form = form;
+	}
+
+	public int getSequence_code() {
+		return sequence_code;
+	}
+
+	public void setSequence_code(int sequence_code) {
+		this.sequence_code = sequence_code;
 	}
 }

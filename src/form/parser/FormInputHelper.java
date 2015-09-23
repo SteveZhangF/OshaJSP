@@ -55,9 +55,11 @@ public class FormInputHelper {
 			Element component_element = (Element) componentList.get(i);
 			String component_name = component_element.attr("name");
 			String component_type = component_element.attr("type");
+			String sequence_code = component_element.attr("sequence_code");
 			FormComponent fc = new FormComponent();
 			fc.setComponent_name(component_name);
 			fc.setComponent_type(component_type);
+			fc.setSequence_code(Integer.valueOf(sequence_code));
 			fc.setForm(form);
 			fc.setComponent_content(component_element.html());
 			form.add(fc);

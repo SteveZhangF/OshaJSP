@@ -3,20 +3,23 @@ function getUUID() {
 	return id;
 }
 
-function parseForm() {
-	var $form = $("<div>").html($(".reporteditor").getHTML());
+function parseFormz() {
+	var $form = $("<div>").html($(".reporteditor").find(".froala-element").html());
 	var form_id = $form.attr("form_id");// 
 	var form_name = $form.find(".fqzplugin[fqzplugin='form_name']")
 			.first().attr("value");// 获取表单名称
-	var inputs = $form.find(".control-group");
+	var inputs = $form.find(".fqzplugin");
 
 	var $formXML = $("<form></form>");
 	$formXML.attr("id", form_id);
 	$formXML.attr("name", form_name);
 
 	$.each(inputs, function(i, e) {
-		switch ($(e).find(".controls").attr("mtype")) {
+		switch ($(e).attr("fqzpluginType")) {
 		case "text":
+			$(e).attr("sequence_code",i);
+			console.log($($(e).parent()).html());
+			$($(e).parent()).attr("sequence_code",i);
 			parseText($(e)).appendTo($formXML);
 			break;
 		case "select":
@@ -34,6 +37,8 @@ function parseForm() {
 		}
 	});
 	var content = $formXML.prop("outerHTML");// prop.("outerHTML") 可以输出包括自己在内的html内容
+	console.log(content);
+	console.log($form.html());
 	return content;
 }
 
@@ -41,13 +46,14 @@ function parseText($e) {
 	// alert($e.html());
 	var $componentXML = $("<component></component>");
 	var component_id = $e.attr("component_id");// 组件id
-	var $input = $e.find(".controls").children().first();
-	var component_type = $input.attr("leipiplugins");// 组件类型
-	var component_name = $input.attr("title");
+	var component_type = $e.attr("fqzpluginType");// 组件类型
+	var component_name = $e.attr("name");
+	var sequence_code = $e.attr("sequence_code");
 	$componentXML.attr({
 		"name" : component_name,
 		"id" : component_id,
-		"type" : component_type
+		"type" : component_type,
+		"sequence_code":sequence_code
 	});
 	return $componentXML;
 }
