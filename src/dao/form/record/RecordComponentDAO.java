@@ -7,4 +7,6 @@ public interface RecordComponentDAO {
 	
 	public FormRecordComponent getFormRecordComponentbyID(String id);
 	
+	public void deletebyRecordID(String recordid);
+	
 }

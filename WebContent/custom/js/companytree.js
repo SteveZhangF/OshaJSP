@@ -35,6 +35,7 @@ $(document).ready(function() {
 				var id = $(e.target).attr('id');
 				switch (id) {
 				case "add_department":
+					alert();
 					addDepartment($(context.find("input")).attr("value"), 0);
 					break;
 				case "add_employee":
@@ -55,6 +56,9 @@ $(document).ready(function() {
 				switch (id) {
 				case "edit_employee":
 					addEmployee(0, $(context.find("input")).attr("value"));
+					break;
+				case "delete_employee":
+					deleteEmployee($(context.find("input")).attr("value"));
 					break;
 				}
 

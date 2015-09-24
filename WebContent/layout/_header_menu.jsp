@@ -1,8 +1,16 @@
 <jsp:useBean id="user" scope="session" class="bean.user.User" />
 <script type="text/ecmascript"
 	src="<%=application.getContextPath()%>/custom/js/company.js"></script>
+<script type="text/ecmascript"
+	src="<%=application.getContextPath()%>/custom/js/module.js"></script>
+<script type="text/ecmascript"
+	src="<%=application.getContextPath()%>/custom/js/percent.js"></script>
 <script src="<%=application.getContextPath()%>/custom/js/login.js"></script>
+<script type="text/ecmascript"
+	src="<%=application.getContextPath()%>/custom/js/menu_tree.js"></script>
 <link href="<%=application.getContextPath()%>/custom/css/login.css"
+	rel="stylesheet">
+	<link href="<%=application.getContextPath()%>/custom/css/menu_tree.css"
 	rel="stylesheet">
 <nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container-fluid">
@@ -30,7 +38,7 @@
 					<ul class="dropdown-menu">
 						<li><a href="javascript:void(0)" onclick="editcompany();">Company</a></li>
 						<li role="separator" class="divider"></li>
-						<li><a href="#">Another action</a></li>
+						<li><a href="javascript:void(0)" onclick="moduleShow();">Modules</a></li>
 						<li><a href="#">Something else here</a></li>
 						<li role="separator" class="divider"></li>
 						<li><a href="javascript:void(0)" onclick="logout();">Log

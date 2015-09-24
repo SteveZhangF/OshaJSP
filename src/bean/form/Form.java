@@ -31,9 +31,13 @@ import org.hibernate.annotations.Proxy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import bean.form.Form.LogType;
 import bean.form.component.FormComponent;
 import bean.form.module.Module;
 import bean.form.record.FormRecord;
+import bean.user.data.Employee;
+import bean.user.data.OrganizationElement;
+import database.dao.factory.DAOFactoryImpl;
 import engine.htmlengine.TemplatePool;
 
 @Entity
@@ -72,6 +76,8 @@ public class Form {
 	@LazyCollection(LazyCollectionOption.FALSE) // --->
 	private List<FormRecord> formRecords = new ArrayList<>();
 
+	private LogType logType;
+	
 	public void addRecord(FormRecord fr) {
 		this.formRecords.add(fr);
 	}
@@ -181,10 +187,56 @@ public class Form {
 		this.htmlPath = htmlPath;
 	}
 
+	public String show(){
+		StringBuffer sb = new StringBuffer();
+		sb.append("<ul><li><span class='form'><input type='hidden' name='id' value='"+this.getUuid()+"'><i class=\"glyphicon  glyphicon-user\" onclick=\"showFormsInModule('"+this.getUuid()+"');\"></i>");
+		sb.append(getName());
+		sb.append("</span> ");
+		sb.append("</li></ul>");
+		return sb.toString();
+	}
 
 	public enum FormType{
 		CompanyForm,
 		EmployeeForm,
 		DepartmentForm;
+	}
+	
+	public enum LogType{
+		No,
+		Monthly,
+		Weekly,
+		Daily
+	}
+	
+	public int fillPercent(String  oeid){
+		OrganizationElement oe = DAOFactoryImpl.getOrganizationElementDAO().getOEbyID(oeid);
+		List<FormRecord> frs = oe.getRecords();
+		boolean hasRecord = false;
+		int recordCount = 0;
+		for(FormRecord fr:frs){
+			if(fr.getForm().getUuid().equals(this.getUuid())){
+				hasRecord = true;
+				recordCount++;
+			}
+		}
+		if(hasRecord){
+			if(this.getLogType()==LogType.No){
+				return 100;
+			}else{
+				return 100;
+			}
+		}
+		
+		return 0;
+		
+	}
+
+	public LogType getLogType() {
+		return logType;
+	}
+
+	public void setLogType(LogType logType) {
+		this.logType = logType;
 	}
 }

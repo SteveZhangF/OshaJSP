@@ -45,7 +45,10 @@ public class FormRecordHBDAOImpl extends BaseDao<FormRecord> implements RecordDA
 	@Override
 	public void delete(FormRecord obj) {
 		// TODO Auto-generated method stub
+		obj.getForm().getFormRecords().remove(obj);
+		obj.getOe().getRecords().remove(obj);
 		
+		super.deleteObject(obj);
 	}
 
 	@Override

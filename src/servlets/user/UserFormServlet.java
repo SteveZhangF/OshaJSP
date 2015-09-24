@@ -21,32 +21,36 @@ import servlets.form.helpers.recordgenerator.RecordGenerator;
 @WebServlet("/userform")
 public class UserFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserFormServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public UserFormServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String action = request.getParameter("action");
 		switch (action) {
 		case "showEmployeeForm":
-//			showEmployeeForm(request, response);
+			// showEmployeeForm(request, response);
 			System.err.println("sha bi le ba");
 			break;
 		case "showEmployeeFormSelectJson":
@@ -64,35 +68,24 @@ public class UserFormServlet extends HttpServlet {
 	}
 
 	private void submitForm(HttpServletRequest request, HttpServletResponse response) {
-		String formid = request.getParameter("form_id");
-		Form form = DAOFactoryImpl.getFormDAO().findFormbyID(formid);
 		String id = request.getParameter("id");
-		switch (form.getForm_type()) {
-		case EmployeeForm:
-			RecordGenerator erg = new RecordGenerator(DAOFactoryImpl.getEmployeeDAO().getEmployeebyID(id));
-			
-			Map<String, String[]> paraMap = request.getParameterMap();
-			for (String key : paraMap.keySet()) {
-				if(key.length()!=32){
-					continue;
-				}
-				erg.addRecordComponent(key, request.getParameter(key));
-				System.out.println(key+"=");
-				System.out.println(request.getParameter(key));
-			}
-			erg.save();
-			break;
-
-		default:
-			break;
-		}
+		String recordid = request.getParameter("record_id");
 		
+		RecordGenerator erg = new RecordGenerator(DAOFactoryImpl.getOrganizationElementDAO().getOEbyID(id),recordid);
+		Map<String, String[]> paraMap = request.getParameterMap();
+		for (String key : paraMap.keySet()) {
+			if (key.length() != 32) {
+				continue;
+			}
+			erg.addRecordComponent(key, request.getParameter(key));
+		}
+		erg.save();
 	}
-	
+
 	private void viewForm(HttpServletRequest request, HttpServletResponse response) {
 		String form_id = request.getParameter("form_id");
 		String oe_id = request.getParameter("oe_id");
-		//TODO 
+		// TODO
 		String form = FormGenerator.getOEForm(form_id, oe_id);
 		try {
 			response.setContentType("json");
@@ -102,7 +95,8 @@ public class UserFormServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	private void showEmployeeFormSelectJson(HttpServletRequest request, HttpServletResponse response){
+
+	private void showEmployeeFormSelectJson(HttpServletRequest request, HttpServletResponse response) {
 		String employee_id = request.getParameter("employee_id");
 		try {
 			response.getWriter().write(FormGenerator.getModule(employee_id));
@@ -110,25 +104,5 @@ public class UserFormServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
-//	private void showEmployeeForm(HttpServletRequest request, HttpServletResponse response){
-//		User user = (User) request.getSession().getAttribute("user");
-//		List<Form> forms = new ArrayList<>();
-//		for(Module module:user.getCompany().getModules()){
-//			for(Form f: module.getForms()){
-//				if(f.getForm_type()!=null && f.getForm_type().equalsIgnoreCase("Employee Form")){
-//					forms.add(f);
-//				}
-//			}
-//		}
-//		request.setAttribute("employeeForm", forms);
-//		try {
-//			request.getRequestDispatcher("employee_forms.jsp").forward(request, response);
-//		} catch (ServletException | IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//	}
 
 }

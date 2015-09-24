@@ -6,8 +6,6 @@
 <%@page import="java.util.List"%>
 <%@page import="bean.user.data.Department"%>
 <%@page import="bean.user.data.Company"%>
-<%-- <script type="text/ecmascript"
-	src="<%=application.getContextPath()%>/custom/js/menu_tree.js"></script> --%>
 
 <%Company company =(Company) request.getAttribute("company");
 	if(company == null){
@@ -16,7 +14,7 @@
 %>
 
 <div class="tree">
-	<ul class="companyul">
+	<ul class="ancestor companyul">
 		<li><span class="tree-node company " data-toggle="context">
 				<i class="glyphicon glyphicon-home"></i> <%=company.getName()%></span> 
 			<%
@@ -65,6 +63,7 @@
 <div id="context-menu-employee">
 	<ul class="dropdown-menu" role="menu">
 		<li><a tabindex="-1" id="edit_employee">Edit</a></li>
+		<li><a tabindex="-1" id="delete_employee">Delete</a></li>
 	</ul>
 </div>
 

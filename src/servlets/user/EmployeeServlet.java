@@ -56,12 +56,21 @@ public class EmployeeServlet extends HttpServlet {
 		case "save":
 			save(request, response);
 			break;
+		case "delete":
+			delete(request, response);
+			break;
 
 		default:
 			break;
 		}
 	}
 
+	
+	private void delete(HttpServletRequest request, HttpServletResponse response){
+		String employee_id = request.getParameter("employee_id");
+		DAOFactoryImpl.getEmployeeDAO().delete(employee_id);
+	}
+	
 	/**
 	 * save or update the employee information
 	 */
@@ -85,7 +94,14 @@ public class EmployeeServlet extends HttpServlet {
 				Company company = ((User) request.getSession().getAttribute("user")).getCompany();
 				employee.setCompany(company);
 			}
+		}else{
+			supD = employee.getDepartment();
+			if(supD!=null && !supD.getUuid().equals(department_id)){
+				supD.getEmployees().remove(employee);
+			}
+			employee.setDepartment(DAOFactoryImpl.getDepartmentDAO().getDepartmentbyID(department_id));
 		}
+		
 		employee.setEmail(employee_email);
 		employee.setPhone(employee_phone);
 		employee.setName(employee_name);

@@ -1,5 +1,5 @@
 <jsp:useBean id="company" scope="request" class="bean.user.data.Company" />
-<form class="form-horizontal"
+<form class="form-horizontal" id="contactForm"
 	action="<%=application.getContextPath()%>/company?action=save">
 	<fieldset>
 		<div id="legend" class="">
@@ -51,4 +51,8 @@
 	</fieldset>
 </form>
 
-
+<div id="form_submit_button_group" class="center">
+	<button id="bt_submit" onclick="subOrganazation();"
+		class="btn btn-primary center">Save</button>
+	<button id="bt_cancel" onclick="" class="btn btn-primary">Cancel</button>
+</div>

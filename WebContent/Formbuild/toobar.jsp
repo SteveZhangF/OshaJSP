@@ -75,7 +75,53 @@
 							fqzpluginType="text"> <input type="text"></fqzplugin>
 					</div>
 					<!-- input text end-->
-					
+					<!-- table start -->
+					<div class="form-group component">
+						<div class="modal fade" id="formnamemodal" tabindex="-1"
+							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+							style="display: none;">
+							<div class="modal-dialog modal-sm">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close"></button>
+										<h4 class="modal-title">Set Column Number</h4>
+									</div>
+									<div class="modal-body">
+										<input type="text">
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-primary">Save
+											changes</button>
+									</div>
+								</div>
+								<!-- /.modal-content -->
+							</div>
+						</div>
+						<label class="control-label col-2" for="fqzplugintable">Log
+							Table:</label>
+						<fqzplugin class="fqzplugin col-10" id="fqzplugintable" name=""
+							fqzpluginType="table">
+						<table class="table table-bordered" width="100%">
+								<tbody>
+									<tr>
+										<td><br></td>
+
+										<td><br></td>
+
+										<td><br></td>
+
+										<td><br></td>
+
+										<td><br></td>
+									</tr>
+								</tbody>
+						</table>
+						</fqzplugin>
+					</div>
+					<!-- table end -->
 				</div>
 
 			</div>

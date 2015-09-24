@@ -24,6 +24,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import bean.form.Form;
 import bean.user.data.Company;
+import bean.user.data.Department;
+import bean.user.data.Employee;
+import bean.user.data.ShowEmployee;
 
 @Entity
 @Table(name = "tbl_Module")
@@ -111,5 +114,20 @@ public class Module{
 
 	public void setCompanies(List<Company> companies) {
 		this.companies = companies;
+	}
+	
+	public String show(){
+		StringBuffer sb = new StringBuffer();
+		sb.append("<ul class='ancestor'><li><span class=\"module\"><input type='hidden' name='module_id' value='"+this.getId()+"'><i class=\"glyphicon  glyphicon-plus-sign\"></i>");
+		sb.append(this.getName());
+		sb.append("</span>");
+		for (Module subd :this.getSubModules()) {
+			sb.append(subd.show());
+		}
+		for (Form form: this.getForms()) {
+			sb.append(form.show());
+		}
+		sb.append("</li></ul>");
+		return sb.toString();
 	}
 }

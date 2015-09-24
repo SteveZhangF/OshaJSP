@@ -42,10 +42,8 @@ function addDepartment(parentid, myid) {
 		superDepartmentID : parentid,
 		department_id : myid
 	}, function(data) {
-
-		$("#showeditModal").find('.modal-title').text('Department');
-		$("#showeditModal").find('.modal-body').html(data);
-		$("#showeditModal").modal('toggle')
+		alert();
+		$("#main_container").html(data);
 	});
 }
 /**
@@ -59,7 +57,7 @@ function deleteDepartment(id) {
 		action : "delete",
 		department_id : id
 	}, function(data) {
-		alert("delete");
+		showTreeMenu();
 	});
 }
 /**
@@ -85,10 +83,18 @@ function addEmployee(departmentID, myid) {
 		$("#main_container").html(data);
 	});
 }
+function deleteEmployee(id) {
+	submitForm("./employee", {
+		action : "delete",
+		employee_id : id
+	}, function(data) {
+		showTreeMenu();
+	});
+}
 
 function subOrganazation() {
-	var action = $("#main_container").find("form").attr("action");
-	submitForm(action, $("#main_container").find("form").serialize(), function(
+	var action = $("#main_container").find("#contactForm").attr("action");
+	submitForm(action, $("#main_container").find("#contactForm").serialize(), function(
 			data) {
 		alert(data);
 		showTreeMenu();

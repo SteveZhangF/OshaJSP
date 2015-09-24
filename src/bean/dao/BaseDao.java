@@ -74,7 +74,7 @@ public class BaseDao<T> {
 	/**
 	 * 创建事务
 	 */
-	private Transaction beginTransaction(Session session) {
+	protected Transaction beginTransaction(Session session) {
 		return session.beginTransaction();
 	}
 }

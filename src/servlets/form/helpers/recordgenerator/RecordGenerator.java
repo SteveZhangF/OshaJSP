@@ -11,13 +11,16 @@ import bean.form.record.component.FormRecordComponent;
 import bean.user.data.Employee;
 import bean.user.data.OrganizationElement;
 import database.dao.factory.DAOFactoryImpl;
+import javassist.tools.framedump;
 
 public class RecordGenerator {
-	public RecordGenerator(OrganizationElement oe) {
+	public RecordGenerator(OrganizationElement oe,String recordid) {
 		this.setOE(oe);
+		this.setRecordid(recordid);
 	}
 
 	private OrganizationElement oe;
+	private String recordid;
 
 	private FormRecord fRecord;
 	private List<FormRecordComponent> components = new ArrayList<>();
@@ -35,13 +38,32 @@ public class RecordGenerator {
 		components.add(formRecordComponent);
 	}
 
+	
 	public void save() {
-		fRecord = new FormRecord();
+		
+		if(this.getRecordid()!=null && !this.getRecordid().trim().equals("")){
+			fRecord = DAOFactoryImpl.getFormRecordDAO().getRecordbyID(this.getRecordid());
+			if(fRecord!=null)
+				fRecord.getFrcList().clear();
+			else
+				fRecord = new FormRecord();
+		}else{
+			fRecord = new FormRecord();
+		}
 		fRecord.setOe(oe);
 		for (FormRecordComponent frc : components) {
 			fRecord.add(frc);
 			fRecord.setForm(frc.getfComponent().getForm());
 		}
 		DAOFactoryImpl.getFormRecordDAO().save(fRecord);
+		System.out.println(fRecord.getFrcList().size());
+	}
+
+	public String getRecordid() {
+		return recordid;
+	}
+
+	public void setRecordid(String recordid) {
+		this.recordid = recordid;
 	}
 }

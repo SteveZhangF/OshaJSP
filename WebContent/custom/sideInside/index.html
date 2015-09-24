@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>纯javascript轻量级可嵌套的隐藏侧边栏插件|DEMO_jQuery之家-自由分享jQuery、html5、css3的插件库</title>
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="css/default.css">
+	<script src="js/fsp-sidepanel.js"></script>
+    <link rel="stylesheet" href="css/fsp-sidepanel.css"/>
+	<style>
+        @import url("http://fonts.useso.com/css?family=Inconsolata:400,700");
+
+        html, body {
+            margin: 0;
+            font-family: 'Inconsolata', sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #pageWrapper {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+		header{
+			background-color: #412E52;
+            color: #CFCC90;
+		}
+
+        @media (max-width: 480px) {
+            header > h1 {
+                font-size: 3em;
+            }
+        }
+
+        #pageWrapper > .fsp-sidepanel {
+            background-color: #511B42;
+            color: #CFCC90;
+        }
+
+        #mainSection .fsp-sidepanel {
+            background-color: #3A4A0E;
+            color: #B5C589;
+        }
+
+        #mainSection {
+            flex: 1;
+            display: flex;
+        }
+
+        #mainSectionContent > .containers {
+            display: flex;
+            flex: 1;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            justify-content: center;
+        }
+
+        #mainSectionContent {
+            background-color: #8EA05C;
+            flex: 1;
+        }
+
+        section .container {
+            display: flex;
+            width: 250px;
+            height: 250px;
+            margin-left: 30px;
+            margin-right: 30px;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #412E52;
+            color: #220D34;
+            background-color: #CFCC90;
+            cursor: pointer;
+        }
+
+        section .container > div {
+            text-align: center;
+        }
+
+        #pageContent {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        #innerLeftSidepanel, #innerRightSidepanel, #pageLeftSidepanel, #pageRightSidepanel {
+            width: 250px;
+        }
+
+        #instructions {
+            max-width: 920px;
+            margin: auto;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #412E52;
+            color: #CFCC90;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fsp('#inner_demo1', '#mainSectionContent', '#innerLeftSidepanel').sidepanel({});
+            fsp('#inner_demo2', '#mainSectionContent', '#innerRightSidepanel').sidepanel({
+                side: 'right'
+            });
+            fsp('#inner_demo3', '#pageContent', '#pageLeftSidepanel').sidepanel({});
+            fsp('#inner_demo4', '#pageContent', '#pageRightSidepanel').sidepanel({
+                side: 'right'
+            });
+        });
+    </script>
+	<!--[if IE]>
+		<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div id="pageWrapper" class="fsp-wrapper">
+
+	    <div id="pageLeftSidepanel" class="fsp-sidepanel">
+	        <h2>I'm a side panel!</h2>
+
+	        <p>Lorem ipsum</p>
+	    </div>
+
+	    <div id="pageRightSidepanel" class="fsp-sidepanel fsp-sidepanel-right">
+	        <h2>I'm a side panel on the right!</h2>
+
+	        <p>Lorem ipsum</p>
+	    </div>
+
+
+	    <div id="pageContent" class="fsp-content">
+	        <header class="htmleaf-header">
+			<h1>纯javascript轻量级可嵌套的隐藏侧边栏插件 <span>A Side by Slide Panel</span></h1>
+			<div class="htmleaf-links">
+				<a class="htmleaf-icon icon-htmleaf-home-outline" href="http://www.htmleaf.com/" title="jQuery之家" target="_blank"><span> jQuery之家</span></a>
+				<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="http://www.htmleaf.com/jQuery/Layout-Interface/201508312501.html" title="返回下载页" target="_blank"><span> 返回下载页</span></a>
+			</div>
+		</header>
+
+	        <section id="mainSection" class="fsp-wrapper">
+
+	            <div id="innerLeftSidepanel" class="fsp-sidepanel">
+	                <h2>I'm a side panel!</h2>
+
+	                <p>Lorem ipsum</p>
+	            </div>
+
+	            <div id="innerRightSidepanel" class="fsp-sidepanel fsp-sidepanel-right">
+	                <h2>I'm a side panel on the right!</h2>
+
+	                <p>Lorem ipsum</p>
+	            </div>
+
+	            <div id="mainSectionContent" class="fsp-content">
+
+	                <div id="instructions">
+	                    <p>Click the "buttons" to play with the sidebars</p>
+
+	                    <p>Note that while you can have nested sidebars, <u>if they are not of the same side (left/right), the
+	                        visual result is probably going to be funky</u>. This is because of the method the library uses to
+	                        show/hide the panels, since we are sliding the content area without resizing it.</p>
+	                </div>
+
+	                <div class="containers">
+	                    <div class="container button">
+	                        <div>
+	                            <h3>Inner Area Left</h3>
+
+	                            <p><a id="inner_demo1" href="#">Click to toggle</a></p>
+	                        </div>
+	                    </div>
+
+	                    <div class="container button">
+	                        <div>
+	                            <h3>Full Page Left</h3>
+
+	                            <p><a id="inner_demo3" href="#">Click to toggle</a></p>
+	                        </div>
+	                    </div>
+
+	                </div>
+
+	                <div class="containers">
+
+	                    <div class="container button">
+	                        <div>
+	                            <h3>Inner Area Right</h3>
+
+	                            <p><a id="inner_demo2" href="#">Click to toggle</a></p>
+	                        </div>
+	                    </div>
+
+	                    <div class="container button">
+	                        <div>
+	                            <h3>Full Page Right</h3>
+
+	                            <p><a id="inner_demo4" href="#">Click to toggle</a></p>
+	                        </div>
+	                    </div>
+	                </div>
+
+	            </div>
+
+	        </section>
+
+	        <footer>Look Ma! I'm a footer!</footer>
+
+	    </div>
+
+	</div>
+	
+</body>
+</html>

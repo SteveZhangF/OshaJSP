@@ -11,27 +11,86 @@ function showForm(formid, voe_id) {
 		form_id : formid,
 		oe_id : voe_id
 	}, function(data) {
-//		alert(data.form);
 		$("#form_container").html(data.form);
-		parseRecord(data.records[0]);
+		$("#preview_container .modal-body").html(data.report);
+		parseRecord(data.records);
+		parsePreview(data.records);
 	});
+}
+
+function parsePreview(recordjson){
+	
+	if($(".modal").find(".fqzplugin[fqzplugintype='table']")){
+		console.log("atable");
+		$table = $($(".modal").find("table"));
+		$tr = $($table.find("tr").last().clone(true));
+		var tds=$tr.find("td");
+		$.each(tds,function(i,td){
+			$(td).html("");
+		});
+		$.each(recordjson,function(i,re){
+			
+			var recordid = re.id;
+			var frclist = re.frcList;
+			
+			$row = $('table tr:eq('+i+1+')');
+			$.each(frclist,function(nn,frc){
+				var fcid=frc.fComponent.sequence_code;
+				var value=frc.value;
+				$component=$($row.find("td[sequence_code='"+fcid+"']"));
+				$component.html("&nbsp; &nbsp; &nbsp; &nbsp;"+value+"&nbsp; &nbsp; &nbsp; &nbsp; ");
+			});
+			$($table.find("tbody")).append($($tr.prop("outerHTML")));
+			console.log($table.html());
+			
+		});
+		$("#bt_preview").click(function(){
+			$("#preview_container").modal("show");
+		});
+	}else{
+		var recordjson = recordjson[0];
+		var recordid = recordjson.id;
+		var frclist = recordjson.frcList;
+		$.each(frclist,function(i,frc){
+			var fcid=frc.fComponent.sequence_code;
+			var value=frc.value;
+			$component=$(".modal u[sequence_code='"+fcid+"']");
+			$component.html("&nbsp; &nbsp; &nbsp; &nbsp;"+value+"&nbsp; &nbsp; &nbsp; &nbsp; ");
+		});
+		
+		$("#bt_preview").click(function(){
+			$("#preview_container").modal("show");
+		});
+	}
 }
 /**
  * parse the record and fill them to the form
  * @param recordjson: one record in json format
  * */
 function parseRecord(recordjson){
+	var recordjson = recordjson[0];
+	$("#form_container").find("form").append("<input type='hidden' name='record_id' value='"+recordjson.id+"'>");
 	var recordid = recordjson.id;
 	var frclist = recordjson.frcList;
 	$.each(frclist,function(i,frc){
-		var fcid=frc.fComponent.sequence_code;
+		var fcid=frc.fComponent.uuid;
 		var value=frc.value;
-		
-		$component=$("u[sequence_code='"+fcid+"']").find(".fqzplugin");
+		$component=$("#"+fcid);
 		$component.val(value);
 	});
+//	var recordid = recordjson.id;
+//	var frclist = recordjson.frcList;
+//	$.each(frclist,function(i,frc){
+//		var fcid=frc.fComponent.sequence_code;
+//		var value=frc.value;
+//		
+//		$component=$("u[sequence_code='"+fcid+"']").find(".fqzplugin");
+//		$component.val(value);
+//	});
 }
-
+function viewReport(){
+	
+}
 
 /**
  * @param id:OE
