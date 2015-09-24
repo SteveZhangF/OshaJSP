@@ -1,5 +1,10 @@
 package bean.form;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +58,8 @@ public class Form {
 	@Column(name="Form_TYPE")
 	private FormType form_type;
 	
+	private String htmlPath;
+	
 	// belong to which module
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "module_id")
@@ -93,7 +100,29 @@ public class Form {
 		result = result.replace("###Form_Components###", sb.toString());
 		return result;
 	}
-
+	
+	public String toReport(){
+		File file = new File(this.getHtmlPath());
+		try {
+			FileReader fr = new FileReader(file);
+			BufferedReader br = new BufferedReader(fr);
+			String tmp = "";
+			StringBuffer sb = new StringBuffer();
+			while((tmp=br.readLine())!=null){
+				sb.append(tmp);
+			}
+			return sb.toString();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "";
+	}
+	
 	public String getUuid() {
 		return uuid;
 	}
@@ -143,6 +172,15 @@ public class Form {
 		this.children = children;
 	}
 	
+
+	public String getHtmlPath() {
+		return htmlPath;
+	}
+
+	public void setHtmlPath(String htmlPath) {
+		this.htmlPath = htmlPath;
+	}
+
 
 	public enum FormType{
 		CompanyForm,

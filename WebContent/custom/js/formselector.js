@@ -24,10 +24,10 @@ function parseRecord(recordjson){
 	var recordid = recordjson.id;
 	var frclist = recordjson.frcList;
 	$.each(frclist,function(i,frc){
-		var fcid=frc.fComponent.uuid;
+		var fcid=frc.fComponent.sequence_code;
 		var value=frc.value;
 		
-		$component=$("#"+fcid);
+		$component=$("u[sequence_code='"+fcid+"']").find(".fqzplugin");
 		$component.val(value);
 	});
 }

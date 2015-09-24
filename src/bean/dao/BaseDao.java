@@ -6,8 +6,6 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.mysql.jdbc.log.Log;
-import com.mysql.jdbc.log.LogFactory;
 
 import database.HibernateSessionFactory;
 import database.HibernateUtil;

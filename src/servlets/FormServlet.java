@@ -251,14 +251,11 @@ public class FormServlet extends HttpServlet {
 		String formDATA = request.getParameter("formDATA");// 传输进来的form data
 															// （XML）
 		String formType = request.getParameter("form_type");
-		FormInputHelper fih = new FormInputHelper();
-		Form form = fih.createForm(formDATA,formType);
-		
 		String moduleID = request.getParameter("module_id");
-		Module module = DAOFactoryImpl.getModuleDAO().getModuleById(moduleID);
-		module.addForm(form);
+		String formHtml = request.getParameter("formHtml");
+		FormInputHelper fih = new FormInputHelper();
 		
-		DAOFactoryImpl.getModuleDAO().save(module);
+		fih.saveForm(moduleID, formType, formDATA, formHtml);
 		
 	}
 

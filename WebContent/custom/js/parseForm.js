@@ -6,8 +6,7 @@ function getUUID() {
 function parseFormz() {
 	var $form = $("<div>").html($(".reporteditor").find(".froala-element").html());
 	var form_id = $form.attr("form_id");// 
-	var form_name = $form.find(".fqzplugin[fqzplugin='form_name']")
-			.first().attr("value");// 获取表单名称
+	var form_name = $form.find(".fqzplugin[fqzpluginType='form_name']").attr("value");// 获取表单名称
 	var inputs = $form.find(".fqzplugin");
 
 	var $formXML = $("<form></form>");
@@ -18,7 +17,6 @@ function parseFormz() {
 		switch ($(e).attr("fqzpluginType")) {
 		case "text":
 			$(e).attr("sequence_code",i);
-			console.log($($(e).parent()).html());
 			$($(e).parent()).attr("sequence_code",i);
 			parseText($(e)).appendTo($formXML);
 			break;
@@ -39,7 +37,8 @@ function parseFormz() {
 	var content = $formXML.prop("outerHTML");// prop.("outerHTML") 可以输出包括自己在内的html内容
 	console.log(content);
 	console.log($form.html());
-	return content;
+	var result={xml:content,html:$form.prop("outerHTML")};
+	return result;
 }
 
 function parseText($e) {

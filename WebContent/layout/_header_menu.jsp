@@ -1,6 +1,7 @@
 <jsp:useBean id="user" scope="session" class="bean.user.User" />
 <script type="text/ecmascript"
 	src="<%=application.getContextPath()%>/custom/js/company.js"></script>
+<script src="<%=application.getContextPath()%>/custom/js/login.js"></script>
 <link href="<%=application.getContextPath()%>/custom/css/login.css"
 	rel="stylesheet">
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -81,8 +82,7 @@
 	</div>
 </div>
 <!-- login modal end -->
-<script src="<%=application.getContextPath()%>/custom/js/login.js"></script>
-<script src="<%=application.getContextPath()%>/custom/js/company.js"></script>
+
 <noscript>
 	<div class="alert alert-block span10">
 		<h4 class="alert-heading">Warning!</h4>

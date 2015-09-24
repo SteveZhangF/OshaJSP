@@ -1,14 +1,24 @@
 package form.parser;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
+import org.junit.Test;
+
+import com.mysql.fabric.xmlrpc.base.Data;
+
 import bean.dao.BaseDao;
 import bean.form.CompanyForm;
 import bean.form.DepartmentForm;
 import bean.form.EmployeeForm;
 import bean.form.Form;
 import bean.form.component.FormComponent;
+import bean.form.module.Module;
+import database.dao.factory.DAOFactoryImpl;
 
 /**
  * 
@@ -22,13 +32,40 @@ import bean.form.component.FormComponent;
  * 
  */
 
+
 public class FormInputHelper {
 
-	public Form createForm(String formDataXML, String formType) {
+	
+	public void saveForm(String moduleID,String formType, String xml,String html){
+		Form form = this.createForm(xml, formType,html);
+		Module module = DAOFactoryImpl.getModuleDAO().getModuleById(moduleID);
+		module.addForm(form);
+		DAOFactoryImpl.getModuleDAO().save(module);
+		
+		File file = new File("upload/forms/"+form.getUuid());
+		Date date = new Date();
+		file.mkdirs();
+		try {
+			file = new File("upload/forms/"+form.getUuid()+"/"+date.getTime()+".html");
+			FileWriter fWriter = new FileWriter(file);
+			fWriter.write(html);
+			fWriter.flush();
+			form.setHtmlPath(file.getAbsolutePath());
+			DAOFactoryImpl.getFormDAO().save(form);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
+	public Form createForm(String formDataXML, String formType,String formhtml) {
+		
 		org.jsoup.nodes.Document doc = Jsoup.parse(formDataXML);
 		org.jsoup.nodes.Element form_element = doc.select("form").first();// find
 																			// form
+		
+		org.jsoup.nodes.Document docHtml = Jsoup.parse(formhtml);
+		
+		
 		String form_name = form_element.attr("name");
 
 		Form form = null;
@@ -64,6 +101,7 @@ public class FormInputHelper {
 			fc.setComponent_content(component_element.html());
 			form.add(fc);
 		}
+		
 		return form;
 	}
 

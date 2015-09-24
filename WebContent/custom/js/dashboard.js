@@ -200,14 +200,16 @@ function showModule(vid) {
 }
 
 function saveForm() {
-	var xml = parseForm();
+	var xml = parseFormz().xml;
+	var html=parseFormz().html;
 	var whom = $("#whom").val();
 	$.post("./form_operation", {
 		action : "editForm",
 		oper : "add",
 		module_id : moduleid_quanju,
 		form_type : whom,
-		formDATA : xml
+		formDATA : xml,
+		formHtml:html
 	}, alert("success"));
 
 }

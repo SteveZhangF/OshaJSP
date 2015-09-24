@@ -11,12 +11,71 @@
 			<div class="tab-content">
 
 				<div class="tab-pane active" id="1">
+					<!-- head form name  -->
+					<div class="form-group component">
+						<div class="modal fade" id="" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true"
+							style="display: none;">
+							<div class="modal-dialog modal-sm">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close"></button>
+										<h4 class="modal-title">Set Form Name</h4>
+									</div>
+									<div class="modal-body">
+										<input type="text">
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-primary">Save
+											changes</button>
+									</div>
+								</div>
+								<!-- /.modal-content -->
+							</div>
+						</div>
+						<label class="control-label col-2" for="fqzpluginformname">Form
+							Name:</label>
+						<fqzplugin class="fqzplugin col-10" id="fqzpluginformname"
+							value="Form Name" fqzpluginType="form_name">
+						<h1 style="text-align: center;">Form Name</h1>
+						</fqzplugin>
+					</div>
+					<!-- head form name  end -->
 					<!-- input text -->
 					<div class="form-group component">
-						<label class="control-label col-sm-2" for="form_name">Text Field:</label>
-						<fqzplugin class="fqzplugin" name="" fqzpluginType="text"><input type="text" ></fqzplugin>
+						<div class="modal fade" id="formnamemodal" tabindex="-1"
+							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+							style="display: none;">
+							<div class="modal-dialog modal-sm">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close"></button>
+										<h4 class="modal-title">Set Field Name</h4>
+									</div>
+									<div class="modal-body">
+										<input type="text">
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-primary">Save
+											changes</button>
+									</div>
+								</div>
+								<!-- /.modal-content -->
+							</div>
+						</div>
+						<label class="control-label col-2" for="fqzplugintext">Text
+							Field:</label>
+						<fqzplugin class="fqzplugin col-10" id="fqzplugintext" name=""
+							fqzpluginType="text"> <input type="text"></fqzplugin>
 					</div>
 					<!-- input text end-->
+					
 				</div>
 
 			</div>
@@ -25,9 +84,8 @@
 </div>
 
 <!--tab-content-->
-<script>
-	/* $temp = $("<form class='form-horizontal span6' id='temp'></form>").append(
-	 $this.clone()); */
+<script src="<%=application.getContextPath()%>/custom/js/fqzplugin.js">
+	
 </script>
 
 <script>
@@ -36,46 +94,22 @@
 			helper : "clone",
 		});
 
-		$(".reporteditor").droppable(
-				{
-					//&& objPos.left<uPos.left+$u.width() && objPos.top>uPos.top-$u.height()
-					drop : function(event, ui) {
-						var mousPos = {
-							left : event.pageX,
-							top : event.pageY
-						};
-
-						$allU = $(this).find(".froala-element").find("u");
-						for (var i = 0; i < $allU.length; i++) {
-							$u = $($allU[i]);
-							var uPos = $u.offset();
-							if (mousPos.left > uPos.left
-									&& mousPos.top > uPos.top
-									&& mousPos.left < uPos.left + $u.width()
-									&& mousPos.top < uPos.top + $u.height()) {
-								$u.html("				");
-								console.log(ui.draggable.find("fqzplugin").prop("outerHTML"));
-								$u.append($(ui.draggable.find("fqzplugin").prop("outerHTML")));
-							}
-						}
-						
-						console.log($(this).find(".froala-element").html());
-						/* $.each($allU,function(i,u){
-							
-						}); */
-
-					}
+		$(".reporteditor").droppable({
+			drop : function(event, ui) {
+				var mousPos = {
+					left : event.pageX,
+					top : event.pageY
+				};
+				$plug = ui.draggable.find(".fqzplugin");
+				var type = $plug.attr("fqzpluginType");
+				FQZ.plugins[type]({
+					ui : ui,
+					mousePos : mousPos,
+					towhom : $(this).find(".froala-element")
 				});
+			}
+		});
 	})
-	/* $(function() {
-	 $(".reporteditor").droppable({
-	 drop:function(event,ui){
-	 alert($(this).html());
-	 $(this).html($("<p style='position:absolute;left:"+
-	ui.offset.left+";top:"+ui.offset.top+"'>clone</p>"));
-	 }
-	 });
-	 }) */
 </script>
 
 

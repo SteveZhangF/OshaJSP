@@ -50,6 +50,7 @@ public class FormGenerator {
 		}
 		jsoForm.put("form", form.toHtml());
 		jsoForm.put("records", jsoRecords);
+		jsoForm.put("report", form.toReport());
 
 		return jsoForm.toString();
 	}

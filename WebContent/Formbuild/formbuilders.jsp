@@ -6,10 +6,7 @@
 <link
 	href="<%=application.getContextPath()%>/reporteditor/css/froala_editor.min.css"
 	rel="stylesheet" type="text/css">
-<script type="text/javascript"
-	src="<%=application.getContextPath()%>/js/jquery-1.9.1.min.js"></script>
-<script type="text/javascript"
-	src="<%=application.getContextPath()%>/js/jquery-ui.min.js"></script>
+
 
 
 <pre id="eg-previewer" class="prettyprint">
@@ -24,9 +21,11 @@
 			</select>
 
 			<div id="build">
+					<form>
 					<div class="reporteditor" id='edit' style="margin-top: 30px;">
-					<form form_id=""></form>
+					
 					</div>
+					</form>
 			</div>
 
 		</div>
@@ -40,11 +39,12 @@
 
 
 <div id="form_submit_button_group" class="container-fluid center">
-	<button id="bt_submit" onclick="parseFormz();" class="btn btn-primary">Save</button>
+	<button id="bt_submit" onclick="saveForm();" class="btn btn-primary">Save</button>
 	<button id="bt_cancel" onclick="" class="btn btn-primary">Cancel</button>
 </div>
 <jsp:include page="/reporteditor/index.jsp" />
 <script src="<%=application.getContextPath()%>/custom/js/parseForm.js"></script>
+<script src="<%=application.getContextPath()%>/custom/js/dashboard.js"></script>
 
 
 
