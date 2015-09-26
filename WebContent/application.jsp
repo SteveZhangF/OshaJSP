@@ -19,12 +19,6 @@
 					<!--end  topic container -->
 				</div>
 				
-				<nav>
-					<ul class="pager">
-						<li><a href="#">&larr; Previous</a></li>
-						<li><a href="#">Next &rarr;</a></li>
-					</ul>
-				</nav>
 			</div>
 
 		</div>

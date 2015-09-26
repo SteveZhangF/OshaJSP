@@ -11,6 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.junit.Test;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import bean.form.Form;
 import bean.form.module.Module;
 import database.dao.factory.DAOFactoryImpl;
@@ -59,7 +64,7 @@ public class FormServlet extends HttpServlet {
 		case "getUUID":
 			getUUID(request, response);
 			break;
-		
+
 		case "list":
 			list(request, response);
 			break;
@@ -96,9 +101,8 @@ public class FormServlet extends HttpServlet {
 	// onclick="getForm('./employee','list');"><i
 	// class="icon-file-alt"></i><span class="hidden-tablet">
 	// Employee</span></a></li>
-	
-	
-	private void editForm(HttpServletRequest request, HttpServletResponse response){
+
+	private void editForm(HttpServletRequest request, HttpServletResponse response) {
 		String oper = request.getParameter("oper");
 		switch (oper) {
 		case "create":
@@ -110,7 +114,7 @@ public class FormServlet extends HttpServlet {
 			}
 			break;
 		case "add":
-			saveForm(request,response);
+			saveForm(request, response);
 			break;
 		case "edit":
 			String id = request.getParameter("id");
@@ -127,9 +131,8 @@ public class FormServlet extends HttpServlet {
 			break;
 		}
 	}
-	
-	
-	private void tableForm(HttpServletRequest request, HttpServletResponse response){
+
+	private void tableForm(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.getRequestDispatcher("dashboardlayout/formtable.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
@@ -137,21 +140,20 @@ public class FormServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void formJSON(HttpServletRequest request, HttpServletResponse response) {
 		String moduleID = request.getParameter("module_id");
 		Module module = DAOFactoryImpl.getModuleDAO().getModuleById(moduleID);
 		List<Form> forms = module.getForms();
-		JSONArray jsonArray = new JSONArray(); 
-		for(Form form:forms){
+		JSONArray jsonArray = new JSONArray();
+		for (Form form : forms) {
 			JSONObject jso = new JSONObject();
 			jso.put("id", form.getUuid());
 			jso.put("name", form.getName());
 			jso.put("form_type", form.getForm_type());
 			jsonArray.add(jso);
 		}
-		
-		
+
 		try {
 			response.getWriter().write(jsonArray.toString());
 		} catch (IOException e) {
@@ -185,18 +187,39 @@ public class FormServlet extends HttpServlet {
 		}
 	}
 
+	private String showModuleJSON(Module module) {
+		JSONObject json = new JSONObject();
+		json.put("id", module.getId());
+		json.put("name", module.getName());
+		JSONArray subJSONS = new JSONArray();
+		ObjectMapper mapper = new ObjectMapper();
+		for (Module sub : module.getSubModules()) {
+			subJSONS.add(JSONObject.fromObject(showModuleJSON(sub)));
+		}
+		json.put("submodule", subJSONS);
+		JSONArray forms = new JSONArray();
+		for (Form form : module.getForms()) {
+			try {
+				String formJSON = mapper.writeValueAsString(form);
+				forms.add(JSONObject.fromObject(formJSON));
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		json.put("forms", forms);
+		return json.toString();
+	}
+
 	private void moduleJSON(HttpServletRequest request, HttpServletResponse response) {
 		List<Module> moduleAll = DAOFactoryImpl.getModuleDAO().list();
-		
 		JSONArray ja = new JSONArray();
-		for(Module module:moduleAll){
-			JSONObject jso = new JSONObject();
-			jso.put("id", module.getId());
-			jso.put("name", module.getName());
-			ja.add(jso);
+		for (Module module : moduleAll) {
+			if (module.getSuperModule() == null)
+				ja.add(JSONObject.fromObject(showModuleJSON(module)));
 		}
-		System.out.println(ja.toString());
 		try {
+			response.setContentType("json");
 			response.getWriter().write(ja.toString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -246,7 +269,6 @@ public class FormServlet extends HttpServlet {
 		}
 	}
 
-
 	private void saveForm(HttpServletRequest request, HttpServletResponse response) {
 		String formDATA = request.getParameter("formDATA");// 传输进来的form data
 															// （XML）
@@ -254,9 +276,9 @@ public class FormServlet extends HttpServlet {
 		String moduleID = request.getParameter("module_id");
 		String formHtml = request.getParameter("formHtml");
 		FormInputHelper fih = new FormInputHelper();
-		
+
 		fih.saveForm(moduleID, formType, formDATA, formHtml);
-		
+
 	}
 
 	private void getUUID(HttpServletRequest request, HttpServletResponse response) {
