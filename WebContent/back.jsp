@@ -110,7 +110,6 @@ h3 {
 					data : {action:"editForm",oper:"create"},
 					async : false,
 					error : function(request) {
-			
 					},
 					success : function(data) {
 						formedit=data;

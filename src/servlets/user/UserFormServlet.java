@@ -1,6 +1,7 @@
 package servlets.user;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.form.Form;
+import bean.form.module.Module;
+import bean.user.User;
 import database.dao.factory.DAOFactoryImpl;
 import form.parser.FormOutputHelper;
 import servlets.form.helpers.formsgenerator.FormGenerator;

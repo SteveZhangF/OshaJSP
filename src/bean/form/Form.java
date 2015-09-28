@@ -189,7 +189,7 @@ public class Form {
 
 	public String show(){
 		StringBuffer sb = new StringBuffer();
-		sb.append("<ul><li><span class='form'><input type='hidden' name='id' value='"+this.getUuid()+"'><i class=\"glyphicon  glyphicon-user\" onclick=\"showFormsInModule('"+this.getUuid()+"');\"></i>");
+		sb.append("<ul class='draggable'><li><span class='form '><input type='hidden' name='id' value='"+this.getUuid()+"'><i class=\"glyphicon  glyphicon-user icon-edit \" onclick=\"showFormsInModule('"+this.getUuid()+"');\"> </i>");
 		sb.append(getName());
 		sb.append("</span> ");
 		sb.append("</li></ul>");

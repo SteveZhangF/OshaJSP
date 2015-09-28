@@ -1,0 +1,27 @@
+{
+  "name": "WebContent",
+  "version": "0.0.0",
+  "homepage": "https://github.com/SteveZhangF/OshaJSP",
+  "authors": [
+    "SteveZhangF <zhangke3012@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [
+    "amd",
+    "globals",
+    "yui"
+  ],
+  "keywords": [
+    "osha"
+  ],
+  "license": "mit",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "libs",
+    "test",
+    "tests"
+  ]
+}

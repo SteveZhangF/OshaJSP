@@ -61,6 +61,9 @@ public class FormServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		System.out.println(action);
 		switch (action.trim()) {
+		case "changeParentID":
+			changeParentID(request, response);
+			break;
 		case "getUUID":
 			getUUID(request, response);
 			break;
@@ -93,6 +96,7 @@ public class FormServlet extends HttpServlet {
 			break;
 		}
 	}
+
 	// <li><a role="button" href="#"
 	// onclick="getForm('./department','list');"><i
 	// class="icon-file-alt"></i><span class="hidden-tablet">
@@ -101,6 +105,34 @@ public class FormServlet extends HttpServlet {
 	// onclick="getForm('./employee','list');"><i
 	// class="icon-file-alt"></i><span class="hidden-tablet">
 	// Employee</span></a></li>
+	private void changeParentID(HttpServletRequest request, HttpServletResponse response) {
+		String parentid = request.getParameter("parentid");
+		String myid = request.getParameter("myid");
+		String changetype = request.getParameter("changeType");
+		Module parent = DAOFactoryImpl.getModuleDAO().getModuleById(parentid);
+		switch (changetype) {
+		case "form":
+			Form form = DAOFactoryImpl.getFormDAO().findFormbyID(myid);
+			
+			Module old = 	form.getModule();
+			if(old!=null){
+				old.getForms().remove(form);
+			}
+			form.setModule(parent);
+			DAOFactoryImpl.getFormDAO().save(form);
+			break;
+		case "module":
+			Module module = DAOFactoryImpl.getModuleDAO().getModuleById(myid);
+			Module old2 = 	module.getSuperModule();
+			if(old2!=null){
+				old2.getSubModules().remove(module);
+			}
+			module.setSuperModule(parent);
+			DAOFactoryImpl.getModuleDAO().save(module);
+			break;
+		}
+		listModule(request, response);
+	}
 
 	private void editForm(HttpServletRequest request, HttpServletResponse response) {
 		String oper = request.getParameter("oper");
@@ -127,9 +159,16 @@ public class FormServlet extends HttpServlet {
 			String d_id = request.getParameter("id");
 			DAOFactoryImpl.getModuleDAO().delete(d_id);
 			break;
+		case "showModuleMenu":
+			showModuleMenu(request, response);
+			break;
 		default:
 			break;
 		}
+	}
+
+	private void showModuleMenu(HttpServletRequest request, HttpServletResponse response) {
+
 	}
 
 	private void tableForm(HttpServletRequest request, HttpServletResponse response) {
@@ -165,21 +204,55 @@ public class FormServlet extends HttpServlet {
 	private void editModule(HttpServletRequest request, HttpServletResponse response) {
 		String oper = request.getParameter("oper");
 		switch (oper) {
-		case "add":
-			String name = request.getParameter("name");
+		
+		
+		case "save":
 			Module module = new Module();
-			module.setName(name);
+			String nameNew = request.getParameter("name");
+			String parent_id=request.getParameter("parent_id");
+			
+			module.setName(nameNew);
+			module.setSuperModule(DAOFactoryImpl.getModuleDAO().getModuleById(parent_id));
 			DAOFactoryImpl.getModuleDAO().save(module);
 			break;
+		
+		case "add":
+			String parentid=request.getParameter("parent_id");
+			request.setAttribute("oper", "save");
+			request.setAttribute("parent_id", parentid);
+			Module parentModule = DAOFactoryImpl.getModuleDAO().getModuleById(parentid);
+			request.setAttribute("parent", parentModule);
+			try {
+				request.getRequestDispatcher("/dashboard/layout/module_edit.jsp").forward(request, response);
+			} catch (ServletException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 		case "edit":
-			String id = request.getParameter("id");
-			String newname = request.getParameter("name");
+			String id = request.getParameter("module_id");
 			Module module2 = DAOFactoryImpl.getModuleDAO().getModuleById(id);
-			module2.setName(newname);
-			DAOFactoryImpl.getModuleDAO().save(module2);
+			request.setAttribute("module", module2);
+			request.setAttribute("oper", "update");
+			try {
+				request.getRequestDispatcher("/dashboard/layout/module_edit.jsp").forward(request, response);
+			} catch (ServletException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		case "update":
+			String m_id = request.getParameter("module_id");
+			Module m = DAOFactoryImpl.getModuleDAO().getModuleById(m_id);
+			String name_update = request.getParameter("name");
+			String pid_update = request.getParameter("parent_id");
+			m.setName(name_update);
+			m.getSuperModule().getSubModules().remove(m);
+			m.setSuperModule(DAOFactoryImpl.getModuleDAO().getModuleById(pid_update));
+			DAOFactoryImpl.getModuleDAO().save(m);
 			break;
 		case "del":
-			String d_id = request.getParameter("id");
+			String d_id = request.getParameter("module_id");
 			DAOFactoryImpl.getModuleDAO().delete(d_id);
 			break;
 		default:
@@ -237,11 +310,11 @@ public class FormServlet extends HttpServlet {
 	}
 
 	private void listModule(HttpServletRequest request, HttpServletResponse response) {
-		List<Module> moduleAll = DAOFactoryImpl.getModuleDAO().list();
-
-		request.setAttribute("module_all", moduleAll);
+//		List<Module> moduleAll = DAOFactoryImpl.getModuleDAO().list();
+		Module moduleAll = DAOFactoryImpl.getModuleDAO().getModuleById("0");
+		request.setAttribute("modules", moduleAll);
 		try {
-			request.getRequestDispatcher("dashboardlayout/module_menu.jsp").forward(request, response);
+			request.getRequestDispatcher("dashboard/layout/module_menu.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}

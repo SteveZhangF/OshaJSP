@@ -106,6 +106,7 @@ public class ModuleServlet extends HttpServlet {
 				out.write("no company");
 			}else {
 				List<Module> modules = company.getModules();
+				System.out.println(modules.size());
 				JSONArray jsoAllA = new JSONArray();
 				for(Module module:modules){
 					double all = 0;
@@ -160,7 +161,11 @@ public class ModuleServlet extends HttpServlet {
 					}
 					JSONObject jsoModule = new JSONObject();
 					jsoModule.put("module_id", module.getId());
-					jsoModule.put("percent", filled/all*100);
+					if(all==0){
+						jsoModule.put("percent", 0);
+					}else{
+						jsoModule.put("percent", filled/all*100);
+					}
 					jsoModule.put("form", jsoAll);
 					jsoAllA.add(jsoModule);
 				}

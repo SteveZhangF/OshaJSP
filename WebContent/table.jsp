@@ -17,11 +17,12 @@
 	src="<%=application.getContextPath()%>/custom/js/table.js">
 </script>
 <script>
-	$.jgrid.defaults.width = 780;
+<%-- 	$.jgrid.defaults.width = 780;
 	$.jgrid.defaults.responsive = true;
 	$.jgrid.defaults.styleUI = 'Bootstrap';
 	$( document ).ready(function() {
 		showTable('<%=tablesource%>');
-	});
+	}); --%>
+	
 </script>
 

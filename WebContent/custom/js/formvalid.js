@@ -1,4 +1,3 @@
-<script>
 	$(document)
 			.ready(
 					function() {
@@ -70,4 +69,3 @@
 									generateCaptcha();
 								});
 					});
-</script>

@@ -31,14 +31,14 @@
     right:auto
 }
 .tree li::before {
-    border-left:1px solid #999;
+/*     border-left:1px solid #999; */
     bottom:50px;
     height:100%;
     top:0;
     width:1px
 }
 .tree li::after {
-    border-top:1px solid #999;
+/*     border-top:1px solid #999; */
     height:20px;
     top:25px;
     width:25px

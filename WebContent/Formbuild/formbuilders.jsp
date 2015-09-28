@@ -1,7 +1,7 @@
 <pre id="eg-previewer" class="prettyprint">
 </pre>
 <div class="row" id="formbuilder">
-	<div class="col-md-6">
+	<div class="span6">
 		<div class="clearfix">
 			<small>Select who will fill the form</small> <select
 				class="form-control" id="whom" name="form_type"><option
@@ -26,7 +26,7 @@
 	</div>
 
 
-	<div class="col-md-6">
+	<div class="span6">
 		<jsp:include page="/Formbuild/toobar.jsp" />
 	</div>
 </div>

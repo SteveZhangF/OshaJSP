@@ -57,10 +57,13 @@ public class Module{
 	// 该模块属于哪个公司 由company来维护关系 
 	@JsonIgnore//ignore Company when create the json string
 	@ManyToMany(mappedBy="modules")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Company> companies = new ArrayList<Company>();
 
 	public void addCompany(Company c){
-		this.companies.add(c);
+		if (!this.getCompanies().contains(c)) {
+			this.companies.add(c);
+		}
 	}
 	
 	public void addForm(Form form) {
@@ -118,7 +121,7 @@ public class Module{
 	
 	public String show(){
 		StringBuffer sb = new StringBuffer();
-		sb.append("<ul class='ancestor'><li><span class=\"module\"><input type='hidden' name='module_id' value='"+this.getId()+"'><i class=\"glyphicon  glyphicon-plus-sign\"></i>");
+		sb.append("<ul class='ancestor draggable'><li class='droppable'><span class=\"module \"><input type='hidden' name='module_id' value='"+this.getId()+"'><i class=\"icon-folder-close-alt glyphicon  glyphicon-plus-sign\"> </i>");
 		sb.append(this.getName());
 		sb.append("</span>");
 		for (Module subd :this.getSubModules()) {
@@ -129,5 +132,16 @@ public class Module{
 		}
 		sb.append("</li></ul>");
 		return sb.toString();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if(obj == null || ! (obj instanceof Module))
+			return false;
+		Module other = (Module)obj;
+		if(this.getId().equals(other.getId()))
+			return true;
+		return false;
 	}
 }
