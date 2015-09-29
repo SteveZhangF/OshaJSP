@@ -1,6 +1,7 @@
 package bean.user.data;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -19,7 +20,9 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import bean.form.Form;
 import bean.form.Form.FormType;
+import bean.form.module.Module;
 import bean.form.record.FormRecord;
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS) 
@@ -111,5 +114,15 @@ public abstract class OrganizationElement {
 
 	public void setFormType(FormType formType) {
 		this.formType = formType;
+	}
+	
+	public LinkedList<Form> getMyForms(){
+		LinkedList<Form> forms = new LinkedList<>();
+		for(Module module: this.getCompany().getModules()){
+			for(Form f:module.getFormbyType(this.getFormType())){
+				forms.add(f);
+			}
+		}
+		return forms;
 	}
 }

@@ -45,7 +45,7 @@
 					</div>
 					<!-- head form name  end -->
 					<!-- input text -->
-					<div class="form-group component">
+					<div class=" component field-box">
 						<div class="modal fade" id="formnamemodal" tabindex="-1"
 							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
 							style="display: none;">
@@ -69,14 +69,14 @@
 								<!-- /.modal-content -->
 							</div>
 						</div>
-						<label class="control-label col-2" for="fqzplugintext">Text
-							Field:</label>
-						<fqzplugin class="fqzplugin col-10" id="fqzplugintext" name=""
-							fqzpluginType="text"> <input type="text"></fqzplugin>
+						<label class="">Input text:</label>
+						<fqzplugin class="fqzplugin" id="fqzplugintext" name=""
+							fqzpluginType="text"><input  type="text" /></fqzplugin>
+						
 					</div>
 					<!-- input text end-->
 					<!-- table start -->
-					<div class="form-group component">
+					<div class=" component field-box">
 						<div class="modal fade" id="formnamemodal" tabindex="-1"
 							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
 							style="display: none;">
@@ -100,28 +100,59 @@
 								<!-- /.modal-content -->
 							</div>
 						</div>
-						<label class="control-label col-2" for="fqzplugintable">Log
+						<label >Log
 							Table:</label>
-						<fqzplugin class="fqzplugin col-10" id="fqzplugintable" name=""
+						<fqzplugin class="fqzplugin" id="fqzplugintable" name=""
 							fqzpluginType="table">
-						<table class="table table-bordered" width="100%">
-								<tbody>
-									<tr>
-										<td><br></td>
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<td><br></td>
 
-										<td><br></td>
+									<td><br></td>
 
-										<td><br></td>
-
-										<td><br></td>
-
-										<td><br></td>
-									</tr>
-								</tbody>
+									<td><br></td>
+								</tr>
+							</tbody>
 						</table>
 						</fqzplugin>
 					</div>
 					<!-- table end -->
+					<!-- radio start -->
+					<div class="form-group component row">
+						<div class="modal fade" id="formnamemodal" tabindex="-1"
+							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+							style="display: none;">
+							<div class="modal-dialog modal-sm">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close"></button>
+										<h4 class="modal-title">Set Field Name</h4>
+									</div>
+									<div class="modal-body">
+										<input type="text">
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-primary">Save
+											changes</button>
+									</div>
+								</div>
+								<!-- /.modal-content -->
+							</div>
+						</div>
+						<label class="control-label span2" for="fqzpluginradio">Radio:</label>
+						<fqzplugin class="fqzplugin span10" id="fqzpluginradio" name=""
+							fqzpluginType="radio"> <label class="radio">
+							<input type="radio" name="optionsRadios" id="optionsRadios1"
+							value="option1" />option1
+						</label> <label class="radio"> <input type="radio"
+							name="optionsRadios" id="optionsRadios2" value="option2" />option2
+						</label> </fqzplugin>
+					</div>
+					<!-- radio end -->
 				</div>
 
 			</div>

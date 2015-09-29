@@ -2,7 +2,21 @@ var passwordwrong = "2";
 var nouserfound = "1";
 var loginsuccess = "0";
 // 提交登录表单并登录
-
+function submitForm(vurl, vdata,callback) {
+	$.ajax({
+		cache : true,
+		type : "POST",
+		url : vurl,
+		data : vdata,
+		async : false,
+		error : function(request) {
+			
+		},
+		success : function(data) {
+			callback(data);
+		}
+	});
+}
 function login(form) {
 	var vdata = $(form).serialize() + "&action=login";
 	submitForm("./user", vdata, function(data) {

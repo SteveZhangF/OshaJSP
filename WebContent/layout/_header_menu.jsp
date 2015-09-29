@@ -59,39 +59,6 @@
 </nav>
 
 
-<!-- login modal start -->
-<div class="modal fade" id="login-modal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true"
-	style="display: none;">
-	<div class="modal-dialog">
-		<div class="loginmodal-container" id="modal_container">
-			<form id="login_form" class="login">
-				<h1>Login to Your Account</h1>
-				<br> <input type="text" name="email" placeholder="Email">
-				<input type="password" name="password" placeholder="Password">
-			</form>
-			<form id="register_form" class="hidden register">
-				<h1>Create new Account</h1>
-				<br> <input type="text" name="email" placeholder="Email"
-					onfocus="checkEmail(this);"> <input type="password"
-					name="password" placeholder="Password"> <input
-					type="password" name="confrim password"
-					placeholder="Confrim Password">
-			</form>
-			<div class="alert alert-success hidden" id="login_alert" role="alert">Success!</div>
-			<button class="btn btn-default login" onclick="login(login_form);">Login</button>
-			<button class="btn btn-default hidden register"
-				onclick="register(register_form);">Register</button>
-			<div class="login-help login">
-				<a href="javascript:void(0)"
-					onclick="showRegister(modal_container);">Register</a> - <a href="#">Forgot
-					Password</a>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- login modal end -->
-
 <noscript>
 	<div class="alert alert-block span10">
 		<h4 class="alert-heading">Warning!</h4>

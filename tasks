@@ -1,0 +1,14 @@
+9-28
+dashboard
+	A.add user type --> admin
+		1.edit admin
+		2.edit permission
+	B.edit form
+		1.add component
+			a.checkbox
+			b.radio
+			c.upload
+		2.add fill process
+application
+	A.complete user information
+	B.

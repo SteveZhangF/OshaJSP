@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import bean.form.Form;
+import bean.form.Form.FormType;
 import bean.user.data.Company;
 import bean.user.data.Department;
 import bean.user.data.Employee;
@@ -64,6 +65,19 @@ public class Module{
 		if (!this.getCompanies().contains(c)) {
 			this.companies.add(c);
 		}
+	}
+	
+	public List<Form> getFormbyType(FormType formType){
+		List<Form> result = new ArrayList<Form>();
+		for(Form form : this.getForms()){
+			if(form.getForm_type() == formType){
+				result.add(form);
+			}
+		}
+		for(Module subModule:this.getSubModules()){
+			result.addAll(subModule.getFormbyType(formType));
+		}
+		return result;
 	}
 	
 	public void addForm(Form form) {

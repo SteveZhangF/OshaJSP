@@ -73,7 +73,7 @@ public class CompanyServlet extends HttpServlet {
 			Company company = DAOFactoryImpl.getCompanyDAO().getCompanybyUserID(user_id);
 			request.setAttribute("company", company);
 			System.out.println(company);
-			request.getRequestDispatcher("/layout/_left_menu_company_menu.jsp").forward(request, response);
+			request.getRequestDispatcher("/customer/layout/company_menu.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}

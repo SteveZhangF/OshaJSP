@@ -22,7 +22,7 @@ public class FormGenerator {
 
 	@Test
 	public void test() {
-		System.out.println(FormGenerator.getOEForm("402880914ff1fff7014ff22fac410004", "402880914ff1fff7014ff21078320002"));
+		System.out.println(FormGenerator.getModule("40288091500d383b01500d432dee0000"));
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class FormGenerator {
 		List<FormRecord> records = oe.getRecords();
 		for (FormRecord fr : records) {
 			// if equal means the user has filled this form
-			if (fr.getForm().getUuid().equals(form_id)) {
+			if (fr.getForm()!=null && fr.getForm().getUuid().equals(form_id)) {
 
 				try {
 					jsoRecords.add(mapper.writeValueAsString(fr));
@@ -69,12 +69,9 @@ public class FormGenerator {
 		try {
 			for (Module module : company.getModules()) {
 				JSONArray jsonArray = new JSONArray();
-				for (Form form : module.getForms()) {
-					if (form.getForm_type() != null && form.getForm_type() == oe.getFormType()) {
+				for (Form form : module.getFormbyType(oe.getFormType())) {
 						String jso = mapper.writeValueAsString(form);
-						// String jso = getOEForm(form.getUuid(), oe_id);
 						jsonArray.add(jso);
-					}
 				}
 				// this module has the employee forms
 				if (jsonArray.size() != 0) {

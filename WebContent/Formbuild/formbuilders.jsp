@@ -14,6 +14,8 @@
 				<option value="weekly">Weekly</option>
 				<option value="daily">Daily</option>
 			</select>
+			
+			<input id="module_id" type="hidden" name="module_id" value="<%=request.getParameter("module_id")%>"/>
 
 			<div id="build">
 				<form>
@@ -38,7 +40,22 @@
 </div>
 <jsp:include page="formbuilder_editor.jsp" />
 <script src="<%=application.getContextPath()%>/custom/js/parseForm.js"></script>
-<script src="<%=application.getContextPath()%>/custom/js/dashboard.js"></script>
 
 
 
+<script>
+function saveForm() {
+	var xml = parseFormz().xml;
+	var html=parseFormz().html;
+	var whom = $("#whom").val();
+	var module_id=$("#module_id").attr("value");
+	$.post("../form_operation", {
+		action : "editForm",
+		oper : "add",
+		module_id : module_id,
+		form_type : whom,
+		formDATA : xml,
+		formHtml:html
+	}, alert("success"));
+}
+</script>
