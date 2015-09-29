@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <jsp:include page="layout/head.jsp" />
-<body>
+<body id="body">
 	<!-- top nav -->
 	<jsp:include page="layout/top_nav_bar.jsp" />
 	<!-- top nav end -->

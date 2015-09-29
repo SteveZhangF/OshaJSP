@@ -70,11 +70,13 @@ public class DepartmentServlet extends HttpServlet {
 	}
 
 	private void save(HttpServletRequest request, HttpServletResponse response) {
+		
 		String superDepID = request.getParameter("superDepartmentID");
 		String depid = request.getParameter("department_id");
 		String depName = request.getParameter("department_name");
 		String depAddress = request.getParameter("department_address");
 		String depPhone = request.getParameter("department_phone");
+		System.out.println();
 		Department department = DAOFactoryImpl.getDepartmentDAO().getDepartmentbyID(depid);
 		if (department == null) {
 			department = new Department();
@@ -90,10 +92,7 @@ public class DepartmentServlet extends HttpServlet {
 		department.setAddress(depAddress);
 		department.setPhone(depPhone);
 		
-		Company company = ((User) request.getSession().getAttribute("user")).getCompany();
 		DAOFactoryImpl.getDepartmentDAO().save(department);
-		System.out.println(company.getDepartments().size());
-		
 		
 		try {
 			response.getWriter().write("success!");
@@ -121,7 +120,7 @@ public class DepartmentServlet extends HttpServlet {
 			request.setAttribute("department", department);
 		}
 		try {
-			request.getRequestDispatcher("department_edit.jsp").forward(request, response);
+			request.getRequestDispatcher("/customer/companystruct/department_edit.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

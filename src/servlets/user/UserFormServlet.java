@@ -56,8 +56,8 @@ public class UserFormServlet extends HttpServlet {
 			// showEmployeeForm(request, response);
 			System.err.println("sha bi le ba");
 			break;
-		case "showEmployeeFormSelectJson":
-			showEmployeeFormSelectJson(request, response);
+		case "showFormSelectJson":
+			showFormSelectJson(request, response);
 			break;
 		case "viewform":
 			viewForm(request, response);
@@ -65,9 +65,22 @@ public class UserFormServlet extends HttpServlet {
 		case "submitform":
 			submitForm(request, response);
 			break;
+		case "getFormshower":
+			getFormshower(request, response);
+			break;
 		default:
 			break;
 		}
+	}
+	// 获取改oe所有的form
+	private void getFormshower(HttpServletRequest request, HttpServletResponse response){
+		try {
+			request.getRequestDispatcher("/customer/formshower/formshower.jsp").forward(request, response);
+		} catch (ServletException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	private void submitForm(HttpServletRequest request, HttpServletResponse response) {
@@ -99,8 +112,8 @@ public class UserFormServlet extends HttpServlet {
 		}
 	}
 
-	private void showEmployeeFormSelectJson(HttpServletRequest request, HttpServletResponse response) {
-		String employee_id = request.getParameter("employee_id");
+	private void showFormSelectJson(HttpServletRequest request, HttpServletResponse response) {
+		String employee_id = request.getParameter("oe_id");
 		try {
 			response.getWriter().write(FormGenerator.getModule(employee_id));
 		} catch (IOException e) {

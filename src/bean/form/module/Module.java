@@ -70,6 +70,7 @@ public class Module{
 	public List<Form> getFormbyType(FormType formType){
 		List<Form> result = new ArrayList<Form>();
 		for(Form form : this.getForms()){
+			System.out.println(form.getForm_type()+"====>"+formType);
 			if(form.getForm_type() == formType){
 				result.add(form);
 			}

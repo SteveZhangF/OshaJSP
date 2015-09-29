@@ -120,11 +120,11 @@ public class EmployeeServlet extends HttpServlet {
 	private void edit(HttpServletRequest request, HttpServletResponse response) {
 		String employee_id = request.getParameter("employee_id");
 		if (employee_id != null) {
-			Employee department = DAOFactoryImpl.getEmployeeDAO().getEmployeebyID(employee_id);
-			request.setAttribute("employee", department);
+			Employee employee = DAOFactoryImpl.getEmployeeDAO().getEmployeebyID(employee_id);
+			request.setAttribute("employee", employee);
 		}
 		try {
-			request.getRequestDispatcher("employee_edit.jsp").forward(request, response);
+			request.getRequestDispatcher("/customer/companystruct/employee_edit.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

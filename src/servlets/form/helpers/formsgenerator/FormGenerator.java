@@ -22,7 +22,7 @@ public class FormGenerator {
 
 	@Test
 	public void test() {
-		System.out.println(FormGenerator.getModule("40288091500d383b01500d432dee0000"));
+		System.out.println(FormGenerator.getModule("402880915017e0f4015017e417200000"));
 	}
 
 	/**
@@ -36,6 +36,7 @@ public class FormGenerator {
 		JSONArray jsoRecords = new JSONArray();
 
 		List<FormRecord> records = oe.getRecords();
+		System.out.println("records: "+records.size());
 		for (FormRecord fr : records) {
 			// if equal means the user has filled this form
 			if (fr.getForm()!=null && fr.getForm().getUuid().equals(form_id)) {
@@ -63,7 +64,7 @@ public class FormGenerator {
 		if (oe == null)
 			return "";
 		Company company = oe.getCompany();
-
+		System.out.println(oe.getMyForms().size());
 		JSONArray moJSON = new JSONArray();
 
 		try {
@@ -84,6 +85,7 @@ public class FormGenerator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(moJSON.toString());
 		return moJSON.toString();
 	}
 }

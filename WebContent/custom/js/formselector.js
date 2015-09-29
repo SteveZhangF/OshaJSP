@@ -92,17 +92,6 @@ function viewReport(){
 	
 }
 
-/**
- * @param id:OE
- *            id (Company employee department id)
- */
-function submitCustomizedForm(id) {
-	submitForm("./userform?action=submitform&id=" + id, $("#form_container")
-			.find("form").serialize(), function(data) {
-		alert("success!")
-	});
-}
-
 function createSelect(vdata) {
 	$.getJSON("./userform", vdata, function(data) {
 		var $moduleSelect = $("<select class='form-control'></select>");

@@ -1,16 +1,13 @@
 
-<!-- libraries -->
 <%@page import="java.util.List"%>
 <%@page import="bean.user.User"%>
 <link href="css/lib/font-awesome.css" type="text/css" rel="stylesheet" />
 <link href="css/lib/jquery.dataTables.css" type="text/css"
 	rel="stylesheet" />
 
-<!-- this page specific styles -->
 <link rel="stylesheet" href="css/compiled/datatables.css"
 	type="text/css" media="screen" />
 
-<!-- open sans font -->
 <link
 	href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
 	rel='stylesheet' type='text/css' />

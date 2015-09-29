@@ -47,7 +47,7 @@
 	href="<%=application.getContextPath()%>/custom/css/menu_tree.css" />
 <script src="<%=application.getContextPath()%>/custom/js/menu_tree.js"></script>
 <script type="text/javascript"
-	src="<%=application.getContextPath()%>/js/jquery-ui.min.js"></script>
+	src="<%=application.getContextPath()%>/libs/jquery-ui/jquery-ui.min.js"></script>
 <script
 	src="<%=application.getContextPath()%>/custom/js/bootstrap-contextmenu.js"></script>
 <script src="<%=application.getContextPath()%>/dashboard/js/edit_module.js">

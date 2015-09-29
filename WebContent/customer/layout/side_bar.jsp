@@ -3,7 +3,7 @@
 	<ul id="dashboard-menu">
 		<li><a href="index.html"> <i class="icon-home"></i> <span>Home</span>
 		</a></li>
-		<li><a href="javascript:void(0)" onclick="showContent('../company?action=showTreeMenu',this);"> <i class="icon-home"></i> <span>Company</span>
+		<li><a id="company_leftmenu" href="javascript:void(0)" onclick="showContent('../company?action=showTreeMenu',this);"> <i class="icon-home"></i> <span>Company</span>
 		</a></li>
 		<li><a class="dropdown-toggle" href="#"> <i class="icon-edit"></i>
 				<span>Forms</span> <i class="icon-chevron-down"></i>

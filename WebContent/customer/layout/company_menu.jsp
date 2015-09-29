@@ -51,7 +51,7 @@
 	</ul>
 	</div>
 </div>
-<div class="span7 form_shower"></div>
+<div class="span9 form_shower"></div>
 
 <div id="context-menu-department">
 	<ul class="dropdown-menu" role="menu">
@@ -77,8 +77,6 @@
 </div>
 
 
-<div class="span7 oe_show"></div>
-
 <link rel="stylesheet" type="text/css"
 	href="<%=application.getContextPath()%>/customer/custom/css/menu_tree.css" />
 <script src="<%=application.getContextPath()%>/custom/js/menu_tree.js"></script>
@@ -86,4 +84,8 @@
 	src="<%=application.getContextPath()%>/customer/custom/js/bootstrap-contextmenu.js"></script>
 	<script
 	src="<%=application.getContextPath()%>/customer/custom/js/companytree.js"></script>
+	<script type="text/javascript"
+	src="<%=application.getContextPath()%>/libs/jquery-ui/jquery-ui.min.js"></script>
+		<script type="text/javascript"
+	src="<%=application.getContextPath()%>/libs/jquery.scrollfollow.js"></script>
 

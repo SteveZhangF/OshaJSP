@@ -67,26 +67,6 @@ $(document).ready(function() {
 	});
 });
 
-
-
-
-/**
- * request the company's organazation information in a tree format and set it to
- * the left menu
- */
-function showTreeMenu() {
-	submitForm("../company", {
-		action : "showTreeMenu"
-	}, function(data) {
-		$(".sidebar").html("");
-		$(".sidebar").html(data);
-		$.getScript('./custom/js/menu_tree.js', function() {
-		});
-		$.getScript('./custom/js/companytree.js', function() {
-		});
-	});
-}
-
 /**
  * add or edit the department
  * 
@@ -102,7 +82,6 @@ function addDepartment(parentid, myid) {
 		superDepartmentID : parentid,
 		department_id : myid
 	}, function(data) {
-		alert();
 		$(".form_shower").html(data);
 	});
 }
@@ -117,7 +96,7 @@ function deleteDepartment(id) {
 		action : "delete",
 		department_id : id
 	}, function(data) {
-		showTreeMenu();
+		$("#company_leftmenu").click();
 	});
 }
 /**
@@ -138,8 +117,6 @@ function addEmployee(departmentID, myid) {
 		department_id : departmentID,
 		employee_id : myid
 	}, function(data) {
-		// $("#showeditModal").find('.modal-title').text('Employee');
-		// $("#showeditModal").find('.modal-body').html(data);
 		$(".form_shower").html(data);
 	});
 }
@@ -148,15 +125,104 @@ function deleteEmployee(id) {
 		action : "delete",
 		employee_id : id
 	}, function(data) {
-		showTreeMenu();
+		$("#company_leftmenu").click();
 	});
 }
 
 function subOrganazation() {
-	var action = $("#main_container").find("#contactForm").attr("action");
-	submitForm(action, $("#main_container").find("#contactForm").serialize(), function(
-			data) {
+	console.log("save");
+	var action = $("#contactForm").attr("action");
+	submitForm(action, $("#contactForm").serialize(), function(data) {
 		alert(data);
-		showTreeMenu();
+		$("#company_leftmenu").click();
+	});
+}
+
+function showforms(oe_id, target) {
+	if (oe_id == null || oe_id == 'null') {
+		alert("please save first!");
+	} else {
+		$.ajax({
+			cache : true,
+			type : "POST",
+			url : "../userform",
+			data : {
+				action : 'getFormshower',
+				oe_id : oe_id
+			},
+			async : false,
+			error : function(request) {
+
+			},
+			success : function(data) {
+				$(target).html(data);
+			}
+		});
+	}
+}
+function viewForm(vformid, voe_id) {
+	submitForm("../userform", {
+		action : "viewform",
+		form_id : vformid,
+		oe_id : voe_id
+	}, function(data) {
+		$("#form_content").html(data.form);
+		$("#preview_container").html(data.report);
+		parseRecord(data.records);
+		parsePreview(data.records);
+	});
+}
+
+function parsePreview(recordjson) {
+
+	var recordjson = recordjson[0];
+	var recordid = recordjson.id;
+	var frclist = recordjson.frcList;
+	$.each(frclist, function(i, frc) {
+		var fcid = frc.fComponent.sequence_code;
+		var value = frc.value;
+		$component = $(".modal u[sequence_code='" + fcid + "']");
+		$component.html("&nbsp; &nbsp; &nbsp; &nbsp;" + value
+				+ "&nbsp; &nbsp; &nbsp; &nbsp; ");
+	});
+
+	$("#bt_preview").click(function() {
+		$("#preview_container").modal("show");
+	});
+}
+
+/**
+ * parse the record and fill them to the form
+ * 
+ * @param recordjson:
+ *            one record in json format
+ */
+function parseRecord(recordjson) {
+	console.log(recordjson);
+	if (recordjson.length > 0) {
+		var recordjson = recordjson[0];
+		$("#form_container").find("form").append(
+				"<input type='hidden' name='record_id' value='" + recordjson.id
+						+ "'>");
+		var recordid = recordjson.id;
+		var frclist = recordjson.frcList;
+		$.each(frclist, function(i, frc) {
+			var fcid = frc.fComponent.uuid;
+			var value = frc.value;
+			$component = $("#" + fcid);
+			$component.val(value);
+		});
+	}
+}
+
+/**
+ * @param id:OE
+ *            id (Company employee department id)
+ */
+function submitCustomizedForm() {
+	var id = $("#onload_oe_id").attr("value");
+	submitForm("../userform?action=submitform&id=" + id, $("#form_content")
+			.find("form").serialize(), function(data) {
+		alert("success!")
 	});
 }
