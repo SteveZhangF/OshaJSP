@@ -38,7 +38,10 @@ public class Module{
 	@Column(name = "id", nullable = false)
 	private String id;
 	private String name;
-
+	
+	
+	private String workFlowID;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "module", cascade = CascadeType.ALL) 
 	@LazyCollection(LazyCollectionOption.FALSE) // --->
@@ -159,4 +162,13 @@ public class Module{
 			return true;
 		return false;
 	}
+
+	public String getWorkFlowID() {
+		return workFlowID;
+	}
+
+	public void setWorkFlowID(String workFlowID) {
+		this.workFlowID = workFlowID;
+	}
+
 }

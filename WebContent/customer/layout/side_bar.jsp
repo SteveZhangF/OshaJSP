@@ -10,12 +10,8 @@
 		</a>
 			<ul class="submenu">
 				<li><a href="javascript:void(0)"
-					onclick="showContent('../form_operation?action=listmodule',this);">All
+					onclick="showContent('../module?action=showTreeMenuModule',this);">All
 						Modules</a></li>
-				<li><a href="javascript:void(0)" onclick="userlist(this);">New
-						user form</a></li>
-				<li><a href="javascript:void(0)" onclick="userlist(this);">User
-						profile</a></li>
 			</ul></li>
 	</ul>
 </div>

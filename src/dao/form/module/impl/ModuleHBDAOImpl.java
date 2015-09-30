@@ -4,10 +4,15 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.junit.Test;
 
 import bean.dao.BaseDao;
+import bean.form.Form;
 import bean.form.module.Module;
+import bean.user.data.Company;
 import dao.form.module.ModuleDAO;
+import database.dao.factory.DAOFactoryImpl;
+import test.test;
 
 public class ModuleHBDAOImpl extends BaseDao<Module>implements ModuleDAO {
 
@@ -16,14 +21,40 @@ public class ModuleHBDAOImpl extends BaseDao<Module>implements ModuleDAO {
 		super.saveObject(module);
 	}
 
+	@Test
+	public void test(){
+		delete("402880915007009b0150070e2f810000");
+	}
+	
 	@Override
 	public void delete(Module module) {
+
+		for(Form form:module.getForms()){
+			form.setModule(module.getSuperModule());
+			DAOFactoryImpl.getFormDAO().save(form);
+		}
+		
+		for(Module subM : module.getSubModules()){
+			subM.setSuperModule(module.getSuperModule());
+			save(subM);
+		}
+		
+		for(Company company : module.getCompanies()){
+			company.getModules().remove(module);
+			DAOFactoryImpl.getCompanyDAO().save(company);
+		}
+		
+		module.getCompanies().clear();
+		module.getSubModules().clear();
+		module.getForms().clear();
+		save(module);
+		
 		super.deleteObject(module);
 	}
 
 	@Override
 	public void delete(String id) {
-		super.deleteObject(getModuleById(id));
+		delete(getModuleById(id));
 	}
 
 	@Override

@@ -6,7 +6,7 @@ public class ShowEmployee extends OrganizationElement {
 	public String show(OrganizationElement oe) {
 		StringBuffer sb = new StringBuffer();
 		Employee e = (Employee) oe;
-		sb.append("<ul><li><span class='employee'><input type='hidden' name='id' value='"+e.getUuid()+"'><i class=\"glyphicon  glyphicon-user\"></i>");
+		sb.append("<ul><li><span class='employee'><input type='hidden' name='id' value='"+e.getUuid()+"'><i class=\"icon-user\"></i>");
 		sb.append(e.getName().replace(":",""));
 		sb.append("</span> ");
 		sb.append("</li></ul>");

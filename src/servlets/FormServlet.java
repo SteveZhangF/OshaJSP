@@ -149,27 +149,18 @@ public class FormServlet extends HttpServlet {
 			saveForm(request, response);
 			break;
 		case "edit":
-			String id = request.getParameter("id");
-			String newname = request.getParameter("name");
-			Module module2 = DAOFactoryImpl.getModuleDAO().getModuleById(id);
-			module2.setName(newname);
-			DAOFactoryImpl.getModuleDAO().save(module2);
 			break;
-		case "del":
-			String d_id = request.getParameter("id");
-			DAOFactoryImpl.getModuleDAO().delete(d_id);
-			break;
-		case "showModuleMenu":
-			showModuleMenu(request, response);
+		case "delete":
+			String d_id = request.getParameter("form_id");
+			System.out.println(d_id);
+			DAOFactoryImpl.getFormDAO().delete(d_id);
+			listModule(request, response);
 			break;
 		default:
 			break;
 		}
 	}
 
-	private void showModuleMenu(HttpServletRequest request, HttpServletResponse response) {
-
-	}
 
 	private void tableForm(HttpServletRequest request, HttpServletResponse response) {
 		try {
@@ -251,9 +242,10 @@ public class FormServlet extends HttpServlet {
 			m.setSuperModule(DAOFactoryImpl.getModuleDAO().getModuleById(pid_update));
 			DAOFactoryImpl.getModuleDAO().save(m);
 			break;
-		case "del":
+		case "delete":
 			String d_id = request.getParameter("module_id");
 			DAOFactoryImpl.getModuleDAO().delete(d_id);
+			listModule(request, response);
 			break;
 		default:
 			break;
@@ -350,7 +342,7 @@ public class FormServlet extends HttpServlet {
 		String formHtml = request.getParameter("formHtml");
 		FormInputHelper fih = new FormInputHelper();
 
-		fih.saveForm(moduleID, formType, formDATA, formHtml);
+		fih.saveForm(moduleID, formType,  formHtml);
 
 	}
 

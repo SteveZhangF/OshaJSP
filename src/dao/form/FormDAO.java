@@ -9,6 +9,8 @@ public interface FormDAO {
 
 	public void delete(Form f);
 	
+	public void delete(String id);
+	
 	public Form findFormbyID(String formid);
 
 	public List<Form> findAll();

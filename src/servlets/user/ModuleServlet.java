@@ -15,6 +15,7 @@ import bean.form.module.Module;
 import bean.user.User;
 import bean.user.data.Company;
 import bean.user.data.OrganizationElement;
+import database.dao.factory.DAOFactoryImpl;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -74,6 +75,7 @@ public class ModuleServlet extends HttpServlet {
 	
 	private void showTreeMenuModule(HttpServletRequest request, HttpServletResponse response){
 		User user = (User)request.getSession().getAttribute("user");
+		user = DAOFactoryImpl.getUserDAO().getUserbyID(user.getUuid());
 		Writer out = null;
 		try {
 			out = response.getWriter();
@@ -83,7 +85,7 @@ public class ModuleServlet extends HttpServlet {
 			}else {
 				List<Module> modules = company.getModules();
 				request.setAttribute("modules", modules);
-				request.getRequestDispatcher("/layout/_left_menu_module_menu.jsp").forward(request, response);
+				request.getRequestDispatcher("/customer/layout/_left_menu_module_menu.jsp").forward(request, response);
 			}
 			
 		} catch (IOException e) {
@@ -98,6 +100,7 @@ public class ModuleServlet extends HttpServlet {
 	// need to be improved
 	private void getPercentInMenu(HttpServletRequest request, HttpServletResponse response){
 		User user = (User)request.getSession().getAttribute("user");
+		user = DAOFactoryImpl.getUserDAO().getUserbyID(user.getUuid());
 		Writer out = null;
 		try {
 			out = response.getWriter();
@@ -149,7 +152,12 @@ public class ModuleServlet extends HttpServlet {
 								eFormFilled=eFormFilled+e_filled;
 								eform_all+=100;
 							}
-							double resE = eFormFilled/eform_all*100;
+							double resE = 0;
+							if(eform_all!=0){
+								resE = eFormFilled/eform_all*100;
+							}else {
+								resE =100;
+							}
 							filled = filled + resE;
 							all+=100;
 							JSONObject jsoe = new JSONObject();

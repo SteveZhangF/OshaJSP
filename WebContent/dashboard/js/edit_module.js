@@ -13,6 +13,7 @@ $(document).ready(function() {
 					addForm($(context.find("input")).attr("value"));
 					break;
 				case "delete":
+					deleteModule($(context.find("input")).attr("value"));
 					break;
 				case "edit_module":
 					editModule($(context.find("input")).attr("value"));
@@ -31,8 +32,10 @@ $(document).ready(function() {
 				var id = $(e.target).attr('id');
 				switch (id) {
 				case "edit_form":
+					editForm($(context.find("input")).attr("value"));
 					break;
 				case "delete_form":
+					deleteForm($(context.find("input")).attr("value"));
 					break;
 				}
 
@@ -42,7 +45,43 @@ $(document).ready(function() {
 
 });
 
+function deleteForm(formid){
+	$.ajax({
+		cache : true,
+		type : "POST",
+		url : "../form_operation?action=editForm",
+		data : {
+			oper:"delete",
+			form_id : formid
+		},
+		async : false,
+		error : function(request) {
 
+		},
+		success : function(data) {
+			$("#pad-wrapper").html(data);
+		}
+	});
+}
+
+function deleteModule(moduleid){
+	$.ajax({
+		cache : true,
+		type : "POST",
+		url : "../form_operation?action=editModule",
+		data : {
+			oper:"delete",
+			module_id : moduleid
+		},
+		async : false,
+		error : function(request) {
+
+		},
+		success : function(data) {
+			$("#pad-wrapper").html(data);
+		}
+	});
+}
 
 
 function editModule( moduleid) {

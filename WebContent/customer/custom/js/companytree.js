@@ -167,7 +167,7 @@ function viewForm(vformid, voe_id) {
 		oe_id : voe_id
 	}, function(data) {
 		$("#form_content").html(data.form);
-		$("#preview_container").html(data.report);
+		$("#preview_container_body").html(data.report);
 		parseRecord(data.records);
 		parsePreview(data.records);
 	});
@@ -179,11 +179,12 @@ function parsePreview(recordjson) {
 	var recordid = recordjson.id;
 	var frclist = recordjson.frcList;
 	$.each(frclist, function(i, frc) {
-		var fcid = frc.fComponent.sequence_code;
+		var fcid = frc.fComponent.uuid;
 		var value = frc.value;
-		$component = $(".modal u[sequence_code='" + fcid + "']");
-		$component.html("&nbsp; &nbsp; &nbsp; &nbsp;" + value
-				+ "&nbsp; &nbsp; &nbsp; &nbsp; ");
+		$component = $("#preview_container_body").find("#"+fcid);
+		$u=$("<u></u>");
+		$u.append(value);
+		$component.replaceWith($u);
 	});
 
 	$("#bt_preview").click(function() {

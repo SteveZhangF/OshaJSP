@@ -15,6 +15,7 @@ public class FormComponentHBDAOImpl extends BaseDao<FormComponent> implements Fo
 	@Override
 	public void delete(FormComponent fc) {
 		// TODO Auto-generated method stub
+		fc.getForm().getChildren().remove(fc);
 		super.deleteObject(fc);
 	}
 

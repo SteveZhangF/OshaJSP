@@ -13,4 +13,5 @@ public interface RecordDAO {
 	public void save(FormRecord obj);
 	
 	public void delete(FormRecord obj);
+	public void delete(String id);
 }

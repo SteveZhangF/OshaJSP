@@ -7,156 +7,113 @@
 		<li class="active"><a href="#1" data-toggle="tab">Elements</a></li>
 	</ul>
 	<form class="form-horizontal" id="components">
-		<fieldset>
-			<div class="tab-content">
+		<div class="tab-content">
 
-				<div class="tab-pane active" id="1">
-					<!-- head form name  -->
-					<div class="form-group component">
-						<div class="modal fade" id="" tabindex="-1" role="dialog"
-							aria-labelledby="myModalLabel" aria-hidden="true"
-							style="display: none;">
-							<div class="modal-dialog modal-sm">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close"></button>
-										<h4 class="modal-title">Set Form Name</h4>
-									</div>
-									<div class="modal-body">
-										<input type="text">
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary">Save
-											changes</button>
-									</div>
+			<div class="tab-pane active" id="1">
+				<!-- head form name  -->
+				<div class="component">
+					<div class="modal fade" id="" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel" aria-hidden="true"
+						style="display: none;">
+						<div class="modal-dialog modal-sm">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close"></button>
+									<h4 class="modal-title">Set Form Name</h4>
 								</div>
-								<!-- /.modal-content -->
-							</div>
-						</div>
-						<label class="control-label col-2" for="fqzpluginformname">Form
-							Name:</label>
-						<fqzplugin class="fqzplugin col-10" id="fqzpluginformname"
-							value="Form Name" fqzpluginType="form_name">
-						<h1 style="text-align: center;">Form Name</h1>
-						</fqzplugin>
-					</div>
-					<!-- head form name  end -->
-					<!-- input text -->
-					<div class=" component field-box">
-						<div class="modal fade" id="formnamemodal" tabindex="-1"
-							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-							style="display: none;">
-							<div class="modal-dialog modal-sm">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close"></button>
-										<h4 class="modal-title">Set Field Name</h4>
-									</div>
-									<div class="modal-body">
-										<input type="text">
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary">Save
-											changes</button>
-									</div>
+								<div class="modal-body">
+									<input type="text">
 								</div>
-								<!-- /.modal-content -->
-							</div>
-						</div>
-						<label class="">Input text:</label>
-						<fqzplugin class="fqzplugin" id="fqzplugintext" name=""
-							fqzpluginType="text"><input  type="text" /></fqzplugin>
-						
-					</div>
-					<!-- input text end-->
-					<!-- table start -->
-					<div class=" component field-box">
-						<div class="modal fade" id="formnamemodal" tabindex="-1"
-							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-							style="display: none;">
-							<div class="modal-dialog modal-sm">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close"></button>
-										<h4 class="modal-title">Set Column Number</h4>
-									</div>
-									<div class="modal-body">
-										<input type="text">
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary">Save
-											changes</button>
-									</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">Close</button>
+									<button type="button" class="btn btn-primary">Save
+										changes</button>
 								</div>
-								<!-- /.modal-content -->
 							</div>
+							<!-- /.modal-content -->
 						</div>
-						<label >Log
-							Table:</label>
-						<fqzplugin class="fqzplugin" id="fqzplugintable" name=""
-							fqzpluginType="table">
-						<table class="table table-bordered">
-							<tbody>
-								<tr>
-									<td><br></td>
-
-									<td><br></td>
-
-									<td><br></td>
-								</tr>
-							</tbody>
-						</table>
-						</fqzplugin>
 					</div>
-					<!-- table end -->
-					<!-- radio start -->
-					<div class="form-group component row">
-						<div class="modal fade" id="formnamemodal" tabindex="-1"
-							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-							style="display: none;">
-							<div class="modal-dialog modal-sm">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close"></button>
-										<h4 class="modal-title">Set Field Name</h4>
-									</div>
-									<div class="modal-body">
-										<input type="text">
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary">Save
-											changes</button>
-									</div>
-								</div>
-								<!-- /.modal-content -->
-							</div>
-						</div>
-						<label class="control-label span2" for="fqzpluginradio">Radio:</label>
-						<fqzplugin class="fqzplugin span10" id="fqzpluginradio" name=""
-							fqzpluginType="radio"> <label class="radio">
-							<input type="radio" name="optionsRadios" id="optionsRadios1"
-							value="option1" />option1
-						</label> <label class="radio"> <input type="radio"
-							name="optionsRadios" id="optionsRadios2" value="option2" />option2
-						</label> </fqzplugin>
-					</div>
-					<!-- radio end -->
+					<label>Form Name:</label>
+					<h1 class='fqzplugin fqzplugin-form_name' fqzpluginType="form_name"
+						style="text-align: center;">Form Name</h1>
 				</div>
+				<!-- head form name  end -->
+				<!-- input text -->
+				<!-- text input start -->
+				<div class=" component">
+					<div class="modal fade" id="formnamemodal" tabindex="-1"
+						role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+						style="display: none;">
+						<div class="modal-dialog modal-sm">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close"></button>
+									<h4 class="modal-title">Set Field Name</h4>
+								</div>
+								<div class="modal-body">
+									<input type="text">
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">Close</button>
+									<button type="button" class="btn btn-primary">Save
+										changes</button>
+								</div>
+							</div>
+							<!-- /.modal-content -->
+						</div>
+					</div>
+					<label>Input text:</label> <input class="fqzplugin fqzplugin-text" fqzpluginType="text"
+						 type="text" />
+				</div>
+				<!-- input text end-->
+				<!-- table start -->
 
+
+				<div class=" component field-box">
+					<div class="modal fade" id="formnamemodal" tabindex="-1"
+						role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+						style="display: none;">
+						<div class="modal-dialog modal-sm">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close"></button>
+									<h4 class="modal-title">Set Column Number</h4>
+								</div>
+								<div class="modal-body">
+									<input type="text">
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">Close</button>
+									<button type="button" class="btn btn-primary">Save
+										changes</button>
+								</div>
+							</div>
+							<!-- /.modal-content -->
+						</div>
+					</div>
+					<label>Log Table:</label>
+					<table class="table table-bordered fqzplugin" fqzpluginType="table">
+						<tbody>
+							<tr>
+								<td><br></td>
+
+								<td><br></td>
+
+								<td><br></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!-- table end -->
 			</div>
-		</fieldset>
+
+		</div>
 	</form>
 </div>
 

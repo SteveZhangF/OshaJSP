@@ -13,10 +13,9 @@
 				function(event) {
 					var value = $modal.find("input").val();
 					$me.attr("value", value);
-					$me.find("h1").text(value);
+					$me.text(value);
 					$towhom.find("h1").remove();
-					$towhom.prepend($(ui.draggable.find("fqzplugin").prop(
-							"outerHTML")));
+					$towhom.prepend($($me.prop("outerHTML")).removeAttr("fqzpluginType"));
 					$modal.modal("hide");
 
 				});
@@ -42,8 +41,8 @@
 							var value = $modal.find("input").val();
 							$me.attr("name", value);
 							$u.html("				");
-							$u.append($(ui.draggable.find("fqzplugin").prop(
-									"outerHTML")));
+							$u.append($($me.prop(
+									"outerHTML")).removeAttr("fqzpluginType"));
 							$modal.modal("hide");
 
 						});

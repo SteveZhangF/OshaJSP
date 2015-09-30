@@ -23,6 +23,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.sound.midi.Sequence;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.LazyCollection;
@@ -54,6 +55,8 @@ public class Form {
 	@Column(name = "id", nullable = false)
 	private String uuid;
 	private String name;
+	
+	private int sequenceCode;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "form", cascade = CascadeType.ALL) // --->
@@ -199,7 +202,8 @@ public class Form {
 	public enum FormType{
 		CompanyForm,
 		EmployeeForm,
-		DepartmentForm;
+		DepartmentForm,
+		BranchQuestion;
 	}
 	
 	public enum LogType{
@@ -211,6 +215,9 @@ public class Form {
 	
 	public int fillPercent(String  oeid){
 		OrganizationElement oe = DAOFactoryImpl.getOrganizationElementDAO().getOEbyID(oeid);
+		if (oe == null) {
+			return 0;
+		}
 		List<FormRecord> frs = oe.getRecords();
 		boolean hasRecord = false;
 		int recordCount = 0;
@@ -238,5 +245,13 @@ public class Form {
 
 	public void setLogType(LogType logType) {
 		this.logType = logType;
+	}
+
+	public int getSequenceCode() {
+		return sequenceCode;
+	}
+
+	public void setSequenceCode(int sequenceCode) {
+		this.sequenceCode = sequenceCode;
 	}
 }
