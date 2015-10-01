@@ -1,8 +1,9 @@
 $(document).ready(function() {
-	$('#showeditModal').on('hidden.bs.modal', function(e) {
-		editcompany();
+	submitForm("../company", {
+		action : "edit"
+	}, function(data) {
+		$(".form_shower").html(data);
 	});
-
 	var spans_department = $(".tree").find(".department");
 	$.each(spans_department, function(i, se) {
 		$(se).contextmenu({
@@ -17,6 +18,7 @@ $(document).ready(function() {
 					addDepartment('0', $(context.find("input")).attr("value"));
 					break;
 				case "delete":
+					
 					deleteDepartment($(context.find("input")).attr("value"));
 					break;
 				case "add_employee":
@@ -35,7 +37,6 @@ $(document).ready(function() {
 				var id = $(e.target).attr('id');
 				switch (id) {
 				case "add_department":
-					alert();
 					addDepartment($(context.find("input")).attr("value"), 0);
 					break;
 				case "add_employee":
